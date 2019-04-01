@@ -1,6 +1,6 @@
 # Software University Bulgaria
 
-[![Software University Logo](http://tiny.cc/999n4y)](https://softuni.bg)
+[![Software University Logo](http://tiny.cc/bcao4y)](https://softuni.bg)
 
 [![license](https://goo.gl/YJtYFV)](https://goo.gl/3hbwmB)
 
@@ -40,3 +40,4 @@
 14. [Strings, Text Processing and RegEx - Exercise]() [(assignment)]()
 15. [Files And Directories - Lab]() [(assignment)]()
 16. [EXAM Preparation](https://goo.gl/z878ht)
+
