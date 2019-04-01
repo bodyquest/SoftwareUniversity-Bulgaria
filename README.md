@@ -1,6 +1,6 @@
 # Software University Bulgaria
 
-[![Software University Logo](http://tiny.cc/bcao4y)](https://softuni.bg)
+[![Software University Logo](https://goo.gl/KYm0Tz)](https://softuni.bg)
 
 [![license](https://goo.gl/YJtYFV)](https://goo.gl/3hbwmB)
 
