@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.168
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lab", "Lab\Lab.csproj", "{3C4ED199-1DE5-4AFD-A436-A7B036C0079C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Remove-Negatives-And-Reverse", "Remove-Negatives-And-Reverse\Remove-Negatives-And-Reverse.csproj", "{7E70ABFB-9691-477C-98B2-5A2658DD1CCC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3C4ED199-1DE5-4AFD-A436-A7B036C0079C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C4ED199-1DE5-4AFD-A436-A7B036C0079C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C4ED199-1DE5-4AFD-A436-A7B036C0079C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C4ED199-1DE5-4AFD-A436-A7B036C0079C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7E70ABFB-9691-477C-98B2-5A2658DD1CCC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7E70ABFB-9691-477C-98B2-5A2658DD1CCC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7E70ABFB-9691-477C-98B2-5A2658DD1CCC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7E70ABFB-9691-477C-98B2-5A2658DD1CCC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B6ED7F75-BEC6-474E-ADCD-E2AE0DA67F48}
+	EndGlobalSection
+EndGlobal
