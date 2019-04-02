@@ -41,3 +41,18 @@
 15. [Files And Directories - Lab]() [(assignment)]()
 16. [EXAM Preparation](https://goo.gl/z878ht)
 
+## Software Technologies
+1. [Basic HTML]()
+2. [Basic CSS]()
+3. [HTTP Basics]()
+4. [Problem Solving]()
+5. [Bitwise Operations]()
+6. [Intro to Computer Science]()
+7. [Database Basics]()
+8. [Basic Web]()
+9. [Git and GitHub]()
+10. [Basic CRUD]()
+11. [Intenret Explained]()
+12. [Web Project]()
+
+
