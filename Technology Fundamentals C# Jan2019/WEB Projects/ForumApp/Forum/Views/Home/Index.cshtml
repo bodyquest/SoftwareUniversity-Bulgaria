@@ -1,0 +1,56 @@
+﻿@model IEnumerable<Topic>
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="container-fluid">
+    <div class="row forum-container">
+        <section class="col-md-9 col-sm-12 article-wrapper">
+            <p>
+                <a asp-controller="Topic" asp-action="Create" class="btn btn-default">Create New Topic</a>
+            </p>
+
+            @foreach (var topic in Model)
+            {
+                <article class="forum-post">
+                    <div class="head-post">
+                        <h2 class="post-title">
+                            <a asp-controller="Topic" asp-action="Details" asp-route-id="@topic.Id">@topic.Title</a>
+                        </h2>
+                        <p>
+                            <span class="user-wrap">
+                                <span class="cell">
+                                    <span class="user-name">Author: @topic.Author.UserName</span>
+                                </span>
+                            </span>
+                            <span class="user-wrap">
+                                <span class="cell">
+                                    <span class="user-name">Created Date: @topic.CreatedDate.ToString("HH:mm dd/MMM/yyyy")</span>
+                                </span>
+                            </span>
+                        </p>
+                    </div>
+                    <div class="meta-info">
+                        <div class="col-md-6 last-replay">
+                            <div class="table-holder">
+                                <div class="last-replay-inner cell">
+                                    <span class="cell">Last activity: </span>
+                                    <span class="cell replay-date">@topic.LastUpdatedDate.ToString("HH:mm dd/MMM/yyyy")</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 stats-holder">
+                            <div class="item-wrap">
+                                <div class="last-replay-inner cell">
+                                    <span class="cell">Comments: </span>
+                                    <span class="cell">@topic.NumberComments</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            }
+        </section>
+    </div>
+</div>
