@@ -1,17 +1,15 @@
-﻿@model Topic
+﻿@model Comment
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Delete";
 }
+
+<h3>Are you sure you want to delete this?</h3>
 
 <div>
     <article class="forum-post post-item highlighted-post">
         <div class="head-post table-holder">
             <div class="post-content">
-                <div class="post-title">
-                    <header>@Model.Title</header>
-                    <small class="user-name">@Model.Author.FullName (@Model.Author.Email)</small>
-                </div>
                 <div>
                     <p>@Model.Description</p>
                 </div>
@@ -29,7 +27,12 @@
                                     <i class="fa fa-exchange">Last Redaction: </i>
                                     <span class="date-time cell" title="Last Redaction">@Model.LastUpdatedDate.ToString("HH:mm dd/MMM/yyyy")</span>
                                 </span>
-
+                                <span class="item-wrap category-wrap">
+                                    <i class="fa fa-folder-open">Author: </i>
+                                    <span class="cell" title="Author">
+                                        @Model.Author.FullName (@Model.Author.Email)
+                                    </span>
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -38,10 +41,11 @@
         </div>
     </article>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-default">Edit</a>
-    <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-default">Delete</a>
-    <a asp-controller="Home" asp-action="Index" class="btn btn-default">Back to List</a>
 
-    @Html.Partial("_List", Model)
+<div>
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="CommentId" />
+        <input type="submit" value="Delete" class="btn btn-default" />
+        <a href="/Topic/Details/@ViewContext.RouteData.Values["TopicId"]" class="btn btn-default">Back to Details</a>
+    </form>
 </div>
