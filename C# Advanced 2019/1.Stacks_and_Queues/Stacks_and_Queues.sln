@@ -17,17 +17,21 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Traffic_Jam", "Traffic_Jam\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EXRC-Reverse_Numbers_With_Stack", "EXRC-Reverse_Numbers_With_Stack\EXRC-Reverse_Numbers_With_Stack.csproj", "{96E0AAF2-AD85-46EE-984F-3BAEC7CFB4A6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EXRC-Basic_Stack_Operations", "Basic_Stack_Operations\EXRC-Basic_Stack_Operations.csproj", "{6DE58D80-4B66-4119-AF1D-E2B8ADAB717A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EXRC-Basic_Stack_Operations", "Basic_Stack_Operations\EXRC-Basic_Stack_Operations.csproj", "{6DE58D80-4B66-4119-AF1D-E2B8ADAB717A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EXRC-Maximum_Element", "EXRC-Maximum_Element\EXRC-Maximum_Element.csproj", "{E984CBED-FA86-41D9-9B1C-EE260615617F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EXRC-Maximum_Element", "EXRC-Maximum_Element\EXRC-Maximum_Element.csproj", "{E984CBED-FA86-41D9-9B1C-EE260615617F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EXRC-Basic_Queue_Operations", "EXRC-Basic_Queue_Operations\EXRC-Basic_Queue_Operations.csproj", "{870A605B-883A-485F-B1CC-FEC5C3A33420}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EXRC-Basic_Queue_Operations", "EXRC-Basic_Queue_Operations\EXRC-Basic_Queue_Operations.csproj", "{870A605B-883A-485F-B1CC-FEC5C3A33420}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EXRC-Calculate_Sequence_With_Queue", "EXRC-Calculate_Sequence_With_Queue\EXRC-Calculate_Sequence_With_Queue.csproj", "{61DF8C66-8359-46BE-A7E5-4C641EAC192E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EXRC-Calculate_Sequence_With_Queue", "EXRC-Calculate_Sequence_With_Queue\EXRC-Calculate_Sequence_With_Queue.csproj", "{61DF8C66-8359-46BE-A7E5-4C641EAC192E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EXRC-Truck_Tour", "EXRC-Truck_Tour\EXRC-Truck_Tour.csproj", "{9D7A94B4-4F8F-46F5-A8E6-6CEB67000ED0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EXRC-Truck_Tour", "EXRC-Truck_Tour\EXRC-Truck_Tour.csproj", "{9D7A94B4-4F8F-46F5-A8E6-6CEB67000ED0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EXRC-Balanced_Parentheses", "EXRC-Balanced_Parentheses\EXRC-Balanced_Parentheses.csproj", "{E334BBFB-34A3-46F8-B0B4-F398BE3E5CC4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EXRC-Balanced_Parentheses", "EXRC-Balanced_Parentheses\EXRC-Balanced_Parentheses.csproj", "{E334BBFB-34A3-46F8-B0B4-F398BE3E5CC4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EXRC-Stack_Fibonacci", "EXRC-Stack_Fibonacci\EXRC-Stack_Fibonacci.csproj", "{58A355B2-BA2E-4B92-AB8A-41F4F105429D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EXRC-Simple_Text_Editor", "EXRC-Simple_Text_Editor\EXRC-Simple_Text_Editor.csproj", "{6C5B926F-0C15-4938-8DE4-8C22E78D76AA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -87,6 +91,14 @@ Global
 		{E334BBFB-34A3-46F8-B0B4-F398BE3E5CC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E334BBFB-34A3-46F8-B0B4-F398BE3E5CC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E334BBFB-34A3-46F8-B0B4-F398BE3E5CC4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{58A355B2-BA2E-4B92-AB8A-41F4F105429D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{58A355B2-BA2E-4B92-AB8A-41F4F105429D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{58A355B2-BA2E-4B92-AB8A-41F4F105429D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{58A355B2-BA2E-4B92-AB8A-41F4F105429D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6C5B926F-0C15-4938-8DE4-8C22E78D76AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6C5B926F-0C15-4938-8DE4-8C22E78D76AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6C5B926F-0C15-4938-8DE4-8C22E78D76AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6C5B926F-0C15-4938-8DE4-8C22E78D76AA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

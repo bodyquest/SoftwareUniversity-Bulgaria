@@ -9,7 +9,7 @@ namespace Matching_Brackets
     {
         static void Main()
         {
-            string input = "1 + (2 - (2 + 3) * 4 / (3 + 1)) * 5";
+            string input = Console.ReadLine();
 
             Stack<int> expressionFinder = new Stack<int>(input.Length);
             for (int i = 0; i < input.Length; i++)
