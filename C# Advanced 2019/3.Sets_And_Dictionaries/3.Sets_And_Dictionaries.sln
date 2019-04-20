@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28803.156
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Average_Student_Grades", "Average_Student_Grades\Average_Student_Grades.csproj", "{92E389E4-8E53-4AA1-BEC6-59322A7064C0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Count_Same_Values_In_Array", "Count_Same_Values_In_Array\Count_Same_Values_In_Array.csproj", "{148D8D01-185D-499C-BABD-F800F111551D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{92E389E4-8E53-4AA1-BEC6-59322A7064C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{92E389E4-8E53-4AA1-BEC6-59322A7064C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{92E389E4-8E53-4AA1-BEC6-59322A7064C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{92E389E4-8E53-4AA1-BEC6-59322A7064C0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{148D8D01-185D-499C-BABD-F800F111551D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{148D8D01-185D-499C-BABD-F800F111551D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{148D8D01-185D-499C-BABD-F800F111551D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{148D8D01-185D-499C-BABD-F800F111551D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {02DB1540-2FAF-4377-9ABF-EED9BDCEF66F}
+	EndGlobalSection
+EndGlobal
