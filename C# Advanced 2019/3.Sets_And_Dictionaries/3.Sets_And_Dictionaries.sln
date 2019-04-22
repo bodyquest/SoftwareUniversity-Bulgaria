@@ -7,19 +7,31 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Average_Student_Grades", "A
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Count_Same_Values_In_Array", "Count_Same_Values_In_Array\Count_Same_Values_In_Array.csproj", "{148D8D01-185D-499C-BABD-F800F111551D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Product_Shop", "Product_Shop\Product_Shop.csproj", "{67EA5D0F-47CB-4AB5-B938-567B27AAD6E4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Product_Shop", "Product_Shop\Product_Shop.csproj", "{67EA5D0F-47CB-4AB5-B938-567B27AAD6E4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cities_By_Continent_And_Country", "Cities_By_Continent_And_Country\Cities_By_Continent_And_Country.csproj", "{9F07D0D9-51E2-439E-94CB-BE4772F3C833}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cities_By_Continent_And_Country", "Cities_By_Continent_And_Country\Cities_By_Continent_And_Country.csproj", "{9F07D0D9-51E2-439E-94CB-BE4772F3C833}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Record_Unique_Names", "Record_Unique_Names\Record_Unique_Names.csproj", "{2C0E3030-2D34-4C2A-8AB4-434121C26D05}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Record_Unique_Names", "Record_Unique_Names\Record_Unique_Names.csproj", "{2C0E3030-2D34-4C2A-8AB4-434121C26D05}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Parking_Lot", "Parking_Lot\Parking_Lot.csproj", "{105B36C3-5475-4FB6-B117-1D12CD0E9780}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Parking_Lot", "Parking_Lot\Parking_Lot.csproj", "{105B36C3-5475-4FB6-B117-1D12CD0E9780}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoftUni_Party", "SoftUni_Party\SoftUni_Party.csproj", "{5AD6C7BE-4E97-45F8-A6A6-0C01F82A62E6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SoftUni_Party", "SoftUni_Party\SoftUni_Party.csproj", "{5AD6C7BE-4E97-45F8-A6A6-0C01F82A62E6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EXRC-Unique_Usernames", "EXRC-Unique_Usernames\EXRC-Unique_Usernames.csproj", "{554890D5-01AC-458B-A03B-D50D19E36D05}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EXRC-Unique_Usernames", "EXRC-Unique_Usernames\EXRC-Unique_Usernames.csproj", "{554890D5-01AC-458B-A03B-D50D19E36D05}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EXRC-Sets_Of_Elements", "EXRC-Sets_Of_Elements\EXRC-Sets_Of_Elements.csproj", "{D7F867E0-54E4-4B41-AD24-A23EAEEA1EB1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EXRC-Sets_Of_Elements", "EXRC-Sets_Of_Elements\EXRC-Sets_Of_Elements.csproj", "{D7F867E0-54E4-4B41-AD24-A23EAEEA1EB1}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EXRC-Periodic_Table", "EXRC-Periodic_Table\EXRC-Periodic_Table.csproj", "{B3C3EDB4-B992-43BB-AA8C-50D4DBDE3A4E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EXRC-Even_Times", "EXRC-Even_Times\EXRC-Even_Times.csproj", "{82142C6F-8BC9-4062-885D-DC88F4077F51}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EXRC-Count_Symbols", "EXRC-Count_Symbols\EXRC-Count_Symbols.csproj", "{C4A6B5A2-CA02-4742-B31A-1F53EFDB706A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EXRC-Wardrobe", "EXRC-Wardrobe\EXRC-Wardrobe.csproj", "{AB85BBC7-9D2A-45D2-BCEF-383850B8BC65}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EXRC-The_V-Logger", "EXRC-The_V-Logger\EXRC-The_V-Logger.csproj", "{DE695989-5C5C-4592-957A-8B3E7D4461C1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EXRC-Ranking", "EXRC-Ranking\EXRC-Ranking.csproj", "{001EAE5B-3AFA-4263-8026-EFD7157895C5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -63,6 +75,30 @@ Global
 		{D7F867E0-54E4-4B41-AD24-A23EAEEA1EB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D7F867E0-54E4-4B41-AD24-A23EAEEA1EB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D7F867E0-54E4-4B41-AD24-A23EAEEA1EB1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B3C3EDB4-B992-43BB-AA8C-50D4DBDE3A4E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B3C3EDB4-B992-43BB-AA8C-50D4DBDE3A4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B3C3EDB4-B992-43BB-AA8C-50D4DBDE3A4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B3C3EDB4-B992-43BB-AA8C-50D4DBDE3A4E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{82142C6F-8BC9-4062-885D-DC88F4077F51}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{82142C6F-8BC9-4062-885D-DC88F4077F51}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{82142C6F-8BC9-4062-885D-DC88F4077F51}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{82142C6F-8BC9-4062-885D-DC88F4077F51}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C4A6B5A2-CA02-4742-B31A-1F53EFDB706A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C4A6B5A2-CA02-4742-B31A-1F53EFDB706A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C4A6B5A2-CA02-4742-B31A-1F53EFDB706A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C4A6B5A2-CA02-4742-B31A-1F53EFDB706A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AB85BBC7-9D2A-45D2-BCEF-383850B8BC65}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB85BBC7-9D2A-45D2-BCEF-383850B8BC65}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB85BBC7-9D2A-45D2-BCEF-383850B8BC65}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB85BBC7-9D2A-45D2-BCEF-383850B8BC65}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DE695989-5C5C-4592-957A-8B3E7D4461C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE695989-5C5C-4592-957A-8B3E7D4461C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE695989-5C5C-4592-957A-8B3E7D4461C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE695989-5C5C-4592-957A-8B3E7D4461C1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{001EAE5B-3AFA-4263-8026-EFD7157895C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{001EAE5B-3AFA-4263-8026-EFD7157895C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{001EAE5B-3AFA-4263-8026-EFD7157895C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{001EAE5B-3AFA-4263-8026-EFD7157895C5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
