@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28803.156
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarManufacturer", "Car\CarManufacturer.csproj", "{6178D656-2D9D-4CC0-9DE0-2D1E0FEAE5A9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Car_Extension", "Car_Extension\Car_Extension.csproj", "{175B1E3E-5CA9-454B-A895-3EC1E235EAD8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TEST", "TEST\TEST.csproj", "{21681FF9-953A-4D98-9939-0E62123D91B5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6178D656-2D9D-4CC0-9DE0-2D1E0FEAE5A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6178D656-2D9D-4CC0-9DE0-2D1E0FEAE5A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6178D656-2D9D-4CC0-9DE0-2D1E0FEAE5A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6178D656-2D9D-4CC0-9DE0-2D1E0FEAE5A9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{175B1E3E-5CA9-454B-A895-3EC1E235EAD8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{175B1E3E-5CA9-454B-A895-3EC1E235EAD8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{175B1E3E-5CA9-454B-A895-3EC1E235EAD8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{175B1E3E-5CA9-454B-A895-3EC1E235EAD8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{21681FF9-953A-4D98-9939-0E62123D91B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{21681FF9-953A-4D98-9939-0E62123D91B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{21681FF9-953A-4D98-9939-0E62123D91B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{21681FF9-953A-4D98-9939-0E62123D91B5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A6C7917C-12A3-444E-A0D7-5B22DD5E6D14}
+	EndGlobalSection
+EndGlobal
