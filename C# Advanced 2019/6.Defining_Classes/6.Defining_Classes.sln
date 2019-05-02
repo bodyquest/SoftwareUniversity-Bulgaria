@@ -11,11 +11,21 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TEST", "TEST\TEST.csproj", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Car_Engine_And_Tires", "Car_Engine_And_Tyres\Car_Engine_And_Tires.csproj", "{7C378090-41AD-487A-A56E-94EE1C4115F8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EXRC-Define_A_Class_Person", "EXRC-Define_A_Class_Person\EXRC-Define_A_Class_Person.csproj", "{4F97FEFB-128A-4260-A8BE-D1D928C63573}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EXRC-Define_A_Class_Person", "EXRC-Define_A_Class_Person\EXRC-Define_A_Class_Person.csproj", "{4F97FEFB-128A-4260-A8BE-D1D928C63573}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EXRC-Creating_Constructors", "EXRC-Creating_Constructors\EXRC-Creating_Constructors.csproj", "{6F7411AB-0B3D-4E37-86FB-2F5E5BBF1EB8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EXRC-Creating_Constructors", "EXRC-Creating_Constructors\EXRC-Creating_Constructors.csproj", "{6F7411AB-0B3D-4E37-86FB-2F5E5BBF1EB8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EXRC-Oldest_Family_Member", "EXRC-Oldest_Family_Member\EXRC-Oldest_Family_Member.csproj", "{0A12B0B1-2152-4A8D-BC1E-86B9C7334A6F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EXRC-Oldest_Family_Member", "EXRC-Oldest_Family_Member\EXRC-Oldest_Family_Member.csproj", "{0A12B0B1-2152-4A8D-BC1E-86B9C7334A6F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EXRC-Opinion_Poll", "EXRC-Opinion_Poll\EXRC-Opinion_Poll.csproj", "{BC9B061F-723C-426D-886C-BA65FADB0B11}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EXRC-Car_Salesman", "EXRC-Car_Salesman\EXRC-Car_Salesman.csproj", "{616D01E0-B262-4E56-9708-A5429861FADC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EXRC-Date_Modifier", "EXRC-Date_Modifier\EXRC-Date_Modifier.csproj", "{F9D9BE93-64BD-4A84-B714-B18F7871A865}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EXRC-Company_Roster", "EXRC-Company_Roster\EXRC-Company_Roster.csproj", "{EBC684A1-7762-4941-837A-A95511CED72D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WORKSHOP-Create_Linked_List", "WORKSHOP-Create_Linked_List\WORKSHOP-Create_Linked_List.csproj", "{DA3518C0-B8BC-40F3-A773-6FAD0415C4B0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +61,26 @@ Global
 		{0A12B0B1-2152-4A8D-BC1E-86B9C7334A6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0A12B0B1-2152-4A8D-BC1E-86B9C7334A6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0A12B0B1-2152-4A8D-BC1E-86B9C7334A6F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BC9B061F-723C-426D-886C-BA65FADB0B11}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC9B061F-723C-426D-886C-BA65FADB0B11}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC9B061F-723C-426D-886C-BA65FADB0B11}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC9B061F-723C-426D-886C-BA65FADB0B11}.Release|Any CPU.Build.0 = Release|Any CPU
+		{616D01E0-B262-4E56-9708-A5429861FADC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{616D01E0-B262-4E56-9708-A5429861FADC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{616D01E0-B262-4E56-9708-A5429861FADC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{616D01E0-B262-4E56-9708-A5429861FADC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F9D9BE93-64BD-4A84-B714-B18F7871A865}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F9D9BE93-64BD-4A84-B714-B18F7871A865}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F9D9BE93-64BD-4A84-B714-B18F7871A865}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F9D9BE93-64BD-4A84-B714-B18F7871A865}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EBC684A1-7762-4941-837A-A95511CED72D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EBC684A1-7762-4941-837A-A95511CED72D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EBC684A1-7762-4941-837A-A95511CED72D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EBC684A1-7762-4941-837A-A95511CED72D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DA3518C0-B8BC-40F3-A773-6FAD0415C4B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA3518C0-B8BC-40F3-A773-6FAD0415C4B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA3518C0-B8BC-40F3-A773-6FAD0415C4B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA3518C0-B8BC-40F3-A773-6FAD0415C4B0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

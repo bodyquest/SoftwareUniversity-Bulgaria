@@ -21,7 +21,7 @@ namespace DefiningClasses
             }
 
             Person oldest = family.GetOldestMember();
-            Console.WriteLine(oldest);
+            Console.WriteLine(string.Join(Environment.NewLine, oldest));
         }
     }
 }
