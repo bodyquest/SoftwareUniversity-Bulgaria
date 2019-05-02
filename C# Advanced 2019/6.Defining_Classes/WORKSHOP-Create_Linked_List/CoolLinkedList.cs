@@ -116,13 +116,76 @@ namespace WORKSHOP_Create_Linked_List
             }
             else
             {
-                var oldTail = this.tail;
                 var newTail = this.tail.Previous;
+                newTail.Next = null;
+                this.tail.Previous = null;
+                this.tail = newTail;
 
             }
 
             this.Count--;
             return value;
+        }
+
+        public object[] ToArray()
+        {
+            var arr = new object[this.Count];
+            var currentNode = this.head;
+            var index = 0;
+            while (currentNode != null)
+            {
+                arr[index] = currentNode.Value;
+                index++;
+                currentNode = currentNode.Next;
+            }
+
+            return arr;
+        }
+
+        public void Remove(object value)
+        {
+            var currentNode = this.head;
+            while (currentNode != null)
+            {
+                var nodeValue = currentNode.Value;
+                if (nodeValue.Equals(value))
+                {
+                    this.Count--;
+
+                    var prevNode = currentNode.Previous;
+                    var nextNode = currentNode.Next;
+
+                    if (prevNode != null)
+                    {
+                        prevNode.Next = nextNode;
+                    }
+                    if (nextNode != null)
+                    {
+                        nextNode.Previous = prevNode;
+                    }
+
+                    if (this.head == currentNode)
+                    {
+                        this.head = nextNode;
+                    }
+                    if (this.tail == currentNode)
+                    {
+                        this.tail = prevNode;
+                    }
+                }
+
+                currentNode = currentNode.Next;
+            }
+        }
+
+        public void ForEach(Action<object> action, bool reverse = false)
+        {
+            var currentNode = reverse? this.tail: this.head;
+            while (currentNode != null)
+            {
+                action(currentNode.Value);
+                currentNode = reverse ? currentNode.Previous : currentNode.Next;  
+            }
         }
 
         private void ValidateIfListIsEmpty()
