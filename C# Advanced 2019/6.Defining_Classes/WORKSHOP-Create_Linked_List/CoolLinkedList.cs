@@ -104,6 +104,22 @@ namespace WORKSHOP_Create_Linked_List
             return value;
         }
 
+        public bool Contains(object value)
+        {
+            var currentNode = this.head;
+            while (currentNode != null)
+            {
+                if (currentNode.Value.Equals(value))
+                {
+                    return true;
+                }
+
+                currentNode = currentNode.Next;
+            }
+
+            return false;
+        }
+
         public object RemoveTail()
         {
             this.ValidateIfListIsEmpty();
@@ -176,6 +192,13 @@ namespace WORKSHOP_Create_Linked_List
 
                 currentNode = currentNode.Next;
             }
+        }
+
+        public void Clear()
+        {
+            this.head = null;
+            this.tail = null;
+            this.Count = 0;
         }
 
         public void ForEach(Action<object> action, bool reverse = false)

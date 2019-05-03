@@ -68,7 +68,16 @@ namespace WORKSHOP_Create_Linked_List
 
             Console.WriteLine((int)linkedList.Head == 10);
             Console.WriteLine((int)linkedList.Tail == 20);
+            Console.WriteLine(linkedList.Contains(10));
+            Console.WriteLine(linkedList.Contains(20));
+            Console.WriteLine(linkedList.Contains(5)==false);
             Console.WriteLine(linkedList.Count == 2);
+
+            linkedList.Clear();
+
+            Console.WriteLine(linkedList.Count == 0);
+            Console.WriteLine(linkedList.Contains(10) == false);
+            Console.WriteLine(linkedList.Contains(10) == false);
         }
     }
 }
