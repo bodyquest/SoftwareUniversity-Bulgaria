@@ -4,16 +4,24 @@ using System.Text;
 
 namespace TEST
 {
-    class Car
+    public class Car
     {
         private string make;
         private string model;
-        public Car( string make, string model, int year)
+        private int year;
+
+        // CONSTRUCTOR /////////////////////////////////////
+        // when object is initialized, what is in the consturctor gets created
+        public Car(string make, string model, int year)
         {
             this.Make = make;
             this.Model = model;
             this.Year = year;
         }
+        ////////////////////////////////////////////////////
+        // there can be more than ONE constructor in the class !!!
+        //////////////////////////////////////////////////////////
+        
         public string Make
         {
             get { return this.make;  }
@@ -24,21 +32,47 @@ namespace TEST
                 {
                     throw new ArgumentException("Car make must be more than 1 symbol");
                 }
+
                 this.make = value;
             }
 
         }
+
         public string Model
         {
             get { return this.model; }
+
             private set
             {
+                if (value.Length < 1 || value.Length > 20)
+                {
+                    throw new ArgumentException("Car model can't be less than 1 symbol or more than 20 symbols long.");
+                }
+
                 this.model = value;
             }
         }
-        public int Year { get; private set; }
+
+        public int Year
+        {
+            get { return this.year; }
+
+            private set
+            {
+                var maxYear = DateTime.Now.Year;
+                if (value < 1900 || value > maxYear)
+                {
+                    throw new ArgumentException("Car year must be between 1900 and this year.");
+                }
+
+                this.year = value;
+            }
+        }
+
         public double FuelQuantity { get; set; }
+
         public double FuelConsumption { get; private set; }
+
         public void Drive(double distance)
         {
             var canContinue = this.FuelQuantity - this.FuelConsumption * distance >= 0;
@@ -48,9 +82,10 @@ namespace TEST
             }
             else
             {
-                throw new CarCannotContinueException("Not enough fuel!");
+                throw new InvalidOperationException("Not enough fuel!");
             }
         }
+
         public string GetInformation()
         {
             var result = new StringBuilder();

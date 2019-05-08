@@ -1,10 +1,10 @@
-﻿using System;
-
-namespace TEST
+﻿namespace TEST
 {
-    class Program
+    using System;
+
+    public class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
 
         }

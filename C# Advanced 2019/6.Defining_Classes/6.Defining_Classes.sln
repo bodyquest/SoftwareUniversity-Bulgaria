@@ -21,11 +21,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EXRC-Opinion_Poll", "EXRC-O
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EXRC-Car_Salesman", "EXRC-Car_Salesman\EXRC-Car_Salesman.csproj", "{616D01E0-B262-4E56-9708-A5429861FADC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EXRC-Date_Modifier", "EXRC-Date_Modifier\EXRC-Date_Modifier.csproj", "{F9D9BE93-64BD-4A84-B714-B18F7871A865}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EXRC-Date_Modifier", "EXRC-Date_Modifier\EXRC-Date_Modifier.csproj", "{F9D9BE93-64BD-4A84-B714-B18F7871A865}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EXRC-Company_Roster", "EXRC-Company_Roster\EXRC-Company_Roster.csproj", "{EBC684A1-7762-4941-837A-A95511CED72D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EXRC-Company_Roster", "EXRC-Company_Roster\EXRC-Company_Roster.csproj", "{EBC684A1-7762-4941-837A-A95511CED72D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WORKSHOP-Create_Linked_List", "WORKSHOP-Create_Linked_List\WORKSHOP-Create_Linked_List.csproj", "{DA3518C0-B8BC-40F3-A773-6FAD0415C4B0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WORKSHOP-Create_Linked_List", "WORKSHOP-Create_Linked_List\WORKSHOP-Create_Linked_List.csproj", "{DA3518C0-B8BC-40F3-A773-6FAD0415C4B0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WORKSHOP-Custom_List", "WORKSHOP-Custom_List\WORKSHOP-Custom_List.csproj", "{F057E452-3E08-4349-AEA1-2F544306A143}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -81,6 +83,10 @@ Global
 		{DA3518C0-B8BC-40F3-A773-6FAD0415C4B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DA3518C0-B8BC-40F3-A773-6FAD0415C4B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DA3518C0-B8BC-40F3-A773-6FAD0415C4B0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F057E452-3E08-4349-AEA1-2F544306A143}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F057E452-3E08-4349-AEA1-2F544306A143}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F057E452-3E08-4349-AEA1-2F544306A143}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F057E452-3E08-4349-AEA1-2F544306A143}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
