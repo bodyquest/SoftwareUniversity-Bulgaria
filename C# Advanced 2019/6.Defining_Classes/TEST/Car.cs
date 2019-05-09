@@ -35,7 +35,6 @@ namespace TEST
 
                 this.make = value;
             }
-
         }
 
         public string Model

@@ -27,7 +27,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EXRC-Company_Roster", "EXRC
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WORKSHOP-Create_Linked_List", "WORKSHOP-Create_Linked_List\WORKSHOP-Create_Linked_List.csproj", "{DA3518C0-B8BC-40F3-A773-6FAD0415C4B0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WORKSHOP-Custom_List", "WORKSHOP-Custom_List\WORKSHOP-Custom_List.csproj", "{F057E452-3E08-4349-AEA1-2F544306A143}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WORKSHOP-Custom_List", "WORKSHOP-Custom_List\WORKSHOP-Custom_List.csproj", "{F057E452-3E08-4349-AEA1-2F544306A143}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Speed_Racing", "Speed_Racing\Speed_Racing.csproj", "{E11B9127-084D-4F98-9C12-7AFF27FA493A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -87,6 +89,10 @@ Global
 		{F057E452-3E08-4349-AEA1-2F544306A143}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F057E452-3E08-4349-AEA1-2F544306A143}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F057E452-3E08-4349-AEA1-2F544306A143}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E11B9127-084D-4F98-9C12-7AFF27FA493A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E11B9127-084D-4F98-9C12-7AFF27FA493A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E11B9127-084D-4F98-9C12-7AFF27FA493A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E11B9127-084D-4F98-9C12-7AFF27FA493A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
