@@ -16,13 +16,13 @@ namespace Hot_Potato
            
             while (kids.Count != 1)
             {
-                for (int i = 0; i < num; i++)
+                for (int i = 0; i < num-1; i++)
                 {
                     kids.Enqueue(kids.Dequeue());
                 }
                 Console.WriteLine($"Removed {kids.Dequeue()}");
             }
-            Console.WriteLine($"Last in {kids.Dequeue()}");
+            Console.WriteLine($"Last is {kids.Dequeue()}");
         }
     }
 }
