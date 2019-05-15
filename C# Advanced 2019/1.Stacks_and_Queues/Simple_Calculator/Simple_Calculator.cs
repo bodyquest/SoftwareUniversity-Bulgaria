@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Simple_Calculator
 {
-    class Program
+    class SimpleCalculator
     {
         static void Main()
         {
