@@ -28,7 +28,7 @@ namespace Supermarket
                 input = Console.ReadLine();
             }
 
-            Console.WriteLine($"{supermarket.Count} people remaining");
+            Console.WriteLine($"{supermarket.Count} people remaining.");
         }
     }
 }

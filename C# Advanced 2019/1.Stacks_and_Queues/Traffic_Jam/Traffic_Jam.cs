@@ -13,16 +13,16 @@ namespace Traffic_Jam
             Queue<string> cars = new Queue<string>();
             int count = 0;
             string input = Console.ReadLine();
+
             while (input != "end")
             {
                 if (input == "green")
                 {
-                    // TO DO Add green light logic
                     for (int i = 0; i < n; i++)
                     {
                         if (cars.Count > 0)
                         {
-                            Console.WriteLine($"{cars.Dequeue()} has passed!");
+                            Console.WriteLine($"{cars.Dequeue()} passed!");
                             count++;
                         }
                     }
