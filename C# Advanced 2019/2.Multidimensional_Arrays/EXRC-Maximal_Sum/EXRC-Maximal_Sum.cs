@@ -12,8 +12,6 @@
             int cols = size[1];
 
             var multi = new int[rows, cols];
-            var matrix9 = new int[3, 3];
-            var MaxMatrix9 = new int[3, 3];
             int[] maxStartIndex = new int[2]; 
             FillMatrix(multi);
 
