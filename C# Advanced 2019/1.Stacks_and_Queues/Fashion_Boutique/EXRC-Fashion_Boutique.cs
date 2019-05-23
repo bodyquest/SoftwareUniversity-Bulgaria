@@ -20,11 +20,15 @@ namespace Fashion_Boutique
                 if (sum + item < capacity)
                 {
                     sum += item;
+                    
                 }
                 else if (sum + item == capacity)
                 {
-                    rackCount++;
-                    sum = 0;
+                    if(box.Count != 0)
+                    {
+                        rackCount++;
+                        sum = 0;
+                    }
                 }
                 else
                 {
