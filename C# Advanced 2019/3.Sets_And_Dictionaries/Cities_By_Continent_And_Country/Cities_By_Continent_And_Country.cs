@@ -8,7 +8,7 @@ namespace Cities_By_Continent_And_Country
     {
         static void Main()
         {
-            SortedDictionary<string, Dictionary<string, List<string>>> dict = new SortedDictionary<string, Dictionary<string, List<string>>();
+            Dictionary<string, Dictionary<string, List<string>>> dict = new Dictionary<string, Dictionary<string, List<string>>>();
             int num = int.Parse(Console.ReadLine());
 
             for (int i = 0; i < num; i++)
@@ -24,6 +24,7 @@ namespace Cities_By_Continent_And_Country
                     dict[continent] = new Dictionary<string, List<string>>();
                     if (!dict[continent].ContainsKey(country))
                     {
+                        dict[continent][country] = new List<string>();
                         dict[continent][country].Add(city);
                     }
                     else
@@ -35,6 +36,7 @@ namespace Cities_By_Continent_And_Country
                 {
                     if (!dict[continent].ContainsKey(country))
                     {
+                        dict[continent][country] = new List<string>();
                         dict[continent][country].Add(city);
                     }
                     else
@@ -45,7 +47,7 @@ namespace Cities_By_Continent_And_Country
 
             }
 
-            foreach (var continent in dict.OrderBy(c => c.Key))
+            foreach (var continent in dict)
             {
                 Console.WriteLine($"{continent.Key}:");
                 foreach (var country in continent.Value)
