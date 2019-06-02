@@ -47,7 +47,7 @@
                         break;
                     }
 
-                    var lineOfWords = line.Split(" ",StringSplitOptions.RemoveEmptyEntries).Select(x => x.ToLower()).ToArray();
+                    var lineOfWords = line.Split(" ", StringSplitOptions.RemoveEmptyEntries).Select(x => x.ToLower()).ToArray();
                     for (int i = 0; i < lineOfWords.Length; i++)
                     {
                         words.Add(lineOfWords[i]);
@@ -65,7 +65,7 @@
                 }
             }
 
-            var sortedDictionary = wordsDict.OrderByDescending(x => x.Value).ToDictionary(x => x.Key, x=>x.Value);
+            var sortedDictionary = wordsDict.OrderByDescending(x => x.Value).ToDictionary(x => x.Key, x => x.Value);
 
             using (var resultReader = new StreamReader("../../../expectedResult.txt"))
             {
@@ -78,7 +78,7 @@
                         output = $"{item.Key} - {item.Value}";
                         string line = resultReader.ReadLine();
 
-                        if (output == line)
+                        if (output != line)
                         {
                             isSame = false;
                             break;
@@ -87,8 +87,17 @@
 
                     if (isSame)
                     {
-                        writer.WriteLine(output);
+                        //to do ?
                     }
+                }
+            }
+
+            using (var writer = new StreamWriter("../../../actualResults.txt"))
+            {
+                foreach (var item in sortedDictionary)
+                {
+                    string output = $"{item.Key} - {item.Value}";
+                    writer.WriteLine(output);
                 }
             }
         }
