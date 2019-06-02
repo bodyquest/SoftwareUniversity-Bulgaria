@@ -34,6 +34,8 @@
                         }
 
                         writer.WriteLine($"Line {count}: {line} ({letterCount})({symbolsCount})");
+
+                        count++;
                         line = reader.ReadLine();
                     }
                 }
