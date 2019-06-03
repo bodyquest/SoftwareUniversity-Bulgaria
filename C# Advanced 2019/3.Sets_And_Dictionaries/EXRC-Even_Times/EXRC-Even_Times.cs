@@ -26,7 +26,7 @@ namespace EXRC_Even_Times
 
             foreach (var item in dict)
             {
-                if (item.Value > 1)
+                if (item.Value % 2 == 0)
                 {
                     Console.WriteLine(item.Key);
                 }
