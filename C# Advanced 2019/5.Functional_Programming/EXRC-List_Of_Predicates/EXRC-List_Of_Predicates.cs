@@ -21,20 +21,22 @@
                 predicates.Add(x => x % item == 0);
             }
 
-            for (int i = 0; i < numbers.Count; i++)
+            for (int i = 0; i < upper; i++)
             {
+                bool div = true;
                 foreach (var currentPredicates in predicates)
                 {
                     if (!currentPredicates(numbers[i]))
                     {
-                        numbers.Remove(numbers[i]);
-                        i--;
+                        div = false;
                         break;
                     }
                 }
+                if (div)
+                {
+                    Console.Write(numbers[i] + " ");
+                }
             }
-
-            Console.WriteLine(string.Join(" ", numbers));
         }
     }
 }
