@@ -2,28 +2,50 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Car_Extension
+namespace CarManufacturer
 {
     public class Car
     {
+        private string make;
+        private string model;
+        private int year;
+        private double fuelQuantity;
+        private double fuelConsumption;
+
         public string Make { get; set; }
+
         public string Model { get; set; }
+
         public int Year { get; set; }
-        public double FuelQuantity { get; set; }
-        public double FuelConsumption { get; set; }
+
+        public double FuelQuantity
+        {
+            get { return this.fuelQuantity; }
+
+            set { this.fuelQuantity = value; }
+        }
+
+        public double FuelConsumption
+        {
+            get { return this.fuelConsumption; }
+
+            set { this.fuelConsumption = value; }
+        }
+
         public void Drive(double distance)
         {
-            var canContinue = this.FuelQuantity - this.FuelConsumption * distance >= 0;
+            bool canContinue = this.FuelQuantity - this.FuelConsumption/100 * distance >= 0;
             if (canContinue)
             {
-                this.FuelQuantity -= this.FuelConsumption * distance;
+                this.FuelQuantity -= this.FuelConsumption/100 * distance;
             }
             else
             {
-                throw new CarCannotContinueException("Not enough fuel!");
+                Console.WriteLine("Not enough fuel to perform this trip!");
             }
         }
-        public string GetInformation()
+
+        public string WhoAmI()
         {
             var result = new StringBuilder();
             result.AppendLine($"Make: {this.Make}");
