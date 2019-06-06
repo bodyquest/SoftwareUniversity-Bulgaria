@@ -1,8 +1,8 @@
-﻿using System;
-using System.Linq;
-
-namespace DefiningClasses
+﻿namespace DefiningClasses
 {
+    using System;
+    using System.Linq;
+
     public class StartUp
     {
         static void Main()
