@@ -25,6 +25,7 @@
                             {
                                 writer.WriteLine();
                             }
+
                             string changedLine = string.Empty;
                             foreach (var item in line)
                             {

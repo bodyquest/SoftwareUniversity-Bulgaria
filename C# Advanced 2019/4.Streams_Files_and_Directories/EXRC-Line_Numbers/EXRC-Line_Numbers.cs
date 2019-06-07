@@ -21,13 +21,13 @@
                         int letterCount = 0;
                         int symbolsCount = 0;
 
-                        foreach (var @char in line)
+                        foreach (var symbol in line)
                         {
-                            if (char.IsLetter(@char))
+                            if (char.IsLetter(symbol))
                             {
                                 letterCount++;
                             }
-                            else if (char.IsPunctuation(@char))
+                            else if (char.IsPunctuation(symbol))
                             {
                                 symbolsCount++;
                             }

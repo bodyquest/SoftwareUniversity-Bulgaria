@@ -67,6 +67,7 @@
 
             var sortedDictionary = wordsDict.OrderByDescending(x => x.Value).ToDictionary(x => x.Key, x => x.Value);
 
+
             using (var resultReader = new StreamReader("../../../expectedResult.txt"))
             {
                 using (var writer = new StreamWriter("../../../actualResults.txt"))
@@ -83,11 +84,6 @@
                             isSame = false;
                             break;
                         }
-                    }
-
-                    if (isSame)
-                    {
-                        //to do ?
                     }
                 }
             }
