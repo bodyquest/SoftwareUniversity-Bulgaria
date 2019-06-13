@@ -12,13 +12,14 @@
 
         public Person()
         {
+            kvp = new Dictionary<string, string>();
         }
 
         public Person(string name)
         {
             Name = name;
             kvp = new Dictionary<string, string>();
-            this.Kvp = kvp;
+            Kvp = kvp;
             this.InfoIndex = infoIndex;
         }
 
