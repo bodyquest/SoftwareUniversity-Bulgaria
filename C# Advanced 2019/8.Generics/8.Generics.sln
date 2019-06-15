@@ -3,13 +3,23 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.28803.156
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoxOfT", "BoxOfT\BoxOfT.csproj", "{7759D9B8-81C7-4FE8-9E48-6098AD3E96BE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BoxOfT", "BoxOfT\BoxOfT.csproj", "{7759D9B8-81C7-4FE8-9E48-6098AD3E96BE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GenericsLab", "GenericsLab\GenericsLab.csproj", "{2D79028C-B633-4F6E-89F3-FF840EBBD9DD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GenericsLab", "GenericsLab\GenericsLab.csproj", "{2D79028C-B633-4F6E-89F3-FF840EBBD9DD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GenericArrayCreator", "GenericArrayCreator\GenericArrayCreator.csproj", "{16894FBB-81AD-49D4-9C60-DAF4F6D9874F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GenericArrayCreator", "GenericArrayCreator\GenericArrayCreator.csproj", "{16894FBB-81AD-49D4-9C60-DAF4F6D9874F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GenericScale", "GenericScale\GenericScale.csproj", "{C820BC62-5261-4E55-9DF2-24672F0D784D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GenericScale", "GenericScale\GenericScale.csproj", "{C820BC62-5261-4E55-9DF2-24672F0D784D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EXRC-GenericBoxOfString", "EXRC-GenericBoxOfString\EXRC-GenericBoxOfString.csproj", "{1D1CADD9-D6F8-40DC-980B-6CC42C278FF0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EXRC-GenericBoxOfInteger", "EXRC-GenericBoxOfInteger\EXRC-GenericBoxOfInteger.csproj", "{5440E4B2-E52E-4694-8BF6-BC29200FADA8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EXRC-GenericSwapMethodStrings", "EXRC-GenericSwapMethodStrings\EXRC-GenericSwapMethodStrings.csproj", "{9B355EB6-FF56-4261-ACE3-F9AADE89A0BE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EXRC-GenericTuple", "EXRC-GenericTuple\EXRC-GenericTuple.csproj", "{A9292BBE-AD97-4078-8E9D-357E7192FCED}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EXRC-GenericThreeuple", "EXRC-Threeuple\EXRC-GenericThreeuple.csproj", "{D31D5463-D658-4C16-BF00-089A00DAA4BD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +43,26 @@ Global
 		{C820BC62-5261-4E55-9DF2-24672F0D784D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C820BC62-5261-4E55-9DF2-24672F0D784D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C820BC62-5261-4E55-9DF2-24672F0D784D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1D1CADD9-D6F8-40DC-980B-6CC42C278FF0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1D1CADD9-D6F8-40DC-980B-6CC42C278FF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1D1CADD9-D6F8-40DC-980B-6CC42C278FF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1D1CADD9-D6F8-40DC-980B-6CC42C278FF0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5440E4B2-E52E-4694-8BF6-BC29200FADA8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5440E4B2-E52E-4694-8BF6-BC29200FADA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5440E4B2-E52E-4694-8BF6-BC29200FADA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5440E4B2-E52E-4694-8BF6-BC29200FADA8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B355EB6-FF56-4261-ACE3-F9AADE89A0BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B355EB6-FF56-4261-ACE3-F9AADE89A0BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B355EB6-FF56-4261-ACE3-F9AADE89A0BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B355EB6-FF56-4261-ACE3-F9AADE89A0BE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A9292BBE-AD97-4078-8E9D-357E7192FCED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A9292BBE-AD97-4078-8E9D-357E7192FCED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A9292BBE-AD97-4078-8E9D-357E7192FCED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A9292BBE-AD97-4078-8E9D-357E7192FCED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D31D5463-D658-4C16-BF00-089A00DAA4BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D31D5463-D658-4C16-BF00-089A00DAA4BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D31D5463-D658-4C16-BF00-089A00DAA4BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D31D5463-D658-4C16-BF00-089A00DAA4BD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
