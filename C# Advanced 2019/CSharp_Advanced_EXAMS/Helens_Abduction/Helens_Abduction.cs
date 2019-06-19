@@ -255,12 +255,31 @@
             if (!isAlive)
             {
                 Console.WriteLine($"Paris died at {parisCoordinates[0]};{parisCoordinates[1]}.");
+
+                RemoveOriginalParisPosition(array);
                 PrintArray(array);
             }
             else
             {
                 Console.WriteLine($"Paris has successfully abducted Helen! Energy left: {energy}");
+
+                RemoveOriginalParisPosition(array);
+
                 PrintArray(array);
+            }
+        }
+
+        private static void RemoveOriginalParisPosition(char[,] array)
+        {
+            for (int i = 0; i < array.GetLength(0); i++)
+            {
+                for (int j = 0; j < array.GetLength(1); j++)
+                {
+                    if (array[i, j] == 'P')
+                    {
+                        array[i, j] = '-';
+                    }
+                }
             }
         }
 
