@@ -6,9 +6,7 @@
 
     public class Salad
     {
-        private string name;
         private List<Vegetable> products;
-
 
         public Salad(string name)
         {
@@ -43,10 +41,16 @@
         {
             StringBuilder result = new StringBuilder();
             result.AppendLine($"* Salad {this.Name} is {GetTotalCalories()} calories and have {GetProductCount()} products:");
-
-            foreach (var item in products)
+            for (int i = 0; i < products.Count; i++)
             {
-                result.AppendLine(item.ToString());
+                if (i == products.Count -1)
+                {
+                    result.Append(products[i].ToString());
+                }
+                else
+                {
+                    result.AppendLine(products[i].ToString());
+                }
             }
 
             return result.ToString();

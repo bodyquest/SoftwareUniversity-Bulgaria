@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Text;
 
     public class Restaurant
@@ -10,7 +11,7 @@
 
         public Restaurant(string name)
         {
-            this.Name = name;
+            Name = name;
             data = new List<Salad>();
         }
 
@@ -23,43 +24,46 @@
 
         public bool Buy(string name)
         {
-            bool result = false;
-            foreach(var item in data)
+            if (data.FirstOrDefault(s => s.Name == name) != null)
             {
-                if (item.Name == name)
-                {
-                    data.Remove(item);
-                    result = true;
-                    return result;
-                }
+                data.Remove(data.FirstOrDefault(s => s.Name == name));
+                return true;
             }
-
-            return result;
+            else
+            {
+                return false;
+            }
         }
 
-        public string GetHealthiestSalad()
+        public Salad GetHealthiestSalad()
         {
-            Salad healthiest = null;
-            int lowestCalories = int.MaxValue;
-            foreach (var item in data)
-            {
-                if (item.GetTotalCalories() < lowestCalories)
-                {
-                    healthiest = item;
-                    lowestCalories = item.GetTotalCalories();
-                }
-            }
+            int min = data.Min(s => s.GetTotalCalories());
 
-            return healthiest.Name;
+            return data.FirstOrDefault(s => s.GetTotalCalories() == min);
         }
 
         public string GenerateMenu()
         {
             StringBuilder result = new StringBuilder();
-            result.AppendLine($"{this.Name} have {this.data.Count} salads:");
-            foreach (var item in data)
+            if (data.Count == 1)
             {
-                result.AppendLine(item.ToString());
+                result.AppendLine($"{this.Name} have {this.data.Count} salad:");
+            }
+            else
+            {
+                result.AppendLine($"{Name} have {data.Count} salads:");
+            }
+
+            for (int i = 0; i < data.Count; i++)
+            {
+                if (i == data.Count -1)
+                {
+                    result.Append(data[i].ToString());
+                }
+                else
+                {
+                    result.AppendLine(data[i].ToString());
+                }
             }
 
             return result.ToString();

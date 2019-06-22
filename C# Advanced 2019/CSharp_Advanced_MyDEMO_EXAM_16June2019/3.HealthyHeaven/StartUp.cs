@@ -30,7 +30,7 @@
 
             restaurant.Add(salad);
 
-            Console.WriteLine(restaurant.Buy("Invalid salad")); // False
+            Console.WriteLine(restaurant.Buy("Tomatoes")); // False
 
             // Initialize the second entities
             Vegetable corn = new Vegetable("Corn", 90);
@@ -53,7 +53,6 @@
             //  - Tomato have 20 calories
             //  - Cucumber have 15 calories
             //  - Corn have 90 calories
-
 
         }
     }

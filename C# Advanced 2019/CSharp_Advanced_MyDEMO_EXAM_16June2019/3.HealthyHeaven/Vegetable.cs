@@ -6,9 +6,6 @@
 
     public class Vegetable
     {
-        private string name;
-        private int calories;
-
         public Vegetable(string name, int calories)
         {
             this.Name = name;
