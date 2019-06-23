@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Problem1\**" />
+    <Compile Remove="Problem2\**" />
+    <Compile Remove="Problem3\**" />
+    <EmbeddedResource Remove="Problem1\**" />
+    <EmbeddedResource Remove="Problem2\**" />
+    <EmbeddedResource Remove="Problem3\**" />
+    <None Remove="Problem1\**" />
+    <None Remove="Problem2\**" />
+    <None Remove="Problem3\**" />
+  </ItemGroup>
+
+</Project>
