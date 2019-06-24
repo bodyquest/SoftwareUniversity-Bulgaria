@@ -6,15 +6,17 @@
 
     public class Book
     {
-        public Book()
+        public Book(string title, int year, params string[] authors)
         {
-            this.Authors = new List<string>(1);
+            this.Title = title;
+            this.Year = year;
+            this.Authors = authors;
         }
 
         public string Title { get; set; }
 
         public int Year { get; set; }
 
-        public List<string> Authors { get; set; }
+        public IReadOnlyList<string> Authors { get; set; }
     }
 }
