@@ -7,14 +7,14 @@
     public class Person
     {
         private string firstName;
-        private string secondName;
+        private string lastName;
         private int age;
         private decimal salary;
 
         public Person(string firstName, string secondName, int age, decimal salary)
         {
             this.FirstName = firstName;
-            this.SecondName = secondName;
+            this.LastName = secondName;
             this.Age = age;
             this.Salary = salary;
         }
@@ -31,18 +31,16 @@
                 {
                     throw new ArgumentException("First name cannot contain fewer than 3 symbols!");
                 }
-                else
-                {
-                    this.firstName = value;
-                }
+
+                this.firstName = value;
             }
         }
 
-        public string SecondName
+        public string LastName
         {
             get
             {
-                return this.secondName;
+                return this.lastName;
             }
             private set
             {
@@ -50,10 +48,8 @@
                 {
                     throw new ArgumentException("Last name cannot contain fewer than 3 symbols!");
                 }
-                else
-                {
-                    this.secondName = value;
-                }
+
+                this.lastName = value;
             }
         }
 
@@ -69,6 +65,8 @@
                 {
                     throw new ArgumentException("Age cannot be zero or a negative integer!");
                 }
+
+                this.age = value;
             }
         }
 
@@ -84,12 +82,14 @@
                 {
                     throw new ArgumentException("Salary cannot be less than 460 leva!");
                 }
+
+                this.salary = value;
             }
         }
 
         public void IncreaseSalary(decimal percentage)
         {
-            if (this.Age > 30)
+            if (this.Age >= 30)
             {
                 this.Salary += this.Salary * percentage / 100;
             }
@@ -101,7 +101,7 @@
 
         public override string ToString()
         {
-            return $"{this.FirstName} {this.SecondName} gets {this.Salary:f2} leva.";
+            return $"{this.FirstName} {this.LastName} gets {this.Salary:f2} leva.";
         }
     }
 }
