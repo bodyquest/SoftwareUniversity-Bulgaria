@@ -8,8 +8,8 @@
             this.Age = age;
         }
 
-        public string Name { get; set; }
+        public string Name { get; private set; }
 
-        public int Age { get; set; }
+        public int Age { get; private set; }
     }
 }
