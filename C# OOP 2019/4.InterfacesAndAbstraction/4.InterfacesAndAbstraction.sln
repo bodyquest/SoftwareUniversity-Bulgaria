@@ -11,13 +11,21 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EXRC-Telephony", "EXRC-Tele
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EXRC-MilitaryElite", "EXRC-MilitaryElite\EXRC-MilitaryElite.csproj", "{6559F138-EF91-4BBA-8C34-C29A1C3DE9EF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shapes", "Shapes\Shapes.csproj", "{EF2144B6-A9BA-4DB1-AB0A-BF89013D22D6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shapes", "Shapes\Shapes.csproj", "{EF2144B6-A9BA-4DB1-AB0A-BF89013D22D6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cars", "Cars\Cars.csproj", "{175ECDF8-3D78-498E-80AF-03BE767D9616}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cars", "Cars\Cars.csproj", "{175ECDF8-3D78-498E-80AF-03BE767D9616}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ferrari", "Ferrari\Ferrari.csproj", "{B23416B4-00F5-4E71-AB55-BCC092EB1F6B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ferrari", "Ferrari\Ferrari.csproj", "{B23416B4-00F5-4E71-AB55-BCC092EB1F6B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EXRC-BorderControl", "EXRC-BorderControl\EXRC-BorderControl.csproj", "{37B04723-EE7D-4558-96D4-7A59DD2F9E6C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EXRC-BorderControl", "EXRC-BorderControl\EXRC-BorderControl.csproj", "{37B04723-EE7D-4558-96D4-7A59DD2F9E6C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EXRC-BirthdayCelebrations", "EXRC-BirthdayCelebrations\EXRC-BirthdayCelebrations.csproj", "{83B7C547-680A-44C0-B785-C0A7667EC38A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EXRC-FoodShortage", "EXRC-FoodShortage\EXRC-FoodShortage.csproj", "{8D1BAD7D-8333-41E9-800A-81407ADCDA92}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EXRC-CollectionHierarchy", "EXRC-CollectionHierarchy\EXRC-CollectionHierarchy.csproj", "{2563D8F9-3B7F-4EC3-BAC3-D427A19E72B9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EXRC-ExplicitInterfaces", "EXRC-ExplicitInterfaces\EXRC-ExplicitInterfaces.csproj", "{D548D9E1-8646-4942-B917-0F2AAA042CAD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,6 +65,22 @@ Global
 		{37B04723-EE7D-4558-96D4-7A59DD2F9E6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{37B04723-EE7D-4558-96D4-7A59DD2F9E6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{37B04723-EE7D-4558-96D4-7A59DD2F9E6C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{83B7C547-680A-44C0-B785-C0A7667EC38A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{83B7C547-680A-44C0-B785-C0A7667EC38A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{83B7C547-680A-44C0-B785-C0A7667EC38A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{83B7C547-680A-44C0-B785-C0A7667EC38A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8D1BAD7D-8333-41E9-800A-81407ADCDA92}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D1BAD7D-8333-41E9-800A-81407ADCDA92}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D1BAD7D-8333-41E9-800A-81407ADCDA92}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D1BAD7D-8333-41E9-800A-81407ADCDA92}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2563D8F9-3B7F-4EC3-BAC3-D427A19E72B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2563D8F9-3B7F-4EC3-BAC3-D427A19E72B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2563D8F9-3B7F-4EC3-BAC3-D427A19E72B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2563D8F9-3B7F-4EC3-BAC3-D427A19E72B9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D548D9E1-8646-4942-B917-0F2AAA042CAD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D548D9E1-8646-4942-B917-0F2AAA042CAD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D548D9E1-8646-4942-B917-0F2AAA042CAD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D548D9E1-8646-4942-B917-0F2AAA042CAD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
