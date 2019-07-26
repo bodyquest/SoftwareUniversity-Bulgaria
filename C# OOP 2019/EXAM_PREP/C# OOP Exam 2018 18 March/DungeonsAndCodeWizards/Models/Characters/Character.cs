@@ -10,6 +10,7 @@ namespace DungeonsAndCodeWizards.Models.Characters
     {
         private string name;
         private double baseHealth;
+        private double health;
         private double baseArmor;
         private double armor;
         private double abilityPoints;
@@ -20,8 +21,16 @@ namespace DungeonsAndCodeWizards.Models.Characters
 
         private const double DEFAULT_REST_HEAL_MULTIPLIER = 0.2;
 
-        public Character()
+        public Character(string name, double health, double armor, double abilityPoints, Bag bag, Faction faction)
         {
+            this.Name = name;
+            this.BaseHealth = health; // check again at 1:39 on the video why this is done !!!
+            this.Health = health;
+            this.BaseArmor = armor;
+            this.Armor = armor;
+            this.AbilityPoints = abilityPoints;
+            this.Bag = bag;
+            this.Faction = faction;
             this.IsAlive = true;
             this.RestHealMultiplier = DEFAULT_REST_HEAL_MULTIPLIER;
         }
@@ -45,8 +54,6 @@ namespace DungeonsAndCodeWizards.Models.Characters
             get { return baseHealth; }
             private set { baseHealth = value; }
         }
-
-        private double health;
 
         public double Health
         {
@@ -163,12 +170,18 @@ namespace DungeonsAndCodeWizards.Models.Characters
         public void GiveCharacterItem(Item item, Character character)
         {
             EnsureBothCharactersAreAlive(character);
+            character.ReceiveItem(item);
 
         }
 
+        public void ReceiveItem(Item item)
+        {
+            EnsureIsAlive();
+            this.Bag.AddItem(item);
+        }
 
 
-        private void EnsureBothCharactersAreAlive(Character character)
+        protected void EnsureBothCharactersAreAlive(Character character)
         {
             if (!this.IsAlive || !character.IsAlive)
             {

@@ -42,7 +42,7 @@
             }
         }
 
-        public void Additem(Item item)
+        public void AddItem(Item item)
         {
             if (this.Load + item.Weight > this.Capacity)
             {
