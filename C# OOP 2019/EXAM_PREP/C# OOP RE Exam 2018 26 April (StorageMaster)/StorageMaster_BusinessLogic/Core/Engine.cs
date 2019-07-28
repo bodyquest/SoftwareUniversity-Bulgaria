@@ -8,7 +8,7 @@
         private StorageMaster storageMaster; 
         private bool isRunning;
 
-        public Engine()
+        public Engine(StorageMaster storageMaster)
         {
             storageMaster = new StorageMaster();
             this.isRunning = false;
