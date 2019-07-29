@@ -11,8 +11,6 @@
     public class FestivalController : IFestivalController
     {
         private const string TimeFormat = "mm\\:ss";
-        private const string TimeFormatLong = "{0:2D}:{1:2D}";
-        private const string TimeFormatThreeDimensional = "{0:3D}:{1:3D}";
 
         private readonly IStage stage;
         private readonly ISetFactory setFactory;
@@ -145,11 +143,11 @@
 
             TimeSpan totalFestivalLength = new TimeSpan(this.stage.Sets.Sum(s => s.ActualDuration.Ticks));
 
-			result.AppendLine($"Festival length: {totalFestivalLength.ToString(TimeFormat)}");
+			result.AppendLine($"Festival length: {FormatTimeSpanToString(totalFestivalLength)}");
 
 			foreach (var set in this.stage.Sets)
 			{
-                result.AppendLine($"--{set.Name} ({set.ActualDuration.ToString(TimeFormat)}):");
+                result.AppendLine($"--{set.Name} ({FormatTimeSpanToString(set.ActualDuration)}):");
 
 				var performersOrderedDescendingByAge = set.Performers.OrderByDescending(p => p.Age);
 				foreach (var performer in performersOrderedDescendingByAge)
@@ -167,7 +165,7 @@
 					result.AppendLine("--Songs played:");
 					foreach (var song in set.Songs)
 					{
-						result.AppendLine($"----{song.Name} ({song.Duration.ToString(TimeFormat)})");
+						result.AppendLine($"----{song.Name} ({FormatTimeSpanToString(song.Duration)})");
 					}
 				}
 			}
@@ -175,5 +173,12 @@
 			return result.ToString().TrimEnd();
 		}
 
+        private string FormatTimeSpanToString(TimeSpan timeSpan)
+        {
+            int minutes = timeSpan.Hours * 60 + timeSpan.Minutes;
+            int seconds = timeSpan.Seconds;
+
+            return $"{minutes:d2}:{seconds:d2}";
+        }
     }
 }
