@@ -16,6 +16,7 @@ namespace Tests
         // validate get and set for DatabaseElements
 
         private Database database;
+
         [SetUp]
         public void Setup()
         {
@@ -54,7 +55,6 @@ namespace Tests
 
             Assert.Throws<InvalidOperationException>(() => this.database.Remove());
         }
-
 
         [Test]
         public void RemoveMethod_ShouldRemove_OneElement()
