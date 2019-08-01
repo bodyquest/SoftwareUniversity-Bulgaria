@@ -8,19 +8,19 @@ namespace EXRC_Database
     public class Database
     {
         private const int DEFAULT_LENGTH = 16;
-        private Person[] database;
+        private int[] database;
         private int index;
 
-        public Database(params Person [] collection)
+        public Database(params int [] collection)
             : this(collection.ToList())
         {
         }
 
-        public Database(IEnumerable <Person> collection)
+        public Database(IEnumerable <int> collection)
         {
             this.ValidateCollection(collection.ToArray());
             this.index = 0;
-            this.database = new Person[DEFAULT_LENGTH];
+            this.database = new int[DEFAULT_LENGTH];
             this.DatabaseElements = collection.ToArray();
         }
 
@@ -28,13 +28,13 @@ namespace EXRC_Database
         {
             get
             {
-                List<Person> people = new List<Person>();
+                List<int> numbers = new List<int>();
                 for (int i = 0; i < index; i++)
                 {
-                    people.Add(this.database[i]);
+                    numbers.Add(this.database[i]);
                 }
 
-                return people.ToArray();
+                return numbers.ToArray();
             }
             set
             {
@@ -76,7 +76,17 @@ namespace EXRC_Database
             this.index--;
         }
 
+        public int[] Fetch()
+        {
+            int[] arrCopy = new int[this.DatabaseElements.Count()];
 
+            for (int i = 0; i < this.DatabaseElements.Count(); i++)
+            {
+                arrCopy[i] = this.database[i];
+            }
+
+            return arrCopy;
+        }
 
     }
 }

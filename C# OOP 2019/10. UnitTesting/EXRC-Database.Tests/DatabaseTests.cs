@@ -16,6 +16,7 @@ namespace Tests
         // validate get and set for DatabaseElements
 
         private Database database;
+        private readonly int[] data = new int[] { 1, 2 };
 
         [SetUp]
         public void Setup()
@@ -100,6 +101,24 @@ namespace Tests
 
             //Assert
             Assert.That(expectedCount, Is.EqualTo(this.database.DatabaseElements.Length));
+        }
+
+        //[SetUp]
+        //public void SetupOnly()
+        //{
+        //    this.database = new Database(data);
+        //}
+
+        [Test]
+        public void FetchMethod_ShouldWork_Correctly()
+        {
+            //Arrange
+            this.database = new Database(data); 
+            //Act
+            int[] result = this.database.Fetch();
+
+            //Assert
+            CollectionAssert.AreEqual(this.data, result);
         }
 
     }
