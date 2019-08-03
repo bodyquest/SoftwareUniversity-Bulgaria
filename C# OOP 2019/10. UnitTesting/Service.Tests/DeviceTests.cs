@@ -1,17 +1,20 @@
-﻿using Service.Models.Contracts;
-using Service.Models.Devices;
-using Service.Models.Parts;
-
-using System;
+﻿using System;
 using NUnit.Framework;
-using System.Collections.Generic;
+
+using Service.Models.Parts;
+using Service.Models.Devices;
 
 namespace Service.Tests
 {
+    [TestFixture]
     public class DeviceTests
     {
-        private readonly List<IPart> parts;
+        private string make;
         private Device device;
+        private string name;
+        private decimal cost;
+        bool isBroken;
+        private Part part;
 
         [SetUp]
         public void Setup()
@@ -19,182 +22,230 @@ namespace Service.Tests
         }
 
         [Test]
-        public void Constructor_ShouldInitializeCollection_Correctly()
+        public void LaptopConstructor_ShouldWork_Correctly()
         {
-            Phone iPhone = new Phone("X");
+            string expectedMake = "IBM";
 
-            Assert.IsNotNull(iPhone.Parts);
+            this.device = new Laptop(expectedMake);
+
+            Assert.AreEqual(expectedMake, this.device.Make);
+            Assert.IsNotNull(this.device.Parts);
         }
 
         [Test]
-        public void Constructor_ShouldWork_Correctly()
+        public void LaptopAddPartMethod_ShouldWork_Correctly()
         {
-            string expectedMake = "X";
-            Phone iPhone = new Phone("X");
+            this.make = "IBM";
+            this.device = new Laptop(this.make);
+            this.name = "Battery";
+            this.cost = 10.00m;
+            this.isBroken = true;
+            this.part = new LaptopPart(name, cost, isBroken);
 
-            Assert.AreEqual(expectedMake, iPhone.Make);
+            this.device.AddPart(this.part);
+
+            Assert.That(this.device.Parts, Has.Member(this.part));
         }
 
         [Test]
-        public void MakeSetter_ShouldThrow_ExceptionIfMakeIsNull()
+        public void LaptopAddPartMethod_ThrowsException_ForInvalidPartType()
         {
-            string expectedMake = null;
+            this.make = "IBM";
+            this.device = new Laptop(this.make);
+            this.name = "Keyboard";
+            this.cost = 10.00m;
+            this.isBroken = true;
+            this.part = new PCPart(name, cost, isBroken);
 
-            Assert.Throws<ArgumentException>(() => { Phone iPhone = new Phone(expectedMake);});
-        }
-
-
-        //ADD TESTS
-        [Test]
-        public void AddPartMethod_ShouldAdd_DevicePartSuccessfully()
-        {
-            //Arrange
-            PhonePart itemPart = new PhonePart("Battery", 50m, false);
-            Phone iPhone = new Phone("X");
-
-            //Act
-            iPhone.AddPart(itemPart);
-
-            //Assert
-            Assert.That(1, Is.EqualTo(iPhone.Parts.Count));
-            Assert.That(iPhone.Parts, Has.Member(itemPart));
+            Assert.Throws<InvalidOperationException>(() => this.device.AddPart(this.part));
         }
 
         [Test]
-        public void AddPartMethod_ShouldThrow_Exception_WhenPartType_IsNotForThisDeviceType()
+        public void PCConstructor_ShouldWork_Correctly()
         {
-            //Arrange
-            PCPart itemPart = new PCPart("RAM", 20m, false);
-            Phone iPhone = new Phone("X");
+            string expectedMake = "Pravec";
 
-            //Assert
-            Assert.Throws<InvalidOperationException>(() => iPhone.AddPart(itemPart));
+            this.device = new PC(expectedMake);
+
+            Assert.AreEqual(expectedMake, this.device.Make);
+            Assert.IsNotNull(this.device.Parts);
         }
 
         [Test]
-        public void AddPartMethod_ShouldThrow_Exception_WhenPartType_AlreadyExists()
+        public void PCAddPartMethod_ShouldWork_Correctly()
         {
-            //Arrange
-            PhonePart itemPart = new PhonePart("Display", 50m, false);
-            Phone iPhone = new Phone("X");
+            this.make = "Pravec";
+            this.device = new PC(this.make);
+            this.name = "PartName";
+            this.cost = 10.00m;
+            this.isBroken = true;
+            this.part = new PCPart(name, cost, isBroken);
 
-            //Act
-            iPhone.AddPart(itemPart);
+            this.device.AddPart(this.part);
 
-            //Assert
-            Assert.Throws<InvalidOperationException>(() => iPhone.AddPart(itemPart));
-        }
-
-
-        //REMOVE TESTS
-        [Test]
-        public void RemoveMethod_ShouldRemove_PartSuccessfully()
-        {
-            //Arrange
-            PhonePart itemPart = new PhonePart("Display", 50m, false);
-            PhonePart anotherItemPart = new PhonePart("Button", 10m, true);
-            Phone iPhone = new Phone("X");
-
-            //Act
-            iPhone.AddPart(itemPart);
-            iPhone.AddPart(anotherItemPart);
-            iPhone.RemovePart(itemPart.Name);
-
-
-            //Assert
-            Assert.AreEqual(1, iPhone.Parts.Count);
-            Assert.That(iPhone.Parts, !Contains.Item(itemPart));
-            Assert.That(iPhone.Parts, Contains.Item(anotherItemPart));
-
+            Assert.That(this.device.Parts, Has.Member(this.part));
         }
 
         [Test]
-        public void RemoveMethod_ShouldThrow_ExceptionIfPartNameIsNullOrEmpty()
+        public void PCAddPartMethod_ThrowsException_ForInvalidPartType()
         {
-            //Arrange
-            PhonePart itemPart = new PhonePart("Display", 50m, false);
-            Phone iPhone = new Phone("X");
+            this.make = "Pravec";
+            this.device = new PC(this.make);
+            this.name = "PartName";
+            this.cost = 10.00m;
+            this.isBroken = true;
+            this.part = new LaptopPart(name, cost, isBroken);
 
-            //Act
-            iPhone.AddPart(itemPart);
-
-            //Assert
-            Assert.Throws<ArgumentException>(() => iPhone.RemovePart(null));
+            Assert.Throws<InvalidOperationException>(() => this.device.AddPart(this.part));
         }
 
         [Test]
-        public void RemoveMethod_ShouldThrow_ExceptionIfPartDoesNotExist()
+        public void PhoneConstructor_ShouldWork_Correctly()
         {
-            //Arrange
-            PhonePart itemPart = new PhonePart("Display", 50m, false);
-            PhonePart itemToRemove = new PhonePart("Camera Lens", 100m, false);
-            Phone iPhone = new Phone("X");
+            string expectedMake = "Apple";
 
-            //Act
-            iPhone.AddPart(itemPart);
+            this.device = new Phone(expectedMake);
 
-            //Assert
-            Assert.Throws<InvalidOperationException>(() => iPhone.RemovePart(itemToRemove.Name));
-        }
-
-
-        //REPAIR TESTS
-        [Test]
-        public void RepairPartMethod_ShouldRepair_DevicePartSuccessfully()
-        {
-            //Arrange
-            PhonePart itemPart = new PhonePart("Battery", 50m, true);
-            Phone iPhone = new Phone("X");
-
-            //Act
-            iPhone.AddPart(itemPart);
-            iPhone.RepairPart(itemPart.Name);
-
-            //Assert
-            Assert.AreEqual(itemPart.IsBroken, false);
+            Assert.AreEqual(expectedMake, this.device.Make);
+            Assert.IsNotNull(this.device.Parts);
         }
 
         [Test]
-        public void RepairMethod_ShouldThrow_ExceptionIfPartNameIsNullOrEmpty()
+        public void PhoneAddPartMethod_ShouldWork_Correctly()
         {
-            //Arrange
-            Phone iPhone = new Phone("X");
+            this.make = "Apple";
+            this.device = new Phone(this.make);
+            this.name = "PartName";
+            this.cost = 10.00m;
+            this.isBroken = true;
+            this.part = new PhonePart(name, cost, isBroken);
 
-            //Act
-            PhonePart itemPart = new PhonePart("Battery", 50m, false);
-            iPhone.AddPart(itemPart);
+            this.device.AddPart(this.part);
 
-            //Assert
-            Assert.Throws<ArgumentException>(() => iPhone.RemovePart(""));
+            Assert.That(this.device.Parts, Has.Member(this.part));
         }
-
 
         [Test]
-        public void RepairMethod_ShouldThrow_ExceptionIfPartDoesNotExist()
+        public void PhoneAddPartMethod_ThrowsException_ForInvalidType()
         {
-            //Arrange
-            PhonePart itemPart = new PhonePart("Display", 50m, false);
-            Phone iPhone = new Phone("X");
+            this.make = "Apple";
+            this.device = new Phone(this.make);
+            this.name = "PartName";
+            this.cost = 10.00m;
+            this.isBroken = true;
+            this.part = new LaptopPart(name, cost, isBroken);
 
-            //Assert
-            Assert.Throws<InvalidOperationException>(() => iPhone.RepairPart(itemPart.Name));
+            Assert.Throws<InvalidOperationException>(() => this.device.AddPart(this.part));
         }
-
 
         [Test]
-        public void RepairPartMethod_ShouldThrow_Exception_WhenPartType_IsNotNotBroken()
+        public void MakeSetter_ThrowsException_ForNullOrEmptyMake()
         {
-            //Arrange
-            PhonePart itemPart = new PhonePart("Chip", 20m, false);
-            Phone iPhone = new Phone("X");
-
-            //Act
-            iPhone.AddPart(itemPart);
-
-            //Assert
-            Assert.Throws<InvalidOperationException>(() => iPhone.RepairPart(itemPart.Name));
+            this.make = "";
+            Assert.Throws<ArgumentException>(() => this.device = new Laptop(this.make));
         }
 
+        [Test]
+        public void DeviceAddPartMethod_ThrowsException_ForExistingPart()
+        {
+            this.make = "IBM";
+            this.device = new Laptop(this.make);
+            this.name = "Monitor";
+            this.cost = 10.00m;
+            this.isBroken = true;
+            this.part = new LaptopPart(name, cost, isBroken);
 
+            this.device.AddPart(this.part);
+
+            Assert.Throws<InvalidOperationException>(() => this.device.AddPart(this.part));
+        }
+
+        [Test]
+        public void DeviceRemovePartMethod_ShouldWork_Correctly()
+        {
+            this.make = "IBM";
+            this.device = new Laptop(this.make);
+            this.name = "RAM";
+            this.cost = 10.00m;
+            this.isBroken = true;
+            this.part = new LaptopPart(name, cost, isBroken);
+
+            this.device.AddPart(this.part);
+            this.device.RemovePart(this.part.Name);
+
+            Assert.That(this.device.Parts, !Has.Member(part));
+        }
+
+        [Test]
+        public void DeviceRemovePartMethod_ThrowsException_ForEmptyName()
+        {
+            this.make = "IBM";
+            this.device = new Laptop(this.make);
+            this.name = "";
+
+            Assert.Throws<ArgumentException>(() => this.device.RemovePart(this.name));
+        }
+
+        [Test]
+        public void DeviceRemovePartMethod_ThrowsException_ForNonExistingPart()
+        {
+            this.make = "IBM";
+            this.device = new Laptop(this.make);
+            this.name = "Flash";
+
+            Assert.Throws<InvalidOperationException>(() => this.device.RemovePart(this.name));
+        }
+
+        [Test]
+        public void DeviceRepairPartMethod_ShouldWork_Correctly()
+        {
+            bool expectedIsBroken = false;
+            this.make = "IBM";
+            this.device = new Laptop(this.make);
+            this.name = "SSD";
+            this.cost = 10.0m;
+            this.isBroken = true;
+            this.part = new LaptopPart(name, cost, isBroken);
+
+            this.device.AddPart(this.part);
+            this.device.RepairPart(this.name);
+
+            Assert.AreEqual(expectedIsBroken, this.part.IsBroken);
+        }
+
+        [Test]
+        public void DeviceRepairPartMethod_ThrowsException_ForEmptyName()
+        {
+            this.make = "IBM";
+            this.device = new Laptop(this.make);
+            this.name = "";
+
+            Assert.Throws<ArgumentException>(() => this.device.RepairPart(this.name));
+        }
+
+        [Test]
+        public void DeviceRepairPartMethod_ThrowsException_ForNonExistingPart()
+        {
+            this.make = "IBM";
+            this.device = new Laptop(this.make);
+            this.name = "Flash";
+
+            Assert.Throws<InvalidOperationException>(() => this.device.RepairPart(this.name));
+        }
+
+        [Test]
+        public void DeviceRepairPartMethod_ThrowsException_ForNonBrokenPart()
+        {
+            this.make = "IBM";
+            this.device = new Laptop(this.make);
+            this.name = "Keyboard";
+            this.cost = 10.0m;
+            this.isBroken = false;
+            this.part = new LaptopPart(name, cost, isBroken);
+
+            this.device.AddPart(this.part);
+
+            Assert.Throws<InvalidOperationException>(() => this.device.RepairPart(this.name));
+        }
     }
 }
