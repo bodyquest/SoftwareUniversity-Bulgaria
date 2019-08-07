@@ -1,7 +1,6 @@
 ﻿namespace PlayersAndMonsters.Repositories
 {
     using System;
-    using System.Text;
     using System.Linq;
     using System.Collections.Generic;
 
@@ -11,48 +10,56 @@
 
     public class CardRepository : ICardRepository
     {
-        private Stack<ICard> cards;
+        private IDictionary<string, ICard> cards;
 
         public CardRepository()
         {
-            this.cards = new Stack<ICard>();
+            this.cards = new Dictionary<string, ICard>();
         }
 
-        public int Count { get; private set; }
+        public int Count => this.cards.Count;
 
-        //TODO check accessibility ???
-        public IReadOnlyCollection<ICard> Cards => this.cards;
+        public IReadOnlyCollection<ICard> Cards => this.cards.Values.ToList();
 
         public void Add(ICard card)
         {
-            if (card == null)
+            ThrowIfCardIsNull(card, ExceptionMessages.CardCannotBeNull);
+
+            if (this.cards.ContainsKey(card.Name))
             {
-                throw new ArgumentException(ExceptionMessages.CardCannotBeNull);
+                throw new ArgumentException(string.Format(ExceptionMessages.CardAlreadyExists, card.Name));
             }
-            else if (this.cards.Any(c => c.Name == card.Name))
-            {
-                throw new ArgumentException(ExceptionMessages.CardAlreadyExists, card.Name);
-            }
-            else
-            {
-                cards.Push(card);
-            }
+
+            this.cards.Add(card.Name, card);
         }
 
         public ICard Find(string name)
         {
-            return this.cards.First(c => c.Name == name);
+            ICard card = null;
+
+            if (this.cards.ContainsKey(name))
+            {
+                card = this.cards[name];
+            }
+
+            return card;
         }
 
         public bool Remove(ICard card)
         {
+            ThrowIfCardIsNull(card, ExceptionMessages.CardCannotBeNull);
+
+            bool hasRemoved = this.cards.Remove(card.Name);
+
+            return hasRemoved;
+        }
+
+        private void ThrowIfCardIsNull(ICard card, string message)
+        {
             if (card == null)
             {
-                throw new ArgumentException(ExceptionMessages.CardCannotBeNull);
+                throw new ArgumentException(message);
             }
-
-            cards.Pop();
-            return true;
         }
     }
 }

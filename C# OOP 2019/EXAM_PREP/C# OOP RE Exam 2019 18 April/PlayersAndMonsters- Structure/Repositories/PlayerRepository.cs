@@ -1,7 +1,6 @@
 ﻿namespace PlayersAndMonsters.Repositories
 {
     using System;
-    using System.Text;
     using System.Linq;
     using System.Collections.Generic;
 
@@ -11,47 +10,56 @@
 
     public class PlayerRepository : IPlayerRepository
     {
-        private readonly List<IPlayer> players;
+        private IDictionary<string, IPlayer> players;
 
         public PlayerRepository()
         {
-            this.players = new List<IPlayer>();
+            this.players = new Dictionary<string, IPlayer>();
         }
 
-        public int Count { get; private set; }
+        public int Count => this.players.Count;
 
-        public IReadOnlyCollection<IPlayer> Players => this.players.AsReadOnly();
+        public IReadOnlyCollection<IPlayer> Players => this.players.Values.ToList();
 
         public void Add(IPlayer player)
         {
-            if (player == null)
+            ThrowIfPlayerIsNull(player, ExceptionMessages.PlayerCannotBeNull);
+
+            if (this.players.ContainsKey(player.Username))
             {
-                throw new ArgumentException(ExceptionMessages.PlayerCannotBeNull);
+                throw new ArgumentException(string.Format(ExceptionMessages.PlayerAlreadyExists, player.Username));
             }
-            else if (this.players.Any(c => c.Username == player.Username))
-            {
-                throw new ArgumentException(ExceptionMessages.PlayerAlreadyExists, player.Username);
-            }
-            else
-            {
-                players.Add(player);
-            }
+
+            players.Add(player.Username, player);
         }
 
         public IPlayer Find(string username)
         {
-            return this.players.First(c => c.Username == username);
+            IPlayer player = null;
+
+            if (this.players.ContainsKey(username))
+            {
+                player = this.players[username];
+            }
+
+            return player;
         }
 
         public bool Remove(IPlayer player)
         {
+            ThrowIfPlayerIsNull(player, ExceptionMessages.PlayerCannotBeNull);
+
+            bool hasRemoved = this.players.Remove(player.Username);
+
+            return hasRemoved;
+        }
+
+        private void ThrowIfPlayerIsNull(IPlayer player, string message)
+        {
             if (player == null)
             {
-                throw new ArgumentException(ExceptionMessages.PlayerCannotBeNull);
+                throw new ArgumentException(message);
             }
-
-            players.Remove(player);
-            return true;
         }
     }
 }
