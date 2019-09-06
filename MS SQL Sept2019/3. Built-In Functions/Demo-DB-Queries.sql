@@ -40,3 +40,41 @@ SELECT Id, X1, Y1, X2, Y2,
 SELECT ROUND(1.9, 0)  --round to 2.0
 
 ----------------------------------
+
+SELECT
+  [Name]
+  ,Quantity 
+  ,BoxCapacity
+  ,CEILING
+	  (CEILING
+	    (CAST(Quantity AS float) /BoxCapacity)/ PalletCapacity)
+        AS [Number of Pallets]
+   FROM Products 
+
+----------------------------------
+
+SELECT DATEPART(WEEK, '2019-09-06')
+
+----------------------------------
+
+SELECT
+  ProductName
+  ,YEAR(OrderDate) AS [Year]
+  ,MONTH(OrderDate) AS [Month]
+  ,DAY(OrderDate) AS [Day]
+  ,DATEPART(QUARTER, OrderDate) AS [Q]
+FROM Orders
+
+----------------------------------
+
+SELECT DATEDIFF(SECOND, '1973-12-16T17:00:00', '2021-06-28T19:40:00')
+-- 1 500 000 000 s Radi's Age at Seconds
+
+----------------------------------
+
+SELECT [Name]
+  , ISNULL(CAST(EndDate As varchar), 'Not Finished')
+FROM Projects
+
+----------------------------------
+
