@@ -83,7 +83,7 @@ SELECT
 
 FROM
 	Employees
-WHERE 
+WHERE
 	DepartmentID IN (1, 3, 15)
 GROUP BY
 	DepartmentID
@@ -91,3 +91,41 @@ HAVING SUM(Salary) > 30000
 
 -------------------------------------------
 -- Pivot Tables
+
+SELECT 'AverageCost' AS Cpst_Sorted_By_Production_Days,
+	[0], [1], [2], [3], [4]
+FROM
+(SELECT DaysToManufacture, StandardCost
+	FROM Production.Product) AS SourceTable
+PIVOT
+(
+	AVG(StandardCost)
+	FOR DaysToManufacture IN ([0], [1], [2], [3], [4])
+) AS PivtoTable
+
+-----------------------
+SELECT
+	'Average Salary' AS [ ],
+	[Marketing], [Production], [Purchasing]
+FROM
+(SELECT 
+	d.[Name], Salary
+FROM 
+	Employees AS e
+	JOIN Departments AS d
+	ON e.DepartmentID = d.DepartmentID) AS dt
+PIVOT
+(
+	AVG(Salary)
+	FOR [Name] IN ([Marketing], [Production], [Purchasing])
+) AS PivotTable
+
+------------------------
+
+SELECT 
+	d.[Name], AVG(Salary)
+FROM 
+	Employees AS e
+	JOIN Departments AS d
+	ON e.DepartmentID = d.DepartmentID
+GROUP BY d.[Name]
