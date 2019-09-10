@@ -195,15 +195,8 @@ CREATE TABLE StudentsExams
    , ExamID    INT NOT NULL
 );
 
-
 ALTER TABLE StudentsExams
 ADD CONSTRAINT PK_StudentsExams PRIMARY KEY(StudentID, ExamID);
-
-ALTER TABLE StudentsExams
-ADD CONSTRAINT FK_StudentsExams_Students FOREIGN KEY(StudentID) REFERENCES Students(
-     StudentID)
-  , CONSTRAINT FK_StudentsExams_Exams FOREIGN KEY(ExamID) REFERENCES Exams(
-     ExamID);
 
 ALTER TABLE Students
 ADD CONSTRAINT PK_Students PRIMARY KEY(StudentID);
@@ -211,3 +204,28 @@ ADD CONSTRAINT PK_Students PRIMARY KEY(StudentID);
 ALTER TABLE Exams
 ADD CONSTRAINT PK_Exams PRIMARY KEY(ExamID);
 
+ALTER TABLE StudentsExams
+ADD CONSTRAINT FK_StudentsExams_Students FOREIGN KEY(StudentID) REFERENCES Students(
+     StudentID)
+  , CONSTRAINT FK_StudentsExams_Exams FOREIGN KEY(ExamID) REFERENCES Exams(
+     ExamID);
+
+/*********************************
+Problem 4.	Self-Referencing
+*********************************/
+
+CREATE TABLE Teachers
+(
+     TeacherID INT PRIMARY KEY IDENTITY(101, 1)
+   , [Name]    VARCHAR(30)
+   , ManagerID INT FOREIGN KEY REFERENCES Teachers(
+     TeacherID)
+);
+
+INSERT INTO Teachers VALUES
+	 ( 'John', NULL)
+	,( 'Maya', 106)
+	,( 'Silvia', 106)
+	,( 'Ted', 105)
+	,( 'Mark', 101)
+	,( 'Greta', 101)
