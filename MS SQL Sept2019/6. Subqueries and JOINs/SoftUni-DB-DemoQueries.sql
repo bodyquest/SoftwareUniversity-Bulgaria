@@ -180,3 +180,39 @@ AS
 )
 
 SELECT FirstName, LastName, DepartmentName FROM Employees_CTE
+
+/*****************************
+Temporary Tables
+******************************/
+
+CREATE TABLE #Employees
+(
+     Id        INT
+     PRIMARY KEY
+   , FirstName VARCHAR(50) NOT NULL
+   , LastName  VARCHAR(50)
+   , Address   VARCHAR(50)
+)
+
+SELECT 
+     *
+FROM 
+     #Employees;
+
+--------------------------------
+
+CREATE TABLE #Employees
+(
+     Id             INT PRIMARY KEY
+   , FirstName      VARCHAR(50) NOT NULL
+   , LastName       VARCHAR(50) NOT NULL
+   , DepartmentName VARCHAR(50) NOT NULL
+)
+
+/**************************************
+Indices
+Clustered Index is inside the Table
+Non-Clustered index - outside the Table
+***************************************/
+
+CREATE NONCLUSTERED INDEX IX_Employees_FirstName_LastName ON Employees(FirstName, LastName);
