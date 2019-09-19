@@ -143,11 +143,141 @@ AS
           *
      FROM  
           Employees
-     WHERE DATEDIFF(YEAR, HireDate, GETDATE()) > 18;
+     WHERE DATEDIFF(YEAR, HireDate, GETDATE()) > 18
 GO
 
 EXEC dbo.usp_GetSeniorEmployees
+GO
 
 ------------------------------
-/*Altering Stored Procedures*/
+/*************************
+Altering Stored Procedures
+*************************/
 
+ALTER PROC usp_GetSeniorEmployees
+AS
+     SELECT  
+          FirstName
+        , LastName
+        , HireDate
+        , DATEDIFF(YEAR, HireDate, GETDATE()) AS YearsOfService
+     FROM  
+          Employees
+     WHERE DATEDIFF(YEAR, HireDate, GETDATE()) > 18
+     ORDER BY 
+          HireDate;
+GO
+
+/*************************
+Dropping Stored Procedures
+*************************/
+
+DROP PROC 
+     usp_GetSeniorEmployees;
+GO
+
+/*********************************
+System Procedures for Dependencies
+*********************************/
+
+EXEC sp_depends 
+     'Employees';
+
+EXEC sp_depends 
+     usp_GetSeniorEmployees;
+GO
+
+
+/********************************
+Defining Parameterized Procedures
+********************************/
+
+CREATE OR ALTER PROCEDURE usp_GetSeniorEmployees
+(
+     @YearsOfService INT = 5
+)
+AS
+     SELECT  
+          FirstName
+        , LastName
+        , HireDate
+        , DATEDIFF(YEAR, HireDate, GETDATE()) AS YearsOfService
+     FROM  
+          Employees
+     WHERE DATEDIFF(YEAR, HireDate, GETDATE()) > @YearsOfService
+     ORDER BY 
+          HireDate;
+GO
+
+EXEC usp_GetSeniorEmployees 10;
+GO
+
+EXEC usp_GetSeniorEmployees
+     @SecretText = 'Some text'
+   , @YearsOfService = 16;
+GO
+
+/***************************************
+Returning Values Using OUTPUT Parameters
+****************************************/
+CREATE PROCEDURE dbo.usp_AddNumbers
+      @firstNumber SMALLINT
+    , @secondNumber SMALLINT
+    , @result INT OUTPUT
+AS
+    SET @result = @firstNumber + @secondNumber
+GO
+
+DECLARE @result INT
+EXECUTE usp_AddNumbers 8, 12, @result OUT -- or OUTPUT
+SELECT @result
+GO
+
+----------------------------------------
+DECLARE @result INT
+DECLARE @fnum INT
+DECLARE @snum INT
+
+SET @fnum = 4
+SET @snum = 7
+
+EXECUTE usp_AddNumbers @fnum, @snum, @result OUT
+SELECT CONCAT(@fnum, ' + ', @snum, ' = ', @result) AS Result
+GO
+
+/*************
+Error Handling
+**************/
+SELECT @@ERROR
+
+BEGIN TRY
+  -- generating a divide by zero
+  SELECT 1/0
+END TRY
+BEGIN CATCH
+  SELECT
+    ERROR_NUMBER() AS ErrorNumber
+  , ERROR_SEVERITY() AS ErrorSeverity
+  , ERROR_STATE() AS ErrorState
+  , ERROR_PROCEDURE() AS ErrorProcedure
+  , ERROR_LINE() AS ErrorLine
+  , ERROR_MESSAGE() AS ErrorMessage;
+END CATCH
+GO
+
+-------------------------------------
+CREATE PROCEDURE dbo.usp_AddNumbers
+      @firstNumber SMALLINT
+    , @secondNumber SMALLINT
+    , @result INT OUTPUT
+AS
+    BEGIN TRY
+      SET @result = @firstNumber / @secondNumber
+    END TRY
+	BEGIN CATCH
+	    SELECT 
+		ERROR_NUMBER() AS ErrorNumber
+      , ERROR_LINE() AS ErrorLine
+      , ERROR_MESSAGE() AS ErrorMessage;
+	END CATCH
+GO
