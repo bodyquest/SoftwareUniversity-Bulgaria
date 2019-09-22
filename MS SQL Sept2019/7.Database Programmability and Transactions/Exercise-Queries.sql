@@ -161,42 +161,154 @@ Problem 8. Delete Employees and Departments
  )
  AS
    ALTER TABLE Departments
-   ALTER COLUMN ManagerID INT --TODO
-   
+   ALTER COLUMN ManagerID INT
+
+   DELETE FROM EmployeesProjects
+   WHERE EmployeeID IN (SELECT EmployeeID FROM Employees WHERE DepartmentID = @departmentId)
+
+   UPDATE Departments
+   SET ManagerID = NULL
+   WHERE ManagerID IN (Select EmployeeID FROM Employees WHERE DepartmentID = @departmentId) 
+
+   UPDATE Employees
+   SET ManagerID = NULL
+   WHERE DepartmentID = @departmentId
+
+   DELETE FROM Employees
+   WHERE DepartmentID = @departmentId
+
+   DELETE FROM Departments 
+   WHERE DepartmentID = @departmentId
+
+   SELECT Count(*)
+   FROM Employees
+   WHERE DepartmentID = @departmentId
 GO
 
 EXECUTE usp_DeleteEmployeesFromDepartment 1
 GO
+--TODO Restore Database
 
 /******************************
-Problem 9. 
+Problem 9. Queries for Bank Database
 *******************************/
+USE Bank
+GO
+CREATE PROCEDURE usp_GetHoldersFullName
+AS
+  SELECT
+         FirstName + ' ' + LastName AS FullName
+FROM AccountHolders
+GO
 
+EXECUTE usp_GetHoldersFullName
+GO
 
+/******************************************
+Problem 10. People with Balance Higher Than
+*******************************************/
 
-/******************************
-Problem 10. 
-*******************************/
+CREATE PROCEDURE usp_GetHoldersWithBalanceHigherThan
+(
+   @balanceLowerLimit DECIMAL (18,4)
+)
+AS
+  SELECT filtered.FirstName, filtered.LastName
+  FROM
+  (
+      SELECT
+             ah.Id
+           , ah.FirstName
+		   , ah.LastName
+      FROM AccountHolders AS ah
+      JOIN Accounts AS a ON ah.Id = a.AccountHolderId
+      GROUP BY ah.Id, ah.FirstName, ah.LastName
+      HAVING SUM(a.Balance) > @balanceLowerLimit
+  ) AS filtered
+ORDER BY filtered.FirstName, filtered.LastName
+GO
 
+EXECUTE usp_GetHoldersWithBalanceHigherThan 50000
+GO
 
+/********************************
+Problem 11. Future Value Function
+*********************************/
+USE Bank
+GO
+CREATE FUNCTION ufn_CalculateFutureValue
+(
+     @sum DECIMAL (18,4)
+   , @yearlyInterestRate FLOAT
+   , @numberOfyears INT
+)
+RETURNS DECIMAL (18, 4)
+BEGIN
+     RETURN @sum *POWER((1 + @yearlyInterestRate), @numberOfyears)
+END
+GO
 
-/******************************
-Problem 11. 
-*******************************/
+SELECT dbo.ufn_CalculateFutureValue (10000, 0.035, 20)
+GO
 
+/*******************************
+Problem 12. Calculating Interest
+********************************/
 
+CREATE PROCEDURE usp_CalculateFutureValueForAccount
+(
+     @accountId INT
+   , @yearlyInterestRate FLOAT
+)
+AS
+  SELECT
+         a.Id AS [Account Id]
+       , ah.FirstName AS [First Name]
+	   , ah.LastName AS [Last Name]
+	   , a.Balance AS [Current Balance]
+	   , dbo.ufn_CalculateFutureValue(a.Balance, @yearlyInterestRate, 5)
+FROM Accounts AS a
+JOIN AccountHolders AS ah ON ah.Id = a.AccountHolderId
+WHERE a.Id = @accountId
+GO
 
-/******************************
-Problem 12. 
-*******************************/
+EXECUTE usp_CalculateFutureValueForAccount 1, 0.1
+GO
 
+/*******************************************************
+Problem 13. Scalar Function: Cash in User Games Odd Rows
+********************************************************/
 
+CREATE FUNCTION ufn_CashInUsersGames
+(
+     @gameName VARCHAR(MAX)
+)
+RETURNS TABLE
+RETURN
+(
+    SELECT      
+         SUM(result.Cash) AS SumCash
+    FROM          
+    (
+        SELECT  
+             g.[Name]
+           , ug.Cash
+           , ROW_NUMBER() OVER(
+             ORDER BY 
+             Cash DESC) AS RowNumber
+        FROM  
+             Games AS g
+             JOIN UsersGames AS ug ON g.Id = ug.GameId
+        WHERE g.[Name] = @gameName
+    ) AS result
+    WHERE result.RowNumber % 2 = 1
+);
+GO
 
-/******************************
-Problem 13. 
-*******************************/
-
-
+SELECT 
+     *
+FROM 
+     dbo.ufn_CashInUsersGames('Love in a mist');
 
 /******************************
 Problem 14. 
