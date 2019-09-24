@@ -377,7 +377,6 @@ GO
 /************************
 Problem 16. Deposit Money
 *************************/
-
 CREATE PROCEDURE usp_DepositMmoney
 (
      @accountId      INT
@@ -484,18 +483,253 @@ EXECUTE usp_TransferMoney 1, 2, 100
 GO
 
 /******************************
-Problem 19. 
+Problem 19. Trigger (Diablo DB)
 *******************************/
+--19.1
+CREATE TRIGGER tr_RestrictItemLevel ON UserGameItems INSTEAD OF INSERT
+AS
+  DECLARE @itemId INT = (SELECT ItemId FROM inserted)
+  DECLARE @userGameId INT = (SELECT UserGameId FROM inserted)
 
+  DECLARE @itemLevel INT = (SELECT MinLevel FROM Items WHERE Id = @itemId)
+  DECLARE @userGameLevel INT = (SELECT [Level] FROM UsersGames WHERE Id = @userGameId)
 
+  IF(@userGameLevel >= @itemLevel)
+  BEGIN
+       INSERT INTO UserGameItems (ItemId, UserGameId)
+	   VALUES (@itemId, @userGameId)
+  END
+GO
 
-/******************************
-Problem 20. 
-*******************************/
+--19.2
+SELECT *
+  FROM Users AS u
+  JOIN UsersGames As ug ON ug.UserId = u.Id
+  JOIN Games AS g ON g.Id = ug.GameId
+  WHERE g.[Name] = 'Bali' AND u.Username IN ('baleremuda', 'loosenoise', 'inguinalself', 'buildingdeltoid', 'monoxidecos')
 
+UPDATE UsersGames
+SET Cash += 50000
+WHERE GameId = (SELECT Id FROM Games WHERE [Name] = 'Bali') AND
+      UserId IN (SELECT Id FROM Users WHERE Username IN ('baleremuda', 'loosenoise', 'inguinalself', 'buildingdeltoid', 'monoxidecos'))
 
+--19.3
+GO
+CREATE PROCEDURE usp_BuyItems
+(
+      @userId INT
+	, @itemId INT
+	, @gameId INT
+)
+AS
+  BEGIN TRANSACTION
+      DECLARE @user INT = (SELECT Id FROM Users WHERE Id = @userId)
+      DECLARE @item INT = (SELECT Id FROM Items WHERE Id = @itemId)
+      
+      IF (@user IS NULL OR @item IS NULL)
+        BEGIN
+		     ROLLBACK
+             RAISERROR ('Invalid user or item id', 16, 1)
+		     RETURN
+		END
+      
+      DECLARE @userCash DECIMAL (15, 2) = 
+	    (SELECT Cash FROM UsersGames WHERE UserId  = @userId AND GameId = @gameId)
+      DECLARE @itemPrice DECIMAL (15, 2) = 
+	    (SELECT Price FROM items WHERE Id = @itemId)
+      
+	  IF(@userCash - @itemPrice < 0)
+	  BEGIN
+		   ROLLBACK
+           RAISERROR ('Insufficient funds!', 16, 2)
+		   RETURN
+	  END
 
-/******************************
-Problem 21. 
-*******************************/
+	  UPDATE UsersGames
+	  SET Cash -= @itemPrice
+	  WHERE UserId = @userId AND GameId = 212
 
+	  DECLARE @userGameId INT = 
+	    (SELECT Id FROM UsersGames WHERE UserId  = @userId AND GameId = @gameId)
+
+	  INSERT INTO UserGamesItems (ItemId, UserGameId)
+	  VALUES (@itemId, @userGameId)
+
+  COMMIT
+GO
+
+DECLARE @itemIdGroup INT = 251;
+WHILE(@itemIdGroup <= 299)
+BEGIN
+    EXECUTE usp_BuyItems 22, @itemIdGroup, 212
+    EXECUTE usp_BuyItems 37, @itemIdGroup, 212
+    EXECUTE usp_BuyItems 52, @itemIdGroup, 212
+    EXECUTE usp_BuyItems 61, @itemIdGroup, 212
+	SET @itemIdGroup +=1;
+END
+
+DECLARE @itemIdGroup2 INT = 501;
+WHILE(@itemIdGroup2 <= 539)
+BEGIN
+    EXECUTE usp_BuyItems 22, @itemIdGroup2, 212
+    EXECUTE usp_BuyItems 37, @itemIdGroup2, 212
+    EXECUTE usp_BuyItems 52, @itemIdGroup2, 212
+    EXECUTE usp_BuyItems 61, @itemIdGroup2, 212
+	SET @itemIdGroup2 +=1;
+END
+GO
+
+--19.4
+--TODO
+SELECT u.Username, g.[Name], ug.Cash, i.[Name] AS [Item Name]
+  FROM Users AS u
+  JOIN UsersGames AS ug ON ug.UserId = u.Id
+  JOIN Games AS g ON g.Id = ug.GameId
+  JOIN UserGameItems AS ugi ON ugi.UserGameId = ug.Id
+  JOIN Item AS i ON i.Id = ugi.ItemId
+  WHERE g.[Name] = 'Bali'
+  ORDER BY u.Username, i.[Name]
+GO
+/****************************
+Problem 20.* Massive Shopping
+*****************************/
+-- Items with Level 11 & 12 & 19-21
+
+SELECT *
+  FROM Users AS u 
+  JOIN UsersGames AS ug ON ug.UserId = u.Id
+  JOIN Games AS g ON g.Id = ug.GameId
+  WHERE u.Username = 'Stamat' AND g.[Name] = 'Safflower'
+GO
+
+DECLARE @userGameId INT = (SELECT Id from UsersGames WHERE UserId = 9 AND GameId = 87)
+
+DECLARE @stamatCash DECIMAL (10, 2) = (SELECT Cash from UsersGames WHERE Id = @userGameId)
+DECLARE @itemsPrice DECIMAL (10, 2) = (SELECT SUM(Price) AS TotalPrice FROM Items WHERE MinLevel BETWEEN 11 AND 12)
+
+  IF(@stamatCash >= @itemsPrice)
+  BEGIN
+       BEGIN TRANSACTION
+	       UPDATE  Usersgames
+	       SET Cash -= @itemsPrice
+	       WHERE Id = @userGameId
+	       
+	       INSERT INTO UserGameItems (ItemId, UserGameId)
+	       SELECT Id, @userGameId FROM Items
+	       WHERE MinLevel BETWEEN 11 AND 12
+	   COMMIT
+  END
+
+SET @stamatCash = (SELECT Cash from UsersGames WHERE Id = @userGameId)
+SET @itemsPrice = (SELECT SUM(Price) AS TotalPrice FROM Items WHERE MinLevel BETWEEN 19 AND 21)
+
+IF(@stamatCash >= @itemsPrice)
+  BEGIN
+       BEGIN TRANSACTION
+	   UPDATE  Usersgames
+	   SET Cash -= @itemsPrice
+	   WHERE Id = @userGameId
+
+	   INSERT INTO UserGameItems (ItemId, UserGameId)
+	   SELECT Id, @userGameId FROM Items
+	   WHERE MinLevel BETWEEN 11 AND 12
+	   COMMIT
+  END
+
+SELECT  
+     i.[Name] AS [Item Name]
+FROM  
+     Users AS u
+     JOIN UsersGames AS ug ON ug.UserId = u.Id
+     JOIN Games AS g ON g.Id = ug.GameId
+     JOIN UserGameItems AS ugi ON ugi.UserGameId = ug.Id
+     JOIN Items AS i ON i.Id = ugi.ItemId
+WHERE u.Username = 'Stamat'
+      AND g.[Name] = 'Safflower'
+ORDER BY 
+     i.[Name];
+GO
+
+/****************************************
+Problem 21. Employees with Three Projects
+*****************************************/
+CREATE PROCEDURE usp_AssignProject
+(
+    @employeeId INT
+	, @projectID INT
+)
+AS
+
+BEGIN TRANSACTION;
+
+    DECLARE @employee INT=
+    (
+        SELECT  
+             EmployeeID
+        FROM  
+             Employees
+        WHERE EmployeeID = @employeeId
+    );
+    
+    DECLARE @project INT=
+    (
+        SELECT  
+             ProjectID
+        FROM  
+             Projects
+        WHERE ProjectID = @projectId
+    );
+    
+    DECLARE @projectsCount INT=
+    (
+        SELECT  
+             COUNT(*)
+        FROM  
+             EmployeesProjects
+        WHERE EmployeeID = @employeeId
+    );
+    
+    IF(@employee IS NULL
+       OR @project IS NULL)
+        BEGIN
+            ROLLBACK;
+            RAISERROR('Invalid Employee ID or Project ID.', 16, 1);
+            RETURN;
+    END;
+    
+    IF(@projectsCount >= 3)
+        BEGIN
+            ROLLBACK;
+            RAISERROR('The employee has too many projects!', 16, 2);
+            RETURN;
+    END;
+    
+    INSERT INTO EmployeesProjects
+    (
+         EmployeeID
+       , ProjectID
+    )
+    VALUES (@employeeId, @projectID);
+COMMIT;
+GO
+
+/***************************
+Problem 22. Delete Employees
+****************************/
+
+CREATE TABLE Deleted_Employees
+(
+    EmployeeId INT PRIMARY KEY 
+	, FirstName VARCHAR(50)
+	, MiddleName VARCHAR (50)
+	, LastName VARCHAR (50)
+	, JobTitle VARCHAR (50)
+	, DepartmentId INT
+	, Salary DECIMAL (15, 2)
+)
+GO
+
+CREATE TRIGGER tr_DeletedEmployees ON Employees FOR DELETE
+AS
+INSERT INTO Deleted_Employees (FirstName, MiddleName, LastName, JobTitle, DepartmentId, Salary)
+SELECT FirstName, MiddleName, LastName, JobTitle, DepartmentId, Salary FROM deleted
