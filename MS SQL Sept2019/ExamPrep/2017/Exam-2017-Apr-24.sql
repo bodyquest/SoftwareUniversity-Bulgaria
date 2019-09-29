@@ -222,7 +222,6 @@ ORDER BY MechanicId
 /***********************
  Problem 12. 2017-Parts Cost
 ************************/
--- TODO
 SELECT ISNULL (SUM(p.Price * op.Quantity), 0) AS [Parts Total] 
   FROM Parts AS p
   JOIN OrderParts AS op ON p.PartId = op.PartId
@@ -354,31 +353,87 @@ BEGIN
 	     SELECT TOP 1 OrderId FROM Orders WHERE JobId = @jobId AND IssueDate IS NULL
     )
 
-	IF((SELECT JobId FROM Jobs WHERE JobId = @jobId AND [Status] = 'Finished') IS NOT NULL)
-	BEGIN
-	     ;THROW 50011, 'This job isnot active', 1
-	END
-
 	IF(@quantity <= 0)
-	BEGIN
-	     ;THROW 50012, 'Part quantity must be more that zero!', 1
-	END
+	    BEGIN
+	         ;THROW 50012, 'Part quantity must be more that zero!', 1
+	    END
+
+	IF((SELECT JobId FROM Jobs WHERE JobId = @jobId AND [Status] = 'Finished') IS NOT NULL)
+	    BEGIN
+	         ;THROW 50011, 'This job isnot active', 1
+	    END
 
 	IF((SELECT JobId FROm Jobs WHERE JobId = @jobId) IS NULL)
-	BEGIN
-	     ;THROW 50013, 'Job not found!', 1
-	END
+	    BEGIN
+	         ;THROW 50013, 'Job not found!', 1
+	    END
 
 	IF(@partId IS NULL)
-	BEGIN
-	     ;THROW 50014, 'Part not found!', 1
-	END
+	    BEGIN
+	         ;THROW 50014, 'Part not found!', 1
+	    END
 
 	IF(@orderId IS NULL)
-	BEGIN
-	     INSERT INTO Orders (JobId, IssueDate) VALUES (@jobId, NULL)
+	    BEGIN
+	         INSERT INTO Orders (JobId, IssueDate) VALUES (@jobId, NULL)
+	    
+	    	 DECLARE @id INT = (SELECT Top 1 OrderId FROM Orders WHERE JobId  = @jobId)
+	    
+	    	 INSERT INTO OrderParts (OrderId, PartId, Quantity) VALUES (@id,  @partId, @quantity)
+	    END
 
-
-		 INSERT INT OrderParts (OrderId, PartId, Quantity) VALUES ()
-	END
+	ELSE
+	    BEGIN
+	         IF((SELECT PartId FROM OrderParts WHERE OrderId = @orderId AND PartId = @partId) IS NOT NULL)
+	    	 BEGIN
+	    	      UPDATE OrderParts
+	    		  SET Quantity += @quantity
+	    		  WHERE OrderId = @orderId AND PartId = @partId
+	    	 END
+	    	 ELSE
+	    	 BEGIN
+	    	      INSERT INTO OrderParts (OrderId, PartId, Quantity) VALUES
+	    		  (@orderId, @partId, @quantity)
+	    	 END
+	    END
 END
+GO
+
+/***************************
+ Problem 19. Detect Delivery
+****************************/
+CREATE TRIGGER tr_UpdateQty ON Orders FOR UPDATE
+AS
+  UPDATE Parts
+  SET StockQty += 1
+  FROM Parts AS p
+  JOIN OrderParts AS op ON op.PartId = p.PartId
+  JOIN Orders AS o ON op.OrderId = o.OrderId
+  JOIN inserted AS i ON o.OrderId = i.OrderId
+  JOIN deleted AS d ON d.OrderId = i.OrderId
+GO
+/******************************
+ Problem 20. Vendor Preferences
+*******************************/
+
+WITH CTE_Parts (MechanicId, VendorId, TotalParts)
+AS
+(
+SELECT m.MechanicId, v.VendorId, SUM(op.Quantity) AS TotalParts
+FROM Mechanics AS m
+  JOIN Jobs AS j ON m.MechanicId = j.MechanicId
+  JOIN Orders AS o ON j.JobId = o.JobId
+  JOIN OrderParts AS op ON o.OrderId = op.OrderId
+  JOIN Parts AS p ON op.PartId = p.PartId
+  JOIN Vendors AS v ON p.VendorId = v.VendorId
+GROUP BY m.MechanicId, v.VendorId)
+
+SELECT 
+        CONCAT(m.FirstName, ' ', m.LastName) AS Mechanic
+	  , v.[Name] AS Vendor
+	  , cp.TotalParts AS Parts
+	  , CAST(cp.TotalParts*100 / (SELECT SUM(TotalParts) FROM CTE_Parts WHERE MechanicId = m.MechanicId) AS VARCHAR) + '%' AS Preference
+  FROM CTE_Parts AS cp
+  JOIN Mechanics AS m ON m.MechanicId = cp.MechanicId
+  JOIN Vendors AS v ON cp.VendorId = v.VendorId
+  ORDER BY [Mechanic], [TotalParts] DESC, v.[Name]
