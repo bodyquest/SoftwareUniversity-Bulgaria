@@ -174,3 +174,219 @@ ORDER BY v.Mileage, m.Seats DESC, m.Id
 /***************************
  Problem 9. Offices per Town
 ****************************/
+SELECT 
+      t.[Name] AS TownName
+	, COUNT (*) AS OfficesNumber
+  FROM Towns AS t
+  JOIN Offices AS o ON t.Id = o.TownId
+GROUP BY t.[Name], o.TownId
+ORDER BY OfficesNumber DESC, TownName
+
+/******************************
+ Problem 10. Buyers Best Choice
+*******************************/
+SELECT Manufacturer, Model, SUM (CountOfOrdersById) AS TimesOrdered
+FROM
+(SELECT 
+       m.Manufacturer
+	 , m.Model
+	 , COUNT(v.Id) AS CountOfOrdersById
+   FROM Models AS m
+   LEFT JOIN Vehicles AS v ON m.Id = v.ModelId
+   RIGHT JOIN Orders AS o ON v.Id = o.VehicleId
+   GROUP BY m.Model, m.Manufacturer, v.Id
+) AS H1
+GROUP BY Manufacturer, Model 
+ORDER BY TimesOrdered DESC, Manufacturer DESC, Model
+
+/************************
+ Problem 11. Kinda Person
+*************************/
+SELECT Names, Class
+FROM (
+      SELECT 
+      CONCAT(c.FirstName, ' ', c.LastName) AS [Names]
+    , m.Class AS Class
+	, RANK () OVER (PARTITION BY CONCAT(c.FirstName, ' ', c.LastName) ORDER BY COUNT(m.Class) DESC) AS [Rank]
+  FROM Orders AS o
+  JOIN Clients AS c ON c.Id = o.ClientId
+  JOIN Vehicles AS v ON v.Id = o.VehicleId
+  JOIN Models As m ON m.Id = v.ModelId
+GROUP BY CONCAT(c.FirstName, ' ', c.LastName), m.Class
+) AS H1
+WHERE [Rank] = 1
+ORDER BY [Names], Class
+
+/******************************
+ Problem 12. Age Groups Revenue
+*******************************/
+SELECT AgeGroup =
+  CASE
+      WHEN YEAR (c.BirthDate) BETWEEN 1970 AND 1979 THEN '70''s'
+      WHEN YEAR (c.BirthDate) BETWEEN 1980 AND 1989 THEN '80''s'
+      WHEN YEAR (c.BirthDate) BETWEEN 1990 AND 1999 THEN '90''s'
+	  ELSE 'Others'
+  END
+  , SUM(o.Bill) AS Revenue
+  , AVG (o.TotalMileage) AS AverageMileage
+FROM Clients AS c
+JOIN Orders AS o ON o.ClientId = c.Id
+GROUP BY
+  CASE
+      WHEN YEAR (c.BirthDate) BETWEEN 1970 AND 1979 THEN '70''s'
+      WHEN YEAR (c.BirthDate) BETWEEN 1980 AND 1989 THEN '80''s'
+      WHEN YEAR (c.BirthDate) BETWEEN 1990 AND 1999 THEN '90''s'
+	  ELSE 'Others'
+  END
+ORDER BY AgeGroup
+
+/*******************************
+ Problem 13. Consumption in Mind
+********************************/
+SELECT Manufacturer, AverageConsumption
+FROM (SELECT TOP (7) 
+        m.Model
+	  , m.Manufacturer
+	  , AVG(m.Consumption) AS AverageConsumption
+	  , COUNT (m.Model) AS [Counter]
+  FROM Orders AS o
+  JOIN Vehicles AS v ON v.Id = o.VehicleId
+  JOIN Models AS m ON m.Id = v.ModelId
+GROUP BY m.Manufacturer, m.Model
+ORDER BY [Counter] DESC
+) AS H
+WHERE AverageConsumption BETWEEN 5 AND 15
+ORDER BY Manufacturer, AverageConsumption
+
+/***********************
+ Problem 14. Debt Hunter
+ ***********************/
+SELECT [Names], Emails, Bills, TownsName
+FROM (
+    SELECT
+          ROW_NUMBER() OVER (PARTITION BY t.[name] ORDER BY o.Bill DESC) AS     OrderByHighestBill
+        , CONCAT(c.FirstName, ' ', c.LastName) AS [Names]
+		, c.Id AS ClientId
+    	, c.Email AS Emails
+		, o.Bill AS Bills
+		, t.[Name] AS TownsName
+    FROM Clients AS c
+    JOIN Orders AS o ON c.Id = o.ClientId
+    JOIN Towns AS t ON o.TownId = t.Id
+    WHERE c.CardValidity < o.CollectionDate AND o.Bill IS NOT NULL
+) AS H
+WHERE OrderByHighestBill IN (1, 2)
+ORDER BY TownsName, Bills, ClientId
+
+/***************************
+ Problem 15. Town Statistics
+ ***************************/
+ 
+ SELECT 
+       t.[Name] AS TownName
+     , SUM (H.M) * 100 / (ISNULL(SUM(H.M), 0) + ISNULL(SUM(H.F), 0)) AS MalePercent
+     , SUM (H.F) * 100 / (ISNULL(SUM(H.M), 0) + ISNULL(SUM(H.F), 0))AS FemalePercent
+ FROM (
+	  SELECT o.TownId
+	         , CASE WHEN (Gender = 'M') THEN COUNT(o.Id) ELSE NULL END AS M
+			 , CASE WHEN (Gender = 'F') THEN COUNT(o.Id) ELSE NULL END AS F
+	  FROM Orders AS o
+	  JOIN Clients AS c ON o.ClientId = c.Id
+	  GROUP BY c.Gender, o.TownId
+) AS H
+JOIN Towns AS t ON t.Id = H.TownId
+GROUP BY t.[Name]
+GO
+/***************************
+ Problem 16. Home Sweet Home
+ ***************************/
+WITH cte_Ranks (ReturnOfficeId, OfficeId, Id, Manufacturer, Model)
+AS
+(
+   SELECT 
+		  RankedByDateDesc.ReturnOfficeId	  
+		  , RankedByDateDesc.OfficeId	  
+		  , RankedByDateDesc.Id	  
+		  , RankedByDateDesc.Manufacturer	  
+		  , RankedByDateDesc.Model
+   FROM
+   (
+	   SELECT 
+			DENSE_RANK() OVER (PARTITION BY v.Id ORDER BY o.CollectionDate DESC)   
+			AS LatestRentCarsRank
+		  , o.ReturnOfficeId
+ 		 , v.OfficeId	  , v.Id
+ 		 , m.Manufacturer
+ 		 , m.Model
+	   FROM Orders AS o
+	   RIGHT JOIN Vehicles As v ON o.VehicleId = v.Id
+	   JOIN Models AS m ON m.Id = v.ModelId
+   )   AS RankedByDateDesc
+   WHERE LatestRentCarsRank = 1
+)
+
+SELECT CONCAT (Manufacturer, ' - ', Model) AS Vehicle
+	 , [Location] = 
+	 CASE
+		 WHEN 
+		 (
+			SELECT COUNT(*)
+			FROM Orders AS o
+			WHERE o.VehicleId = cte_Ranks.Id
+		 ) = 0  -- TODO
+		 THEN 'home'
+		 WHEN
+		 (
+			cte_Ranks.ReturnOfficeId IS NULL
+		 )
+		 THEN 'on a rent'
+		 WHEN
+		 (
+			cte_Ranks.ReturnOfficeId != cte_Ranks.OfficeId
+		 )
+		 THEN(
+			SELECT CONCAT (t.[Name], ' - ', o.[Name])
+			FROM Towns AS t
+			JOIN Offices AS o ON t.Id = o.TownId
+			WHERE o.Id = cte_Ranks.ReturnOfficeId
+		 )
+	  END
+FROM cte_Ranks
+ORDER BY Vehicle, cte_Ranks.Id
+GO
+/************************
+ Problem 17. Find My Ride
+ ************************/
+
+ CREATE FUNCTION udf_CheckForVehicle
+(
+      @townName NVARCHAR (MAX)
+	, @seatsNumber INT
+)
+RETURNS NVARCHAR (50)
+BEGIN
+   DECLARE @result VARCHAR(100) =
+   (
+       SELECT TOP (1)
+   	      CONCAT(o.[Name], ' - ', m.Model)
+       FROM Vehicles AS v
+   	JOIN Offices AS o ON v.OfficeId = o.Id
+   	JOIN Towns AS t ON o.TownId = t.Id
+   	JOIN Models AS m ON v.ModelId = m.Id
+       WHERE m.Seats = @seatsNumber AND t.[Name] = @townName
+   	ORDER BY o.[Name]
+   )
+   
+   IF (@result IS NULL)
+   BEGIN
+        RETURN 'NO SUCH VEHICLE FOUND';
+   END
+   
+   RETURN @result;
+END
+GO
+
+/**************************
+ Problem 18. Move a Vehicle
+ **************************/
+
