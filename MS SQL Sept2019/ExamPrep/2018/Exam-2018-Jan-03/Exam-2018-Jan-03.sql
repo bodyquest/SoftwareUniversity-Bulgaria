@@ -390,3 +390,62 @@ GO
  Problem 18. Move a Vehicle
  **************************/
 
+CREATE PROCEDURE usp_MoveVehicle
+(
+     @vehicleId INT
+   , @officeId  INT
+)
+AS
+    BEGIN
+	  BEGIN TRANSACTION
+
+	  UPDATE Vehicles
+	  SET OfficeId = @officeId
+	  WHERE Id = @vehicleId
+
+	  DECLARE @countVehiclesById INT =
+	  (SELECT COUNT(v.Id) FROM Vehicles AS v WHERE v.OfficeId = @officeId)
+
+	  DECLARE @parkingPlaces INT = 
+	  (SELECT ParkingPlaces FROM Offices AS o WHERE o.Id = @officeId)
+
+	  IF(@countVehiclesById > @parkingPlaces)
+	  BEGIN
+		 ROLLBACK
+		 RAISERROR ('Not enough room in this office!', 16, 1)
+		 RETURN
+	  END
+
+	  COMMIT
+    END;
+GO
+
+EXEC usp_MoveVehicle 7, 32;
+SELECT OfficeId FROM Vehicles WHERE Id = 7
+GO
+
+/**************************
+ Problem 19. Move the Tally
+ **************************/
+
+CREATE TRIGGER tr_UMoveTheTally ON Orders FOR UPDATE
+AS
+BEGIN
+   DECLARE @newTotalMileage INT = 
+   (SELECT TotalMileage FROM inserted)
+
+   DECLARE @oldTotalMileage INT =
+   (SELECT TotalMileage FROM deleted)
+
+   DECLARE @vehicleId INT = 
+   (SELECT VehicleId FROM inserted)
+
+   IF (@oldTotalMileage IS NULL AND @vehicleId IS NOT NULL)
+   BEGIN
+        UPDATE Vehicles
+		SET Mileage += @newTotalMileage 
+		WHERE Id = @vehicleId
+   END
+END
+GO
+
