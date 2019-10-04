@@ -333,3 +333,15 @@ ADD CONSTRAINT FK_Agenda_Students FOREIGN KEY (StudentID) REFERENCES Students (S
 
 ALTER TABLE Agenda
 ADD CONSTRAINT FK_Agenda_SubjectID FOREIGN KEY (SubjectID) REFERENCES Subjects (SubjectID)
+
+/************************
+Problem 9.	Peaks In Rila
+*************************/
+USE Geography
+GO
+
+SELECT m.MountainRange, p.PeakName, p.Elevation
+FROM Mountains AS m
+JOIN Peaks AS p ON m.Id = p.MountainId
+WHERE m.MountainRange = 'Rila'
+ORDER BY p.Elevation DESC
