@@ -229,3 +229,107 @@ INSERT INTO Teachers VALUES
 	,( 'Ted', 105)
 	,( 'Mark', 101)
 	,( 'Greta', 101)
+
+/********************************
+Problem 5.	Online Store Database
+*********************************/
+USE Master
+CREATE DATABASE OnlineStore
+USE OnlineStore
+
+CREATE TABLE Cities
+(
+     CityID INT PRIMARY KEY IDENTITY
+   , [Name] VARCHAR(50) NOT NULL
+)
+
+CREATE TABLE Customers
+(
+     CustomerID INT PRIMARY KEY IDENTITY
+   , [Name] VARCHAR (50) NOT NULL
+   , Birthday DATE
+   , CityID INT FOREIGN KEY REFERENCES Cities (CityID) NOT NULL
+)
+
+CREATE TABLE Orders
+(
+     OrderID INT PRIMARY KEY IDENTITY
+   , CustomerID INT FOREIGN KEY REFERENCES Customers (CustomerID) NOT NULL
+)
+
+CREATE TABLE ItemTypes
+(
+     ItemTypeID INT PRIMARY KEY IDENTITY
+   , [Name] VARCHAR (50) NOT NULL
+)
+
+CREATE TABLE Items
+(
+     ItemID INT PRIMARY KEY IDENTITY
+   , [Name] VARCHAR (50) NOT NULL
+   , ItemTypeID INT FOREIGN KEY REFERENCES ItemTypes(ItemTypeID) NOT NULL
+)
+
+CREATE TABLE OrderItems
+(
+     OrderID INT NOT NULL
+   , ItemID INT NOT NULL
+)
+
+ALTER TABLE OrderItems
+ADD CONSTRAINT PK_OrderItems PRIMARY KEY(OrderID, ItemID);
+
+ALTER TABLE OrderItems
+ADD CONSTRAINT FK_OrderItems_Orders FOREIGN KEY (OrderID) REFERENCES Orders(OrderID)
+
+ALTER TABLE OrderItems
+ADD CONSTRAINT FK_OrderItems_Items FOREIGN KEY (ItemID) REFERENCES Items(ItemID)
+
+/********************************
+Problem 6.	Univeristy Database
+*********************************/
+CREATE DATABASE University
+USE University
+
+CREATE TABLE Majors
+(
+     MajorID INT PRIMARY KEY IDENTITY
+   , [Name] VARCHAR (20) NOT NULL
+)
+
+CREATE TABLE Students
+(
+     StudentID INT PRIMARY KEY IDENTITY
+   , StudentNumber INT NOT NULL
+   , StudentName VARCHAR (50) NOT NULL
+   , MajorID INT FOREIGN KEY REFERENCES Majors (MajorID) NOT NULL
+)
+
+CREATE TABLE Payments
+(
+     PaymentID INT PRIMARY KEY IDENTITY
+   , PaymentDate DATETIME NOT NULL
+   , PaymentAmount DECIMAL (10, 2) NOT NULL
+   , StudentID INT FOREIGN KEY REFERENCES Students (StudentID)
+)
+
+CREATE TABLE Subjects
+(
+     SubjectID INT PRIMARY KEY IDENTITY
+   , SubjectName VARCHAR (20) NOT NULL
+)
+
+CREATE TABLE Agenda
+(
+     StudentID INT NOT NULL
+   , SubjectID INT NOT NULL
+)
+
+ALTER TABLE Agenda
+ADD CONSTRAINT PK_Agenda PRIMARY KEY (StudentID, SubjectID)
+
+ALTER TABLE Agenda
+ADD CONSTRAINT FK_Agenda_Students FOREIGN KEY (StudentID) REFERENCES Students (StudentID)
+
+ALTER TABLE Agenda
+ADD CONSTRAINT FK_Agenda_SubjectID FOREIGN KEY (SubjectID) REFERENCES Subjects (SubjectID)
