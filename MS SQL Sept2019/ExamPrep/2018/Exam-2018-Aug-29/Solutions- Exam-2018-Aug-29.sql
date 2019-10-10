@@ -131,16 +131,13 @@ HAVING AVG (DATEDIFF(HOUR, s.CheckIn,s.CheckOut)) > 7
 ORDER BY result.[Work hours] DESC, result.Id
 
 --Problem 9.
-SELECT
-     o.Id AS [OrderId]
+SELECT TOP(1)
+     oi.OrderId AS [OrderId]
    , SUM (i.Price * oi.Quantity) AS [TotalPrice]
-FROM Orders AS o
-JOIN OrderItems AS oi ON o.Id = oi.OrderId
+FROM OrderItems AS oi
 JOIN Items AS i ON oi.ItemId = i.Id
-GROUP BY o.Id
-HAVING o.Id = 479
-ORDER BY o.Id DESC
-
+GROUP BY oi.OrderId
+ORDER BY [TotalPrice] DESC
 
 --Problem 10.
 
@@ -251,7 +248,39 @@ SELECT
    , SUM(i.Price * oi.Quantity) AS [TotalPrice]
 FROM Items AS i
 JOIN Categories AS c ON i.CategoryId = c.Id
-JOIN OrderItems AS oi ON i.Id = oi.ItemId
-JOIN Orders AS o ON oi.OrderId = o.Id
+LEFT JOIN OrderItems AS oi ON i.Id = oi.ItemId
 GROUP BY i.[Name], c.[Name]
 ORDER BY [TotalPrice] DESC, [Count] DESC
+
+GO
+/*********  PROGRAMMABILITY  ********/
+--18.Problem
+CREATE FUNCTION udf_GetPromotedProducts
+(@CurrentDate DATE, @StartDate DATE, @EndDate DATE, @Discount DECIMAL (10, 2), @FirstItemId INT, @SecondItemId INT, @ThirdItemId INT)
+RETURNS VARCHAR (MAX)
+BEGIN
+     DECLARE @firstItemName VARCHAR(20) = (SELECT [Name] FROM Items WHERE Id = @FirstItemId)
+     DECLARE @secondItemName VARCHAR(20) = (SELECT [Name] FROM Items WHERE Id = @SecondItemId)
+     DECLARE @thirdItemName VARCHAR(20) = (SELECT [Name] FROM Items WHERE Id = @ThirdItemId)
+     
+     IF(@firstItemName IS NULL OR @secondItemName IS NULL OR @thirdItemName IS NULL)
+     BEGIN
+	      RETURN 'One of the items does not exists!'
+     END
+     
+     IF(@CurrentDate NOT BETWEEN @StartDate AND @EndDate)
+     BEGIN
+	      RETURN 'The current date is not within the promotion dates!'
+     END
+     
+	 DECLARE @firstItemPrice DECIMAL (15, 2) = (SELECT Price FROm Items WHERE Id = @FirstItemId)
+	 DECLARE @secondItemPrice DECIMAL (15, 2) = (SELECT Price FROm Items WHERE Id = @SecondItemId)
+	 DECLARE @thirdItemPrice DECIMAL (15, 2) = (SELECT Price FROm Items WHERE Id = @ThirdItemId)
+
+	 SET @firstItemPrice = @firstItemPrice - (@firstItemPrice * (@Discount/100))
+	 SET @secondItemPrice = @secondItemPrice - (@secondItemPrice * (@Discount/100))
+	 SET @thirdItemPrice = @thirdItemPrice - (@thirdItemPrice * (@Discount/100))
+
+     RETURN CONCAT(@firstItemName, ' price: ', CAST(@firstItemPrice AS VARCHAR(10)), ' <-> ', @secondItemName, ' price: ', CAST(@secondItemPrice AS VARCHAR(10)), ' <-> ', @thirdItemName, ' price: ', CAST(@thirdItemPrice AS VARCHAR(10)))
+END
+GO
