@@ -140,7 +140,6 @@ GROUP BY oi.OrderId
 ORDER BY [TotalPrice] DESC
 
 --Problem 10.
-
 SELECT
      o.Id AS [OrderId]
    , MAX(i.Price)
@@ -252,6 +251,7 @@ LEFT JOIN OrderItems AS oi ON i.Id = oi.ItemId
 GROUP BY i.[Name], c.[Name]
 ORDER BY [TotalPrice] DESC, [Count] DESC
 
+
 GO
 /*********  PROGRAMMABILITY  ********/
 --18.Problem
@@ -283,4 +283,33 @@ BEGIN
 
      RETURN CONCAT(@firstItemName, ' price: ', CAST(@firstItemPrice AS VARCHAR(10)), ' <-> ', @secondItemName, ' price: ', CAST(@secondItemPrice AS VARCHAR(10)), ' <-> ', @thirdItemName, ' price: ', CAST(@thirdItemPrice AS VARCHAR(10)))
 END
+GO
+
+--19.Problem
+CREATE PROCEDURE usp_CancelOrder
+(@OrderId INT, @CancelDate DATETIME)
+AS
+  BEGIN
+       DECLARE @targetOrder INT = (SELECT Id FROM Orders WHERE Id = @OrderId)
+	   DECLARE @purchaseDate DATETIME = (SELECT [DateTime] FROM Orders WHERE Id = @OrderId)
+
+	   IF(@targetOrder IS NULL)
+	   BEGIN
+			RAISERROR ('The order does not exist!', 16, 1)
+			RETURN
+	   END
+
+	   IF(@CancelDate > DATEADD(DAY, 3, @purchaseDate))
+	   BEGIN
+	        RAISERROR ('You cannot cancel the order!', 16, 2)
+			RETURN
+	   END
+
+	   DELETE FROM OrderItems
+	   WHERE OrderId = @OrderId
+
+	   DELETE FROM Orders
+	   WHERE Id = @OrderId
+
+  END
 GO
