@@ -148,7 +148,6 @@ JOIN Luggages AS l ON t.LuggageId = l.Id
 JOIN LuggageTypes AS lt ON l.LuggageTypeId = lt.Id
 ORDER BY [Full Name], [Plane Name], f.Origin, f.Destination, [Luggage Type]
 
-
 --Problem #10
 SELECT
      pl.[Name]
@@ -158,7 +157,7 @@ FROM Planes AS pl
 LEFT JOIN Flights AS f ON pl.Id = f.PlaneId
 LEFT JOIN Tickets AS t ON f.Id = t.FlightId
 GROUP BY pl.[Name], pl.Seats
-ORDER BY [Passengers Count] DESC
+ORDER BY [Passengers Count] DESC, pl.[Name], pl.Seats
 
 
 --Problem #11
