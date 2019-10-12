@@ -313,3 +313,18 @@ AS
 
   END
 GO
+
+--20. Problem
+CREATE TABLE DeletedOrders
+(
+     OrderId INT NOT NULL
+   , ItemId INT NOT NULL
+   , ItemQuantity INT NOT NULL
+)
+GO
+
+CREATE TRIGGER tr_OnDeleteFromOrders ON OrderItems AFTER DELETE
+AS
+   INSERT INTO DeletedOrders (OrderId, ItemId, ItemQuantity)
+   SELECT OrderId, ItemId, Quantity FROM deleted
+  
