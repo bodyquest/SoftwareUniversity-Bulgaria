@@ -161,6 +161,68 @@ ORDER BY [Passengers Count] DESC, pl.[Name], pl.Seats
 
 
 --Problem #11
+GO
 
+CREATE FUNCTION udf_CalculateTickets
+(
+     @origin      VARCHAR(50)
+   , @destination VARCHAR(50)
+   , @peopleCount INT
+)
+RETURNS VARCHAR(50)
+AS
+     BEGIN
+
+         DECLARE @flightId INT=
+         (
+             SELECT TOP(1)
+                   Id
+             FROM  Flights
+             WHERE Origin = @origin
+                   AND Destination = @destination
+         );
+
+         IF(@peopleCount <= 0)
+             BEGIN
+                 RETURN 'Invalid people count!';
+             END;
+
+         IF(@flightId IS NULL)
+             BEGIN
+                 RETURN 'Invalid flight!';
+             END;
+
+         DECLARE @totalPrice DECIMAL(18, 2)=
+         (
+             SELECT  
+                   Price * @peopleCount AS Total
+              FROM Tickets
+             WHERE FlightId = @flightId
+         );
+
+         RETURN CONCAT('Total price ', @totalPrice);
+     END;
+GO
+
+SELECT dbo.udf_CalculateTickets('Kolyshley','Rancabolang', 33)
+SELECT dbo.udf_CalculateTickets('Kolyshley','Rancabolang', -1)
+GO
 
 --Problem #12
+
+CREATE OR ALTER PROCEDURE usp_CancelFlights
+AS
+  BEGIN
+       UPDATE Flights
+	   SET ArrivalTime = NULL, DepartureTime = NULL
+	   WHERE Id IN
+	   (
+	     SELECT
+	     Id
+	        FROM Flights
+	        WHERE DATEDIFF(SECOND, DepartureTime, ArrivalTime) > 0
+	   )
+  END
+GO
+
+EXECUTE usp_CancelFlights
