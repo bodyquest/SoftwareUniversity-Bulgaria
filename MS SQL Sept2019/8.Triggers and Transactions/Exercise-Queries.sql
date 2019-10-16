@@ -467,7 +467,7 @@ GO
 /**************************
 Problem 18. Money Transfer
 ***************************/
-CREATE PROCEDURE usp_DepositMoney 
+CREATE PROCEDURE usp_TransferMoney 
 (
       @SenderId INT
 	, @ReceiverId INT
@@ -475,8 +475,8 @@ CREATE PROCEDURE usp_DepositMoney
 )
 AS
   BEGIN TRANSACTION
-      EXECUTE usp_WithdrawMoney @SenderId, @Amount
-      EXECUTE usp_DepositMmoney @ReceiverId, @Amount
+      EXECUTE dbo.usp_WithdrawMoney @SenderId, @Amount
+      EXECUTE dbo.usp_DepositMmoney @ReceiverId, @Amount
   COMMIT
 GO
 
@@ -485,6 +485,31 @@ WHERE Id = 1 OR Id = 2
 EXECUTE usp_DepositMoney 1, 2, 100
 GO
 
+----
+CREATE PROCEDURE usp_TransferMoney(@SenderId INT, @ReceiverId INT, @Amount DECIMAL(15, 4))
+AS
+BEGIN
+	DECLARE @targetSender INT = (SELECT Id FROM [dbo].[Accounts] AS a WHERE a.[Id] = @SenderId)
+	DECLARE @targetReciver INT = (SELECT Id FROM [dbo].[Accounts] AS a WHERE a.[Id] = @ReceiverId)
+	
+	IF(@targetReciver IS NULL OR @targetSender IS NULL)
+	BEGIN
+		ROLLBACK
+		RAISERROR('Invalid Id Parameter', 16, 1)
+		RETURN
+	END
+	
+	IF(@Amount < 0)
+	BEGIN
+		ROLLBACK
+		RAISERROR('Invalid amount of money', 16, 2)
+		RETURN
+	END
+	
+	EXEC dbo.usp_WithdrawMoney @targetSender, @Amount
+	EXEC dbo.usp_DepositMoney @targetReciver, @Amount
+END
+GO
 /******************************
 Problem 19. Trigger (Diablo DB)
 *******************************/
@@ -722,7 +747,7 @@ Problem 22. Delete Employees
 
 CREATE TABLE Deleted_Employees
 (
-    EmployeeId INT PRIMARY KEY 
+      EmployeeId INT PRIMARY KEY 
 	, FirstName VARCHAR(50)
 	, MiddleName VARCHAR (50)
 	, LastName VARCHAR (50)
@@ -734,5 +759,7 @@ GO
 
 CREATE TRIGGER tr_DeletedEmployees ON Employees FOR DELETE
 AS
-INSERT INTO Deleted_Employees (FirstName, MiddleName, LastName, JobTitle, DepartmentId, Salary)
-SELECT FirstName, MiddleName, LastName, JobTitle, DepartmentId, Salary FROM deleted
+BEGIN
+    INSERT INTO Deleted_Employees (FirstName, MiddleName, LastName, JobTitle,     DepartmentId, Salary)
+    SELECT FirstName, MiddleName, LastName, JobTitle, DepartmentId, Salary FROM deleted
+END
