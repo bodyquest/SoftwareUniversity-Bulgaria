@@ -15,7 +15,7 @@ GO
 /********************************************
 Problem 2. Employees with Salary Above Number
 *********************************************/
-CREATE OR ALTER PROCEDURE usp_GetEmployeesSalaryAboveNumber
+CREATE PROCEDURE usp_GetEmployeesSalaryAboveNumber
 (
    @salaryAboveNum DECIMAL(18,4)
 )

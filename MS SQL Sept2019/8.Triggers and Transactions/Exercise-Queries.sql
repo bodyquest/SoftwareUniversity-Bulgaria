@@ -160,19 +160,20 @@ Problem 8. Delete Employees and Departments
    @departmentId INT
  )
  AS
+ BEGIN
    ALTER TABLE Departments
-   ALTER COLUMN ManagerID INT
+   ALTER COLUMN ManagerID INT -- changing it to Nullable
 
    DELETE FROM EmployeesProjects
    WHERE EmployeeID IN (SELECT EmployeeID FROM Employees WHERE DepartmentID = @departmentId)
 
    UPDATE Departments
    SET ManagerID = NULL
-   WHERE ManagerID IN (Select EmployeeID FROM Employees WHERE DepartmentID = @departmentId) 
+   WHERE DepartmentID = @departmentId
 
    UPDATE Employees
    SET ManagerID = NULL
-   WHERE DepartmentID = @departmentId
+   WHERE ManagerID IN (SELECT EmployeeID FROM Employees WHERE DepartmentID = @departmentId)
 
    DELETE FROM Employees
    WHERE DepartmentID = @departmentId
@@ -183,6 +184,7 @@ Problem 8. Delete Employees and Departments
    SELECT Count(*)
    FROM Employees
    WHERE DepartmentID = @departmentId
+END
 GO
 
 EXECUTE usp_DeleteEmployeesFromDepartment 1
@@ -344,6 +346,7 @@ FROM Accounts WHERE Id = 1
 
 SELECT *
 FROM Logs
+
 /******************************
 Problem 15. CREATE TABLE Emails
 *******************************/
@@ -362,14 +365,14 @@ AS
   DECLARE @oldSum DECIMAL (15, 2) = (SELECT TOP (1) OldSum FROM inserted)
   DECLARE @newSum DECIMAL (15, 2) = (SELECT TOP (1) NewSum FROM inserted)
 
-  INSERT INTO NotificationsEmails (Recipient, [Subject], Body) VALUES
+  INSERT INTO NotificationEmails (Recipient, [Subject], Body) VALUES
   (
 	  @accountId
 	  , 'Balance change for account: ' + CAST(@accountId AS VARCHAR (20))
 	  , 'On ' + CONVERT(VARCHAR (20), GETDATE(), 103)  + ' your balance was changed from ' + CAST(@oldSum AS VARCHAR(20)) + ' to ' + CAST(@newSum AS VARCHAR(20))
   )
 
-  UPDATE ccounts 
+  UPDATE Accounts 
   SET Balance += 100
   WHERE Id = 1
 GO
@@ -377,7 +380,7 @@ GO
 /************************
 Problem 16. Deposit Money
 *************************/
-CREATE PROCEDURE usp_DepositMmoney
+CREATE PROCEDURE usp_DepositMoney
 (
      @accountId      INT
    , @moneyAmount DECIMAL(15, 4)
@@ -408,7 +411,7 @@ AS
     COMMIT
 GO
 
-EXECUTE usp_DepositMmoney 1, 250
+EXECUTE usp_DepositMoney 1, 250
 SELECT * FROM Accounts WHERE Id = 1
 SELECT * FROM Logs
 SELECT * FROM NotificationEmails
@@ -464,7 +467,7 @@ GO
 /**************************
 Problem 18. Money Transfer
 ***************************/
-CREATE PROCEDURE usp_TransferMoney 
+CREATE PROCEDURE usp_DepositMoney 
 (
       @SenderId INT
 	, @ReceiverId INT
@@ -479,7 +482,7 @@ GO
 
 SELECT Id AS [AccountId], AccountHolderId, Balance FROM Accounts
 WHERE Id = 1 OR Id = 2
-EXECUTE usp_TransferMoney 1, 2, 100
+EXECUTE usp_DepositMoney 1, 2, 100
 GO
 
 /******************************
