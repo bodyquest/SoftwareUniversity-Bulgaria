@@ -162,3 +162,50 @@ ORDER BY SpaceportName DESC
 
 
 --Problem 13
+SELECT 
+     p.[Name] AS PlanetName
+   , COUNT(j.Id) AS JourneysCount
+FROM Planets as p
+JOIN Spaceports as sp ON p.Id = sp.PlanetId
+JOIN Journeys as j ON sp.Id = j.DestinationSpaceportId
+GROUP BY p.[Name]
+ORDER BY JourneysCount DESC, p.[Name]
+
+--Problem 14
+SELECT TOP(1)
+     j.Id
+   , p.[Name] AS PlanetName
+   , sp.[Name] AS SpaceportName
+   , j.Purpose AS JourneyPurpose
+FROM Planets as p
+JOIN Spaceports as sp ON p.Id = sp.PlanetId
+JOIN Journeys as j ON sp.Id = j.DestinationSpaceportId
+ORDER BY DATEDIFF(DAY, j.JourneyStart, j.JourneyEnd)
+
+--Problem 15
+SELECT TOP(1)
+     tc.JourneyId
+   , tc.JobDuringJourney AS JobName
+FROM TravelCards AS tc
+WHERE tc.JourneyId =
+    (
+	    SELECT TOP(1)
+           j.Id
+        FROM Journeys AS j
+        ORDER BY DATEDIFF(MINUTE, j.JourneyStart, j.JourneyEnd) DESC
+    )
+GROUP BY tc.JobDuringJourney, tc.JourneyId
+ORDER BY COUNT (tc.JobDuringJourney)
+
+--Problem 16
+CONCAT (c.FirstName, ' ', c.LastName) AS FullName
+SELECT
+   *
+FROM (SELECT 
+     tc.JobDuringJourney
+   , tc.ColonistId
+   , DENSE_RANK () OVER (PARTITION BY tc.JobDuringJourney ORDER BY c.Birthdate) AS JobRank
+FROM TravelCards AS tc
+JOIN Colonists AS c ON tc.ColonistId = c.Id
+GROUP BY tc.JobDuringJourney, tc.ColonistId, c.Birthdate
+)
