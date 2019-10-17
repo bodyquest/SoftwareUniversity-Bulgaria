@@ -150,7 +150,7 @@ JOIN Colonists AS c ON tc.ColonistId = c.Id
 WHERE DATEDIFF(YEAR, c.BirthDate, '01/01/2019') < 30
 ORDER BY s.[Name]
 
---Problem 12
+--12. Select All Educational 
 SELECT 
      p.[Name] AS PlanetName
    , sp.[Name] AS SpaceportName
@@ -161,7 +161,7 @@ WHERE j.Purpose = 'Educational'
 ORDER BY SpaceportName DESC
 
 
---Problem 13
+--13. Planets And Journeys 
 SELECT 
      p.[Name] AS PlanetName
    , COUNT(j.Id) AS JourneysCount
@@ -171,7 +171,7 @@ JOIN Journeys as j ON sp.Id = j.DestinationSpaceportId
 GROUP BY p.[Name]
 ORDER BY JourneysCount DESC, p.[Name]
 
---Problem 14
+--14. Extract The Shortest 
 SELECT TOP(1)
      j.Id
    , p.[Name] AS PlanetName
@@ -182,7 +182,7 @@ JOIN Spaceports as sp ON p.Id = sp.PlanetId
 JOIN Journeys as j ON sp.Id = j.DestinationSpaceportId
 ORDER BY DATEDIFF(DAY, j.JourneyStart, j.JourneyEnd)
 
---Problem 15
+--15. Select The Less Popular Job 
 SELECT TOP(1)
      tc.JourneyId
    , tc.JobDuringJourney AS JobName
@@ -197,10 +197,13 @@ WHERE tc.JourneyId =
 GROUP BY tc.JobDuringJourney, tc.JourneyId
 ORDER BY COUNT (tc.JobDuringJourney)
 
---Problem 16
-CONCAT (c.FirstName, ' ', c.LastName) AS FullName
+
+--16. Select Special Colonists
+
 SELECT
-   *
+     Ranked.JobDuringJourney
+   , CONCAT (c.FirstName, ' ', c.LastName) AS FullName
+   , Ranked.JobRank
 FROM (SELECT 
      tc.JobDuringJourney
    , tc.ColonistId
@@ -208,4 +211,60 @@ FROM (SELECT
 FROM TravelCards AS tc
 JOIN Colonists AS c ON tc.ColonistId = c.Id
 GROUP BY tc.JobDuringJourney, tc.ColonistId, c.Birthdate
-)
+) AS Ranked
+JOIN Colonists AS c ON Ranked.ColonistId = c.Id
+WHERE Ranked.JobRank = 2
+ORDER BY Ranked.JobDuringJourney
+
+ --17. Planets and Spaceports
+
+SELECT 
+     p.[Name]
+   , COUNT(sp.Id) AS [Count]
+FROM Planets AS p
+JOIN Spaceports AS sp ON p.Id = sp.PlanetId
+GROUP BY p.[Name]
+ORDER BY COUNT(sp.Id) DESC, p.[Name]
+
+--18. Get Colonists Count
+GO
+
+CREATE FUNCTION udf_GetColonistsCount (@PlanetName VARCHAR (30))
+RETURNS INT
+AS
+  BEGIN
+	   DECLARE @planet VARCHAR(30) = (SELECT [Name] FROM Planets WHERE [Name] = @PlanetName)
+
+	   RETURN (SELECT
+		 COUNT(c.Id)
+	   FROM Planets AS p
+	   JOIN Spaceports AS sp ON p.Id = sp.PlanetId
+	   JOIN Journeys AS j ON sp.Id = j.DestinationSpaceportId
+	   JOIN TravelCards AS tc ON j.Id = tc.JourneyId
+	   JOIN Colonists AS c ON tc.ColonistId = c.Id
+	   WHERE p.[Name] = @PlanetName)
+  END
+
+--19. Change Journey Purpose
+GO
+CREATE PROCEDURE usp_ChangeJourneyPurpose(@JourneyId INT, @NewPurpose VARCHAR(11))
+AS
+  BEGIN
+	   DECLARE @targetJourneyId INT = (SELECT Id FROM Journeys WHERE Id = @JourneyId)
+	   DECLARE @journeyPurpose VARCHAR(11) = (SELECT Purpose FROM Journeys WHERE Id = @targetJourneyId)
+
+	   IF(@targetJourneyId IS NULL)
+		 BEGIN
+			  RAISERROR ('The journey does not exist!', 16, 1)
+		 END
+	   
+	   IF(@journeyPurpose = @NewPurpose)
+	   BEGIN
+			RAISERROR ('You cannot change the purpose!', 16, 2)
+	   END
+
+	   UPDATE Journeys
+	   SET Purpose = @NewPurpose
+	   WHERE Id = @JourneyId
+  END
+GO
