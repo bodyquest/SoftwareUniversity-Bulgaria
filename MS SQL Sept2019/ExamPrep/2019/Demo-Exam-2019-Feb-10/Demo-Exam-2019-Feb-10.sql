@@ -268,3 +268,23 @@ AS
 	   WHERE Id = @JourneyId
   END
 GO
+
+--20. Deleted Journeys
+CREATE TABLE DeletedJourneys
+(
+     Id INT
+   , JourneyStart DATETIME
+   , JourneyEnd DATETIME
+   , Purpose VARCHAR (11)
+   , DestinationPortId INT
+   , SpaceshipId INT
+)
+GO
+
+CREATE TRIGGER tr_DeletedJourneys
+   ON Journeys
+   AFTER DELETE
+AS
+  INSERT INTO DeletedJourneys (Id, JourneyStart, JourneyEnd, Purpose, DestinationPortId, SpaceshipId)
+  SELECT Id,JourneyStart,JourneyEnd, Purpose, DestinationSpaceportId, SpaceshipId FROM deleted
+GO;
