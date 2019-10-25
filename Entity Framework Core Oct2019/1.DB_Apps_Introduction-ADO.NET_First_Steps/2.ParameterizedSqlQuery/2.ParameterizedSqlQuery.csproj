@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <RootNamespace>_2.ParameterizedSqlQuery</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\1.DB_Apps_Introduction-ADO.NET_First_Steps\1.DB_Apps_Introduction-ADO.NET_First_Steps.csproj" />
+  </ItemGroup>
+
+</Project>
