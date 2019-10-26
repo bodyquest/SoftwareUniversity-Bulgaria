@@ -5,7 +5,13 @@ VisualStudioVersion = 16.0.29326.143
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "1.DB_Apps_Introduction-ADO.NET_First_Steps", "1.DB_Apps_Introduction-ADO.NET_First_Steps\1.DB_Apps_Introduction-ADO.NET_First_Steps.csproj", "{992E86E7-8C30-43D9-A5BF-6BD59D40EF7A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2.ParameterizedSqlQuery", "2.ParameterizedSqlQuery\2.ParameterizedSqlQuery.csproj", "{63E72557-28A3-4678-8E12-9E8E57D3F3DF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "2.ParameterizedSqlQuery", "2.ParameterizedSqlQuery\2.ParameterizedSqlQuery.csproj", "{63E72557-28A3-4678-8E12-9E8E57D3F3DF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdoDotNetExercises_1_InitialSetup", "AdoDotNetExercises\AdoDotNetExercises_1_InitialSetup.csproj", "{74ED9AAA-6B7F-4547-9E8E-E83BC9C40C6D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdoDotNetExercises_2_VillainNames", "AdoDotNetExercises_2_VillainNames\AdoDotNetExercises_2_VillainNames.csproj", "{96914541-04E6-4E41-B2EF-FE8D8ADA3AC7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdoDotNetExercises_3_MinionNames", "AdoDotNetExercises_3_MinionNames\AdoDotNetExercises_3_MinionNames.csproj", "{237F8ACC-7B13-485C-8817-36E49F2420B7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +27,18 @@ Global
 		{63E72557-28A3-4678-8E12-9E8E57D3F3DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{63E72557-28A3-4678-8E12-9E8E57D3F3DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{63E72557-28A3-4678-8E12-9E8E57D3F3DF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{74ED9AAA-6B7F-4547-9E8E-E83BC9C40C6D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{74ED9AAA-6B7F-4547-9E8E-E83BC9C40C6D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{74ED9AAA-6B7F-4547-9E8E-E83BC9C40C6D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{74ED9AAA-6B7F-4547-9E8E-E83BC9C40C6D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{96914541-04E6-4E41-B2EF-FE8D8ADA3AC7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96914541-04E6-4E41-B2EF-FE8D8ADA3AC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96914541-04E6-4E41-B2EF-FE8D8ADA3AC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96914541-04E6-4E41-B2EF-FE8D8ADA3AC7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{237F8ACC-7B13-485C-8817-36E49F2420B7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{237F8ACC-7B13-485C-8817-36E49F2420B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{237F8ACC-7B13-485C-8817-36E49F2420B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{237F8ACC-7B13-485C-8817-36E49F2420B7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
