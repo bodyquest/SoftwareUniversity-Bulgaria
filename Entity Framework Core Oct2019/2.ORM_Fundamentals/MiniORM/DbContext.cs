@@ -154,14 +154,43 @@
             return fetchedRows;
         }
 
-        private string GetTableName(Type type)
+        private string[] GetEntityColumnNames(Type table)
         {
-            throw new NotImplementedException();
+            var tableName = this.GetTableName(table);
+            var dbColumns =
+                this.connection.FetchColumnNames(tableName);
+
+            var columns = table.GetProperties()
+                .Where(pi => dbColumns.Contains(pi.Name) &&
+                             !pi.HasAttribute<NotMappedAttribute>() &&
+                             AllowedSqlTypes.Contains(pi.PropertyType))
+                .Select(pi => pi.Name)
+                .ToArray();
+
+            return columns;
         }
 
-        private bool IsObjectValid(object entity)
+        private string GetTableName(Type tableType)
         {
-            throw new NotImplementedException();
+            var tableName = ((TableAttribute) Attribute.GetCustomAttribute(tableType, typeof(TableAttribute))).Name;
+
+            if (tableName == null)
+            {
+                tableName = this.dbSetProperties[tableType].Name;
+            }
+
+            return tableName;
+        }
+
+        private static bool IsObjectValid(object e)
+        {
+            var validationContext = new ValidationContext(e);
+            var validationErrors = new List<ValidationResult>();
+
+            var validationResult = Validator.TryValidateObject(e, validationContext, validationErrors, validateAllProperties: true);
+
+            return validationResult;
+
         }
 
         private void MapAllRelations()
@@ -216,7 +245,25 @@
 
             foreach (var foreignKey in foreignKeys)
             {
+                var navigationPropertyName =
+                    foreignKey.GetCustomAttribute<ForeignKeyAttribute>().Name;
+                var navigationProperty = entityType.GetProperty(navigationPropertyName);
 
+                var navigationDbSet = this.dbSetProperties[navigationProperty.PropertyType]
+                    .GetValue(this);
+
+                var navigationPrimaryKey = navigationProperty.PropertyType.GetProperties()
+                    .First(pi => pi.HasAttribute<KeyAttribute>());
+
+                foreach (var entity in dbSet)
+                {
+                    var foreignKeyValue = foreignKey.GetValue(entity);
+
+                    var navigationPropertyValue = ((IEnumerable<object>)navigationDbSet)
+                        .First(currentNavigationProperty => navigationPrimaryKey.GetValue(currentNavigationProperty).Equals(foreignKeyValue));
+
+                    navigationProperty.SetValue(entity, navigationPropertyValue);
+                }
             }
         }
 
@@ -258,14 +305,13 @@
 
         }
 
-        private void InitializeDbSets()
-        {
-            throw new NotImplementedException();
-        }
-
         private Dictionary<Type, PropertyInfo> DiscoverDbSets()
         {
-            throw new NotImplementedException();
+            var dbSets = this.GetType().GetProperties()
+                .Where(pi => pi.PropertyType.GetGenericTypeDefinition() == typeof(DbSet<>))
+                .ToDictionary(pi => pi.PropertyType.GetGenericArguments().First(), pi => pi);
+
+            return dbSets;
         }
     }
 }
