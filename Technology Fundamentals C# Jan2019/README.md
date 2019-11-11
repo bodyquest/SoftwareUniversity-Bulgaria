@@ -6,7 +6,7 @@
 [![license](https://goo.gl/YJtYFV)](https://goo.gl/3hbwmB)
 # <p align="center">My Courses from the Software Engineering Program with C# at SoftUni<p>
 # Technologies Fundamentals -C#
-## [Programming Fundamentals January 2019 Curriculum - C#] (https://softuni.bg/trainings/2237/technology-fundamentals-with-csharp-january-2019)
+## [Programming Fundamentals January 2019 Curriculum - C#](https://softuni.bg/trainings/2237/technology-fundamentals-with-csharp-january-2019)
 1. [Data Types and Variables - Lab]() [(assignment)]()
 2. [Data Types and Variables - Exercises]() [(assignment)]()
 3. [Methods and Debugging - Lab]() [(assignment)]()
