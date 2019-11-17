@@ -1,7 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace FastFood.Web.ViewModels.Items
+﻿namespace FastFood.Web.ViewModels.Items
 {
+    using System.ComponentModel.DataAnnotations;
+
     public class CreateItemInputModel
     {
         [StringLength(30, MinimumLength = 3)]

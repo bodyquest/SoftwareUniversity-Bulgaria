@@ -29,6 +29,7 @@
                 .Positions
                 .ProjectTo<RegisterEmployeeViewModel>(this.mapper.ConfigurationProvider)
                 .ToList();
+
             return this.View(positions);
         }
 
@@ -42,8 +43,8 @@
             }
 
             var employee = this.mapper.Map<Employee>(model);
-
             this.context.Employees.Add(employee);
+
             this.context.SaveChanges();
 
             return this.RedirectToAction("All", "Employees");

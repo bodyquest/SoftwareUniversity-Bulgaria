@@ -8,27 +8,17 @@
 <div align="center">
     <a type="submit" class="btn btn-primary" style="align-content: center" asp-controller="Orders" asp-action="Create">Create</a>
 </div>
+<br />
 <table class="table mx-auto">
     <thead>
         <tr class="row">
-            <th class="col-md-1">#</th>
-            <th class="col-md-2">OrderId</th>
+            <th class="col-md-1">OrderId</th>
             <th class="col-md-2">Customer</th>
             <th class="col-md-2">Employee</th>
             <th class="col-md-2">DateTime</th>
         </tr>
     </thead>
     <tbody>
-        @*@for (var i = 0; i < Model.Count(); i++)
-        {
-            <tr class="row">
-                <th class="col-md-1">@(i + 1)</th>
-                <td class="col-md-2">@Model[i].OrderId</td>
-                <td class="col-md-2">@Model[i].Customer</td>
-                <td class="col-md-2">@Model[i].Employee</td>
-                <td class="col-md-2">@Model[i].DateTime</td>
-            </tr>
-        }*@
         @foreach (var i in Model.OrderByDescending(x => x.DateTime))
         {
             <tr class="row">

@@ -27,8 +27,14 @@
         {
             var viewOrder = new CreateOrderViewModel
             {
-                Items = this.context.Items.Select(x => x.Id).ToList(),
-                Employees = this.context.Employees.Select(x => x.Id).ToList(),
+                Items = this.context.Items
+                .Select(x => x.Name)
+                .ToList(),
+
+                Employees = this.context.Employees
+                .Where(x => x.Position.Name == "Waiter")
+                .Select(x => x.Name)
+                .ToList(),
             };
 
             return this.View(viewOrder);
@@ -37,23 +43,28 @@
         [HttpPost]
         public IActionResult Create(CreateOrderInputModel model)
         {
+            Item item = this.context.Items
+                .FirstOrDefault(x => x.Name == model.ItemName);
+            Employee employee = this.context.Employees
+                .FirstOrDefault(x => x.Name == model.EmployeeName);
+
             if (!ModelState.IsValid)
             {
                 return this.RedirectToAction("Error", "Home");
-            }
+            };
+            
 
-            var order = this.mapper.Map<Order>(model);
+            Order order = this.mapper.Map<Order>(model);
+            order.DateTime = DateTime.Now;
             order.Type = Enum.Parse<OrderType>(model.OrderType);
+            order.Employee = employee;
 
             order.OrderItems.Add(new OrderItem
             {
-                ItemId = model.ItemId,
+                Item = item,
                 Order = order,
                 Quantity = model.Quantity
             });
-
-
-            order.DateTime = DateTime.Now;
 
             this.context.Orders.Add(order);
 
