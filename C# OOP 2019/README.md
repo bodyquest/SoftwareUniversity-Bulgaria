@@ -1,10 +1,12 @@
-
 # <p align="center">Software University Bulgaria<p>
 
 [![Software University Logo](https://goo.gl/KYm0Tz)](https://softuni.bg)
 
 [![license](https://goo.gl/YJtYFV)](https://goo.gl/3hbwmB)
 # <p align="center">My Courses from the Software Engineering Program with C# at SoftUni<p>
+
+![CSharp Language](https://bit.ly/36V6Iz2 =100x) ![MS SQL](https://bit.ly/34PcS1H =100x) ![Entity Framework Core](https://bit.ly/2X4jzu8 =110x)
+
 # C# OOP
 ## [C# OOP June 2019 Curriculum](https://softuni.bg/trainings/2349/csharp-oop-june-2019)
 1. [Working with Abstraction - Lab]() [(assignment)]()
