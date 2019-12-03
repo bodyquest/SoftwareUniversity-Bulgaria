@@ -7,6 +7,10 @@
     using Cinema.DataProcessor.ExportDto;
 
     using Newtonsoft.Json;
+    using System.Xml.Serialization;
+    using System.Text;
+    using System.Xml;
+    using System.IO;
 
     public class Serializer
     {
@@ -37,14 +41,38 @@
                 .Take(10)
                 .ToArray();
 
-            var jsonSerialized = JsonConvert.SerializeObject(movies, Formatting.Indented);
+            var jsonSerialized = JsonConvert.SerializeObject(movies, Newtonsoft.Json.Formatting.Indented);
 
             return jsonSerialized;
         }
 
         public static string ExportTopCustomers(CinemaContext context, int age)
         {
-            throw new NotImplementedException();
+            var customers = context.Customers
+                .Where(c => c.Age >= age)
+                .OrderByDescending(c => c.Tickets.Sum(t => t.Price))
+                .Select(c => new ExportTopCustomerDto
+                {
+                    FirstName = c.FirstName,
+                    LastName = c.LastName,
+                    SpentMoney = c.Tickets.Sum(t => t.Price).ToString("F2"),
+                    SpentTime = TimeSpan.FromSeconds(c.Tickets.Sum(t => t.Projection.Movie.Duration.TotalSeconds))
+                    .ToString(@"hh\:mm\:ss")
+                })
+                .Take(10)
+                .ToArray();
+
+            XmlSerializer serializer = new XmlSerializer(typeof(ExportTopCustomerDto[]), new XmlRootAttribute("Customers"));
+
+            var sb = new StringBuilder();
+            var namespaces = new XmlSerializerNamespaces(new[]
+            {
+                new XmlQualifiedName("", "")
+            });
+
+            serializer.Serialize(new StringWriter(sb), customers, namespaces);
+
+            return sb.ToString().TrimEnd();
         }
     }
 }
