@@ -2,17 +2,16 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
     using System.Text;
 
     public class ExportEmployeeDto
     {
         public string Username { get; set; }
 
-        public ExportTaskDto[] Tasks { get; set; }
+        public ICollection<ExportEmployeeTaskDto> Tasks { get; set; }
     }
 
-    public class ExportTaskDto
+    public class ExportEmployeeTaskDto
     {
         public string TaskName { get; set; }
 

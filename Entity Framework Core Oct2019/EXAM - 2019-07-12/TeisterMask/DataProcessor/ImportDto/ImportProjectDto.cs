@@ -48,5 +48,6 @@
         [Required]
         [XmlElement("LabelType")]
         public int LabelType { get; set; }
+
     }
 }

@@ -1,7 +1,6 @@
 ﻿namespace TeisterMask.Data
 {
     using Microsoft.EntityFrameworkCore;
-    using TeisterMask.Data.Models;
 
     public class TeisterMaskContext : DbContext
     {
@@ -26,8 +25,7 @@
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<EmployeeTask>()
-                .HasKey(k => new { k.EmployeeId, k.TaskId });
+            modelBuilder.Entity<EmployeeTask>().HasKey(x => new { x.EmployeeId, x.TaskId });
         }
     }
 }

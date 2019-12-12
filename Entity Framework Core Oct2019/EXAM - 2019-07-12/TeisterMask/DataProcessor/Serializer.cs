@@ -9,6 +9,7 @@
     using System.Xml.Serialization;
     using Data;
     using Newtonsoft.Json;
+    using TeisterMask.Data.Models.Enums;
     using TeisterMask.DataProcessor.ExportDto;
     using Formatting = Newtonsoft.Json.Formatting;
 
@@ -16,15 +17,16 @@
     {
         public static string ExportProjectWithTheirTasks(TeisterMaskContext context)
         {
-            //throw new NotImplementedException();
             var projects = context.Projects
-                .Where(p => p.Tasks.Count >= 1)
-                .Select(p => new ExportProjectWithTheirTasks
+                .Where(p => p.Tasks.Count > 0)
+                .Select(p => new ExportProjectDto
                 {
-                    TaskCount = p.Tasks.Count,
+                    TaskCount = p.Tasks.Count(),
                     ProjectName = p.Name,
-                    HasEndDate = p.DueDate == null ? "No" : "Yes",
-                    Tasks = p.Tasks.Select(t => new ExportProjectTask
+                    HasEndDate = p.DueDate == null 
+                    ? "No"
+                    : "Yes",
+                    Tasks = p.Tasks.Select(t => new ExportTaskDto 
                     {
                         Name = t.Name,
                         Label = t.LabelType.ToString()
@@ -36,7 +38,7 @@
                 .ThenBy(p => p.ProjectName)
                 .ToArray();
 
-            XmlSerializer serializer = new XmlSerializer(typeof(ExportProjectWithTheirTasks[]), new XmlRootAttribute("Projects"));
+            XmlSerializer serializer = new XmlSerializer(typeof(ExportProjectDto[]), new XmlRootAttribute("Projects"));
 
             var sb = new StringBuilder();
             var namespaces = new XmlSerializerNamespaces(new[]
@@ -51,31 +53,31 @@
 
         public static string ExportMostBusiestEmployees(TeisterMaskContext context, DateTime date)
         {
-            //throw new NotImplementedException();
+            CultureInfo ci = CultureInfo.InvariantCulture;
 
             var employees = context.Employees
                 .Where(e => e.EmployeesTasks.Any(t => t.Task.OpenDate >= date))
-                .OrderByDescending(x => x.EmployeesTasks.Count(t => t.Task.OpenDate >= date))
+                .OrderByDescending(e => e.EmployeesTasks.Count(t => t.Task.OpenDate >= date))
                 .ThenBy(e => e.Username)
-                .Select(e => new
+                .Select(e => new ExportEmployeeDto
                 {
                     Username = e.Username,
                     Tasks = e.EmployeesTasks
-                            .Where(t => t.Task.OpenDate >= date)
-                            .Select(x => new
-                            {
-                                TaskName = x.Task.Name,
-                                OpenDate = x.Task.OpenDate.ToString("d", CultureInfo.InvariantCulture),
-                                DueDate = x.Task.DueDate.ToString("d", CultureInfo.InvariantCulture),
-                                LabelType = x.Task.LabelType.ToString(),
-                                ExecutionType = x.Task.LabelType.ToString()
-                            })
-                    .OrderByDescending(x => DateTime.ParseExact(x.DueDate, "d", CultureInfo.InvariantCulture))
-                    .ThenBy(x => x.TaskName)
-                    .ToArray()
+                    .Where(et => et.Task.OpenDate >= date)
+                    .Select(et => new ExportEmployeeTaskDto 
+                    { 
+                        TaskName = et.Task.Name,
+                        OpenDate = et.Task.OpenDate.ToString("MM/dd/yyyy"),
+                        DueDate = et.Task.DueDate.ToString("MM/dd/yyyy"),
+                        LabelType = et.Task.LabelType.ToString(),
+                        ExecutionType = et.Task.ExecutionType.ToString()
+                    })
+                    .OrderByDescending(t => DateTime.ParseExact(t.DueDate, "MM/dd/yyyy", ci))
+                    .ThenBy(t => t.TaskName)
+                    .ToList()
                 })
                 .Take(10)
-                .ToArray();
+                .ToList();
 
             var jsonSerialized = JsonConvert.SerializeObject(employees, Newtonsoft.Json.Formatting.Indented);
 
