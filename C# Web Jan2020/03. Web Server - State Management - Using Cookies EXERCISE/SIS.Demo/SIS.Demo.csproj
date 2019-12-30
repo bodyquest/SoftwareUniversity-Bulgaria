@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="C:\Users\Admin\source\repos\C# WEB Jan 2020\01.HTTP Protocol Exercise\SIS.HTTP\SIS.HTTP.csproj" />
+    <ProjectReference Include="C:\Users\Admin\source\repos\C# WEB Jan 2020\01.HTTP Protocol Exercise\SIS.WebServer\SIS.WebServer.csproj" />
+  </ItemGroup>
+
+</Project>
