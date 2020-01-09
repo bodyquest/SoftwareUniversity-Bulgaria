@@ -84,7 +84,7 @@
                 }
 
                 this.ViewData["AlbumId"] = albumId;
-                this.ViewData["Track"] = trackFromDb.ToHtmlDetails();
+                this.ViewData["Track"] = trackFromDb.ToHtmlDetails(albumId);
 
                 return this.View();
             }

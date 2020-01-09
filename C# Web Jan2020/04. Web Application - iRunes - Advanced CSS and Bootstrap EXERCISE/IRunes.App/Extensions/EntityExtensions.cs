@@ -44,13 +44,8 @@
             return $"<li><strong>{index}</strong>. <a href=\"/Tracks/Details?albumId={albumId}&trackId={track.Id}\"><i>{WebUtility.UrlDecode(track.Name)}</i></a></li>";
         }
 
-        public static string ToHtmlDetails(this Track track, string albumId, int index)
+        public static string ToHtmlDetails(this Track track, string albumId)
         {
-            //return "<div class=\"track-details\">" +
-            //       $"   <iframe src=\"{WebUtility.UrlDecode(track.Link)}\"></iframe>" +
-            //       $"   <h1>Track Name: {WebUtility.UrlDecode(track.Name)}</h1>" +
-            //       $"   <h1>Track Price: ${track.Price:f2}</h1>" +
-            //       "</div>";
             return
               "<div class=\"track-details\">" +
               $"     <h4 class=\"text-center\">Track Name: {WebUtility.UrlDecode(track.Name)}</h4>" +
@@ -61,10 +56,9 @@
               "     </div>" +
               "     <hr class=\"bg-success w-50\" style=\" height: 2px\" />" +
               "     <div class=\"d-flex justify-content-center\">" +
-              $"         <a href=\"/Albums/Details?id=1\" class=\"btn bg-success text-white\">Back To Album</a>" +
+              $"         <a href=\"/Albums/Details?id={albumId}\" class=\"btn bg-success text-white\">Back To Album</a>" +
               "     </div>" +
               "</div>";
-             
         }
     }
 }
