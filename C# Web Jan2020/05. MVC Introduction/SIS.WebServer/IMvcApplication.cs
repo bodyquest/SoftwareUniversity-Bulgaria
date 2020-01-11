@@ -4,7 +4,7 @@
 
     public interface IMvcApplication
     {
-        void Configure(ServerRoutingTable serverRoutingTable);
+        void Configure(IServerRoutingTable serverRoutingTable);
 
         void ConfigureServices(); // for dependency injection
     }

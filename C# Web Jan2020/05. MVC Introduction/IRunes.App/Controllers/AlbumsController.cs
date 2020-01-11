@@ -2,15 +2,17 @@
 {
     using System.Linq;
     using System.Collections.Generic;
+    using Microsoft.EntityFrameworkCore;
 
     using IRunes.Data;
     using IRunes.Models;
-    using IRunes.App.Extensions;
-    using Microsoft.EntityFrameworkCore;
-    using SIS.HTTP.Responses;
+    using SIS.MvcFramework;
     using SIS.HTTP.Requests;
+    using SIS.HTTP.Responses;
+    using IRunes.App.Extensions;
+    using SIS.MvcFramework.Attributes;
 
-    public class AlbumsController : BaseController
+    public class AlbumsController : Controller
     {
         public IHttpResponse All(IHttpRequest httpRequest)
         {
@@ -48,6 +50,7 @@
             return this.View();
         }
 
+        [HttpPost(ActionName = "Create")]
         public IHttpResponse CreateConfirm(IHttpRequest httpRequest)
         {
             if (!this.IsLoggedIn(httpRequest))

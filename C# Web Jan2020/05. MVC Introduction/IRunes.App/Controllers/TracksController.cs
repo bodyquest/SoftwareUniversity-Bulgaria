@@ -5,11 +5,13 @@
 
     using IRunes.Data;
     using IRunes.Models;
-    using IRunes.App.Extensions;
-    using SIS.HTTP.Responses;
+    using SIS.MvcFramework;
     using SIS.HTTP.Requests;
+    using SIS.HTTP.Responses;
+    using IRunes.App.Extensions;
+    using SIS.MvcFramework.Attributes;
 
-    public class TracksController: BaseController
+    public class TracksController: Controller
     {
         public IHttpResponse Create(IHttpRequest httpRequest)
         {
@@ -25,6 +27,7 @@
             return this.View();
         }
 
+        [HttpPost(ActionName = "Create")]
         public IHttpResponse CreateConfirm(IHttpRequest httpRequest)
         {
             if (!this.IsLoggedIn(httpRequest))
