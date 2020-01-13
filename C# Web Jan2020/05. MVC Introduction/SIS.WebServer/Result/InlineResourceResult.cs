@@ -8,7 +8,7 @@
     using SIS.HTTP.Headers;
     using SIS.HTTP.Responses;
 
-    public class InlineResourceResult : HttpResponse
+    public class InlineResourceResult : ActionResult
     {
         public InlineResourceResult(byte[] content, HttpResponseStatusCode responseStatusCode) : base(responseStatusCode)
         {

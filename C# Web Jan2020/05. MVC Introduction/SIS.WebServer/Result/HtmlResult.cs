@@ -1,11 +1,11 @@
-﻿using System.Text;
-using SIS.HTTP.Enums;
-using SIS.HTTP.Headers;
-using SIS.HTTP.Responses;
-
-namespace SIS.MvcFramework.Result
+﻿namespace SIS.MvcFramework.Result
 {
-    public class HtmlResult : HttpResponse
+    using System.Text;
+
+    using SIS.HTTP.Enums;
+    using SIS.HTTP.Headers;
+
+    public class HtmlResult : ActionResult
     {
         public HtmlResult(string content, HttpResponseStatusCode responseStatusCode = HttpResponseStatusCode.Ok) : base(responseStatusCode)
         {
