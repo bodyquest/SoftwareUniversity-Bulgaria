@@ -56,7 +56,7 @@
         {
             CoreValidator.ThrowIfNullOrEmpty(queryString, nameof(queryString));
 
-            return true; //TODO: REGEX QUERY STRING
+            return true; //TODO:: REGEX QUERY STRING
         }
 
         private bool HasQueryString()
@@ -125,7 +125,7 @@
         {
             if (string.IsNullOrEmpty(requestBody) == false)
             {
-                //TODO: Parse Multiple Parameters By Name
+                //TODO:: Parse Multiple Parameters By Name
                 var paramsPairs = requestBody
                    .Split('&')
                    .Select(plainQueryParameter => plainQueryParameter.Split('='))
@@ -149,7 +149,7 @@
         private void ParseRequestParameters(string requestBody)
         {
             this.ParseRequestQueryParameters();
-            this.ParseRequestFormDataParameters(requestBody); //TODO: Split
+            this.ParseRequestFormDataParameters(requestBody); //TODO:: Split
         }
 
         private void ParseCookies()

@@ -9,6 +9,8 @@
     using SIS.MvcFramework.Routing;
     using SIS.MvcFramework.Attributes;
     using SIS.MvcFramework.Attributes.Action;
+    using SIS.MvcFramework.Result;
+    using SIS.MvcFramework.Attributes.Security;
 
     public static class WebHost
     {
@@ -32,7 +34,7 @@
 
             foreach (var controller in controllers)
             {
-                //TODO Remove ToString from Info Controller
+                //TODO: Remove ToString from Info Controller
                 var actions = controller.GetMethods(
                     BindingFlags.DeclaredOnly
                     | BindingFlags.Public
@@ -66,7 +68,19 @@
                     serverRoutingTable.Add(httpMethod, path, request => 
                     {
                         var controllerInstance = Activator.CreateInstance(controller);
-                        var response = action.Invoke(controllerInstance, new[] { request }) as IHttpResponse;
+                        ((Controller)controllerInstance).Request = request;
+                        var controllerPrincipal = ((Controller)controllerInstance).User;
+
+                        //Security Authorization TODO: refactor this
+                        var authorizeAttribute = action.GetCustomAttributes().LastOrDefault(a => a.GetType() == typeof(AuthorizeAttribute)) as AuthorizeAttribute;
+
+                        if (controllerPrincipal == null|| authorizeAttribute == null || !authorizeAttribute.IsInAuthority(controllerPrincipal))
+                        {
+                            //TODO: redirect to configured Url
+                            return new HttpResponse(HttpResponseStatusCode.Forbidden);
+                        }
+
+                        var response = action.Invoke(controllerInstance, new object[0]) as ActionResult;
 
                         return response;
                     });

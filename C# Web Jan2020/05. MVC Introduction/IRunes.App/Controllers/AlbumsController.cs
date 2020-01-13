@@ -7,22 +7,18 @@
     using IRunes.Data;
     using IRunes.Models;
     using SIS.MvcFramework;
-    using SIS.HTTP.Requests;
-    using SIS.HTTP.Responses;
     using IRunes.App.Extensions;
+    using SIS.MvcFramework.Result;
     using SIS.MvcFramework.Attributes;
+    using SIS.MvcFramework.Attributes.Security;
 
     public class AlbumsController : Controller
     {
-        public IHttpResponse All(IHttpRequest httpRequest)
+        [Authorize()]
+        public ActionResult All()
         {
             using (var context = new RunesDbContext())
             {
-                if (!this.IsLoggedIn(httpRequest))
-                {
-                    return this.Redirect("/Users/Login");
-                }
-
                 ICollection<Album> allAlbums = context.Albums.ToList();
 
                 if (allAlbums.Count == 0)
@@ -40,28 +36,20 @@
             }
         }
 
-        public IHttpResponse Create(IHttpRequest httpRequest)
+        [Authorize()]
+        public ActionResult Create()
         {
-            if (!this.IsLoggedIn(httpRequest))
-            {
-                return this.Redirect("/Users/Login");
-            }
-
             return this.View();
         }
 
+        [Authorize()]
         [HttpPost(ActionName = "Create")]
-        public IHttpResponse CreateConfirm(IHttpRequest httpRequest)
+        public ActionResult CreateConfirm()
         {
-            if (!this.IsLoggedIn(httpRequest))
-            {
-                return this.Redirect("/Users/Login");
-            }
-
             using (var context = new RunesDbContext())
             {
-                string name = ((ISet<string>)httpRequest.FormData["name"]).FirstOrDefault();
-                string cover = ((ISet<string>)httpRequest.FormData["cover"]).FirstOrDefault();
+                string name = ((ISet<string>)this.Request.FormData["name"]).FirstOrDefault();
+                string cover = ((ISet<string>)this.Request.FormData["cover"]).FirstOrDefault();
                 
                 Album album = new Album
                 {
@@ -77,14 +65,10 @@
             return this.Redirect("/Albums/All");
         }
 
-        public IHttpResponse Details(IHttpRequest httpRequest)
+        [Authorize()]
+        public ActionResult Details()
         {
-            if (!this.IsLoggedIn(httpRequest))
-            {
-                return this.Redirect("/Users/Login");
-            }
-
-            string albumId = httpRequest.QueryData["id"].ToString();
+            string albumId = this.Request.QueryData["id"].ToString();
 
             using (var context = new RunesDbContext())
             {

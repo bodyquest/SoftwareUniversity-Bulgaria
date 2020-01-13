@@ -36,7 +36,7 @@
         {
             CoreValidator.ThrowIfNullOrEmpty(key, nameof(key));
 
-            // TODO: Validation for existing parameter (maybe throw exception)
+            // TODO:: Validation for existing parameter (maybe throw exception)
 
             return this.httpCookies[key];
         }

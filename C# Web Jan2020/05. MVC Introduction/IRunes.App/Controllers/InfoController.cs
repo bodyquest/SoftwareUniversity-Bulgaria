@@ -11,9 +11,14 @@
 
     public class InfoController : Controller
     {
-        public IHttpResponse About(IHttpRequest httpRequest)
+        public IHttpResponse About(IHttpRequest request)
         {
             return this.View();
+        }
+
+        public ActionResult Json(IHttpRequest request)
+        {
+            return Json(new { });
         }
 
         public ActionResult File(IHttpRequest request)
@@ -27,7 +32,7 @@
 
             if (System.IO.File.Exists(fullResourcePath))
             {
-                //TODO do this!!!
+                //TODO: do this!!!
                 string mimeType = null;
                 string fileName = null;
                 byte[] content = System.IO.File.ReadAllBytes(fullResourcePath);
