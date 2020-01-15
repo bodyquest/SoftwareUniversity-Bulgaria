@@ -10,11 +10,13 @@
     using SIS.MvcFramework.Result;
     using SIS.MvcFramework.Attributes;
     using SIS.MvcFramework.Attributes.Security;
+    using System;
 
     public class TracksController : Controller
     {
         private readonly ITrackService trackService;
         private readonly IAlbumService albumService;
+        private const string embedLink = "https%3A%2F%2Fwww.youtube.com%2Fembed%2F";
 
         public TracksController()
         {
@@ -45,7 +47,7 @@
             Track trackFromDb = new Track
             {
                 Name = name,
-                Link = link,
+                Link = String.Concat(embedLink, link.Substring(link.IndexOf("%3D") + 3)),
                 Price = decimal.Parse(price)
             };
 
