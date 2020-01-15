@@ -4,39 +4,47 @@
     using System.Collections.Generic;
     using Microsoft.EntityFrameworkCore;
 
-    using IRunes.Data;
     using IRunes.Models;
+    using IRunes.Services;
     using SIS.MvcFramework;
+    using IRunes.App.ViewModels;
     using IRunes.App.Extensions;
     using SIS.MvcFramework.Result;
+    using SIS.MvcFramework.Mapping;
     using SIS.MvcFramework.Attributes;
     using SIS.MvcFramework.Attributes.Security;
 
     public class AlbumsController : Controller
     {
-        [Authorize()]
-        public ActionResult All()
+        private readonly IAlbumService albumService;
+
+        public AlbumsController()
         {
-            using (var context = new RunesDbContext())
-            {
-                ICollection<Album> allAlbums = context.Albums.ToList();
-
-                if (allAlbums.Count == 0)
-                {
-                    this.ViewData["Albums"] = "There are currently no albums.";
-                }
-                else
-                {
-                    this.ViewData["Albums"] = 
-                        string.Join(string.Empty,
-                        allAlbums.Select(album => album.ToHtmlAll()).ToList());
-                }
-
-                return this.View();
-            }
+            this.albumService = new AlbumService();
         }
 
-        [Authorize()]
+        [Authorize]
+        public ActionResult All()
+        {
+
+            ICollection<Album> allAlbums = this.albumService.GetAllAlbums();
+
+            if (allAlbums.Count == 0)
+            {
+                this.ViewData["Albums"] = "There are currently no albums.";
+            }
+            else
+            {
+                this.ViewData["Albums"] =
+                    string.Join(string.Empty,
+                    allAlbums.Select(album => album.ToHtmlAll())
+                    .ToList());
+            }
+
+            return this.View();
+        }
+
+        [Authorize]
         public ActionResult Create()
         {
             return this.View();
@@ -46,44 +54,39 @@
         [HttpPost(ActionName = "Create")]
         public ActionResult CreateConfirm()
         {
-            using (var context = new RunesDbContext())
-            {
-                string name = ((ISet<string>)this.Request.FormData["name"]).FirstOrDefault();
-                string cover = ((ISet<string>)this.Request.FormData["cover"]).FirstOrDefault();
-                
-                Album album = new Album
-                {
-                    Name = name,
-                    Cover = cover,
-                    Price = 0m
-                };
+            string name = ((ISet<string>)this.Request.FormData["name"]).FirstOrDefault();
+            string cover = ((ISet<string>)this.Request.FormData["cover"]).FirstOrDefault();
 
-                context.Albums.Add(album);
-                context.SaveChanges();
-            }
+            Album album = new Album
+            {
+                Name = name,
+                Cover = cover,
+                Price = 0m
+            };
+
+            this.albumService.CreateAlbum(album);
+
 
             return this.Redirect("/Albums/All");
         }
 
-        [Authorize()]
+        [Authorize]
         public ActionResult Details()
         {
             string albumId = this.Request.QueryData["id"].ToString();
 
-            using (var context = new RunesDbContext())
+            Album albumFromDb = this.albumService.GetAlbumById(albumId);
+
+            AlbumViewModel albumViewModel = ModelMapper.ProjectTo<AlbumViewModel>(albumFromDb);
+
+            if (albumFromDb == null)
             {
-                Album albumFromDb = context.Albums
-                    .Include(Album => Album.Tracks)
-                    .SingleOrDefault(album => album.Id == albumId);
-
-                if (albumFromDb == null)
-                {
-                    return Redirect("/Albums/All");
-                }
-
-                this.ViewData["Album"] = albumFromDb.ToHtmlDetails();
-                return this.View();
+                return Redirect("/Albums/All");
             }
+
+            this.ViewData["Album"] = albumFromDb.ToHtmlDetails();
+            return this.View();
+
         }
     }
 }

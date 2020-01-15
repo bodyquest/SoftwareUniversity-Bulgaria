@@ -6,6 +6,6 @@
 
     public class DatabaseConfiguration
     {
-        public const string ConnectionString = "Server=BODYQUEST-THINK\\SQLEXPRESS;Database=IRunesDB;Trusted_Connection=true;Integrated Security=true";
+        public const string ConnectionString = "Server=localhost\\SQLEXPRESS;Database=IRunesDB;Trusted_Connection=true;Integrated Security=true";
     }
 }
