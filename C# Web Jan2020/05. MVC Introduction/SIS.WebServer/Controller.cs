@@ -1,6 +1,5 @@
 ﻿namespace SIS.MvcFramework
 {
-    using System.IO;
     using System.Collections.Generic;
     using System.Runtime.CompilerServices;
 
@@ -36,6 +35,11 @@
             return viewContent;
         }
 
+        protected bool IsLoggedIn()
+        {
+            return this.Request.Session.ContainsParameter("principal");
+        }
+
         protected void SignIn(string id, string username, string email)
         {
             this.Request.Session.AddParameter("principal", new Principal 
@@ -51,21 +55,23 @@
             this.Request.Session.ClearParameters();
         }
 
-        protected bool IsLoggedIn()
-        {
-            return this.Request.Session.ContainsParameter("principal");
-        }
-
         protected ActionResult View([CallerMemberName] string view = null)
         {
+            //TODO: Support for layout 
             string controllerName = GetType().Name.Replace("Controller", string.Empty);
             string viewName = view;
 
+            //1. Parse the view
             string viewContent = System.IO.File.ReadAllText("Views/" + controllerName + "/" + viewName + ".html");
-
             viewContent = ParseTemplate(viewContent);
-            HtmlResult htmlResult = new HtmlResult(viewContent);
 
+            //2. Parse the layout and include the view instead of @RenderBody()
+            string layoutContent = System.IO.File.ReadAllText("Views/_Layout.html");
+            layoutContent = ParseTemplate(layoutContent);
+            layoutContent = layoutContent.Replace("@RenderBody()", viewContent);
+
+            //3. Return the html result with layoutContent
+            HtmlResult htmlResult = new HtmlResult(layoutContent);
             return htmlResult;
         }
 

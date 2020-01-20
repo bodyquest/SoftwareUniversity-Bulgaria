@@ -14,7 +14,6 @@ namespace SIS.HTTP.Exceptions
 
         public BadRequestException(string name) : base(name)
         {
-            
         }
     }
 }

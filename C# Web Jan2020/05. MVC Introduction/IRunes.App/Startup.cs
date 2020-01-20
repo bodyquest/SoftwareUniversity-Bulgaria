@@ -1,12 +1,9 @@
-﻿using IRunes.App.Controllers;
-using IRunes.Data;
-using SIS.HTTP.Enums;
-using SIS.MvcFramework;
-using SIS.MvcFramework.Result;
-using SIS.MvcFramework.Routing;
-
-namespace IRunes.App
+﻿namespace IRunes.App
 {
+    using IRunes.Data;
+    using SIS.MvcFramework;
+    using SIS.MvcFramework.Routing;
+
     public class Startup : IMvcApplication
     {
         /*

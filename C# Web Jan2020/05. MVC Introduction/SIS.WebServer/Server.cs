@@ -1,13 +1,13 @@
-﻿using System;
-using System.Net;
-using System.Net.Sockets;
-using System.Threading.Tasks;
-
-using SIS.HTTP.Common;
-using SIS.MvcFramework.Routing;
-
-namespace SIS.MvcFramework
+﻿namespace SIS.MvcFramework
 {
+    using System;
+    using System.Net;
+    using System.Net.Sockets;
+    using System.Threading.Tasks;
+
+    using SIS.HTTP.Common;
+    using SIS.MvcFramework.Routing;
+
     public class Server
     {
         private const string LocalHostIpAddress = "127.0.0.1";
