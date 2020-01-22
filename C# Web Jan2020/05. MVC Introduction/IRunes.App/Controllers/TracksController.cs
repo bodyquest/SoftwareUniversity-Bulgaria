@@ -1,5 +1,6 @@
 ﻿namespace IRunes.App.Controllers
 {
+    using System;
     using System.Linq;
     using System.Collections.Generic;
 
@@ -10,7 +11,7 @@
     using SIS.MvcFramework.Result;
     using SIS.MvcFramework.Attributes;
     using SIS.MvcFramework.Attributes.Security;
-    using System;
+    using IRunes.App.ViewModels;
 
     public class TracksController : Controller
     {
@@ -65,7 +66,6 @@
             string albumId = this.Request.QueryData["albumId"].ToString();
             string trackId = this.Request.QueryData["trackId"].ToString();
 
-
             Track trackFromDb = this.trackService.GetTrackById(trackId);
 
             if (trackFromDb == null)
@@ -76,7 +76,7 @@
             this.ViewData["AlbumId"] = albumId;
             this.ViewData["Track"] = trackFromDb.ToHtmlDetails(albumId);
 
-            return this.View();
+            return this.View(new AlbumDetailsViewModel { AlbumId  = albumId});
         }
     }
 }
