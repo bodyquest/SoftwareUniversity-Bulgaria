@@ -6,9 +6,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\SIS.WebServer\SIS.MvcFramework.csproj" />
     <ProjectReference Include="..\IRunes.Data\IRunes.Data.csproj" />
     <ProjectReference Include="..\IRunes.Services\IRunes.Services.csproj" />
-    <ProjectReference Include="..\SIS.WebServer\SIS.MvcFramework.csproj" />
   </ItemGroup>
 
   <ItemGroup>
