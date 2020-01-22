@@ -7,6 +7,7 @@
 
     using SIS.HTTP.Common;
     using SIS.MvcFramework.Routing;
+    using SIS.MvcFramework.Sessions;
 
     public class Server
     {
@@ -18,21 +19,26 @@
 
         private IServerRoutingTable serverRoutingTable;
 
+        private readonly IHttpSessionStorage httpSessionStorage;
+
         private bool isRunning;
 
-        public Server(int port, IServerRoutingTable serverRoutingTable)
+        public Server(int port, IServerRoutingTable serverRoutingTable, IHttpSessionStorage httpSessionStorage)
         {
             CoreValidator.ThrowIfNull(serverRoutingTable, nameof(serverRoutingTable));
+            CoreValidator.ThrowIfNull(httpSessionStorage, nameof(httpSessionStorage));
 
             this.port = port;
             this.serverRoutingTable = serverRoutingTable;
+            this.httpSessionStorage = httpSessionStorage;
 
             this.tcpListener = new TcpListener(IPAddress.Parse(LocalHostIpAddress), port);
         }
 
         private async Task ListenAsync(Socket client)
         {
-            var connectionHandler = new ConnectionHandler(client, this.serverRoutingTable);
+            var connectionHandler = new ConnectionHandler(client, this.serverRoutingTable, this.httpSessionStorage);
+
             await connectionHandler.ProcessRequestAsync();
         }
 

@@ -5,7 +5,8 @@
     <TargetFramework>netcoreapp2.2</TargetFramework>
   </PropertyGroup>
 
-  <ItemGroup>
+<ItemGroup>
+    <ProjectReference Include="..\..\..\SIS.MvcFramework\SIS.MvcFramework.csproj" />
     <ProjectReference Include="..\..\..\SIS.WebServer\SIS.MvcFramework.csproj" />
     <ProjectReference Include="..\IRunes.Data\IRunes.Data.csproj" />
     <ProjectReference Include="..\IRunes.Services\IRunes.Services.csproj" />
