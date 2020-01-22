@@ -2,7 +2,7 @@
 {
     using System;
     using System.Text;
-
+    using SIS.Common;
     using SIS.HTTP.Common;
 
     public class HttpCookie
@@ -20,8 +20,8 @@
             string path = HttpCookieDefaultPath)
 
         {
-            CoreValidator.ThrowIfNullOrEmpty(key, nameof(key));
-            CoreValidator.ThrowIfNullOrEmpty(value, nameof(value));
+            key.ThrowIfNullOrEmpty(nameof(key));
+            value.ThrowIfNullOrEmpty(nameof(value));
 
             this.Key = key;
             this.Value = value;

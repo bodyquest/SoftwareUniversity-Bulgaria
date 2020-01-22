@@ -8,4 +8,8 @@
     <Folder Include="Responses\Parameters\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\SIS.Common\SIS.Common.csproj" />
+  </ItemGroup>
+
 </Project>
