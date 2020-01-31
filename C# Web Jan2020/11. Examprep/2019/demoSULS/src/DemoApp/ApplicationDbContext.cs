@@ -6,7 +6,7 @@ namespace DemoApp
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Server=localhost\SQLEXPRESS;Database=DemoApp;Integrated Security=True;");
+            optionsBuilder.UseSqlServer("Server=.;Database=DemoApp;Integrated Security=True;");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

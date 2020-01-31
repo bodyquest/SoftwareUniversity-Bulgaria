@@ -1,17 +1,11 @@
-﻿namespace SulsApp.Controllers
-{
-    using System;
-    using System.Text;
-    using System.Collections.Generic;
-    using SIS.HTTP;
-    using SIS.HTTP.Response;
-    using SIS.MvcFramework;
+﻿using SIS.MvcFramework;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
-    public class SubmissionsController : Controller
+namespace SulsApp.Controllers
+{
+    class SubmissionsController : Controller
     {
-        public HttpResponse Create(HttpRequest request)
-        {
-            return this.View();
-        }
     }
 }

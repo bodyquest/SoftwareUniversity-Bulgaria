@@ -1,10 +1,14 @@
-﻿namespace SulsApp.Controllers
-{
-    using SIS.HTTP;
-    using System.IO;
-    using SIS.HTTP.Response;
+﻿using SIS.HTTP;
+using SIS.HTTP.Response;
+using SIS.MvcFramework;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Text;
 
-    public class StaticFilesController
+namespace SulsApp.Controllers
+{
+    public class StaticFilesController : Controller
     {
         public HttpResponse Bootstrap(HttpRequest request)
         {
@@ -18,7 +22,7 @@
 
         public HttpResponse Reset(HttpRequest request)
         {
-            return new FileResponse(File.ReadAllBytes("wwwroot/css/reset.css"), "text/css");
+            return new FileResponse(File.ReadAllBytes("wwwroot/css/reset-css.css"), "text/css");
         }
     }
 }

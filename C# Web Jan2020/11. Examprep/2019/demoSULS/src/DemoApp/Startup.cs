@@ -1,15 +1,14 @@
-﻿namespace DemoApp
+﻿using SIS.HTTP;
+using SIS.HTTP.Response;
+using SIS.MvcFramework;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text;
+
+namespace DemoApp
 {
-    using System;
-    using System.IO;
-    using System.Text;
-    using System.Linq;
-    using System.Collections.Generic;
-
-    using SIS.HTTP;
-    using SIS.MvcFramework;
-    using SIS.HTTP.Response;
-
     public class Startup : IMvcApplication
     {
         public void Configure(IList<Route> routeTable)

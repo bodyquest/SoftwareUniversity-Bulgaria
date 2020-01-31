@@ -1,8 +1,8 @@
-﻿namespace DemoApp
-{
-    using System;
-    using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
+namespace DemoApp
+{
     public class Tweet
     {
         public int Id { get; set; }

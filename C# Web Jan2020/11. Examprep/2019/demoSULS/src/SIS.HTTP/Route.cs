@@ -1,7 +1,7 @@
-﻿using System;
-
-namespace SIS.HTTP
+﻿namespace SIS.HTTP
 {
+    using System;
+
     public class Route
     {
         public Route(HttpMethodType httpMethod, string path, Func<HttpRequest, HttpResponse> action)

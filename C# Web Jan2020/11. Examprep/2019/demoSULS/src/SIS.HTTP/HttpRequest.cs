@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Text;
-using System.Web;
-
-namespace SIS.HTTP
+﻿namespace SIS.HTTP
 {
+    using System;
+    using System.IO;
+    using System.Text;
+    using System.Web;
+    using System.Collections.Generic;
+
     public class HttpRequest
     {
         public HttpRequest(string httpRequestAsString)
