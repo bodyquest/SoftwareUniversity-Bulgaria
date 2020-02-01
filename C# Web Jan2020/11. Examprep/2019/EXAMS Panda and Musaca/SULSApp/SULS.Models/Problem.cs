@@ -9,6 +9,7 @@
         public Problem()
         {
             this.Id = Guid.NewGuid().ToString();
+            this.Submissions = new List<Submission>();
         }
 
         public string Id { get; set; }

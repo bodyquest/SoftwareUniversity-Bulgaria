@@ -19,7 +19,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ViewModels\" />
+    <Folder Include="ViewModels\Problems\" />
+    <Folder Include="ViewModels\Submissions\" />
+    <Folder Include="ViewModels\Users\" />
     <Folder Include="Views\Shared\" />
   </ItemGroup>
 
