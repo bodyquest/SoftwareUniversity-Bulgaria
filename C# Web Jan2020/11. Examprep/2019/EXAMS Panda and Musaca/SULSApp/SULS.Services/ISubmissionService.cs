@@ -6,6 +6,8 @@
 
     public interface ISubmissionService
     {
+        string CreateSubmission(string code, string userId, string problemId);
 
+        bool DeleteSubmissionById(string submissionId);
     }
 }
