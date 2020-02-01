@@ -1,14 +1,12 @@
 ﻿namespace SULS.App.Controllers
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Text;
+
     using SIS.MvcFramework;
     using SIS.MvcFramework.Attributes;
     using SIS.MvcFramework.Result;
     using SULS.App.ViewModels.Home;
-    using SULS.Models;
     using SULS.Services;
 
     public class HomeController : Controller
@@ -44,7 +42,6 @@
 
                 return this.View(allProblemsViewModel, "IndexLoggedIn");
             }
-
 
             return this.View();
         }
