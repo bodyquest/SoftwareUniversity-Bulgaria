@@ -1,7 +1,7 @@
-﻿using System;
-
-namespace SIS.MvcFramework.Attributes.Validation
+﻿namespace SIS.MvcFramework.Attributes.Validation
 {
+    using System;
+
     public class StringLengthSisAttribute : ValidationSisAttribute
     {
         private readonly int minLength;

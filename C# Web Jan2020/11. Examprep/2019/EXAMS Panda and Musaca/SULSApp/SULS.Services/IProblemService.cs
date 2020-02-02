@@ -1,9 +1,8 @@
 ﻿namespace SULS.Services
 {
-    using SULS.Models;
-    using System;
     using System.Collections.Generic;
-    using System.Text;
+
+    using SULS.Models;
 
     public interface IProblemService
     {
