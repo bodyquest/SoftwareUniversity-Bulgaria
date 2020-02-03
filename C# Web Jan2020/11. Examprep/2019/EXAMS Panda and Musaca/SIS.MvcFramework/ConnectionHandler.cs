@@ -165,7 +165,7 @@
             }
             catch (BadRequestException e)
             {
-                httpResponse = new TextResult(e.ToString(), HttpResponseStatusCode.BadRequest);
+                httpResponse = new TextResult(e.ToString(),HttpResponseStatusCode.BadRequest);
             }
             catch (Exception e)
             {

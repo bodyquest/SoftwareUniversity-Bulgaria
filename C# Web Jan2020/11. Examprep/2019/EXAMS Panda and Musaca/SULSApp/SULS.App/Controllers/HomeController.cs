@@ -40,6 +40,7 @@
                         SubmissionCount = x.Submissions.Count
                     }).ToList();
 
+
                 return this.View(allProblemsViewModel, "IndexLoggedIn");
             }
 

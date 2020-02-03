@@ -1,7 +1,7 @@
 ﻿namespace SULS.Services
 {
     using System;
-
+    using System.Linq;
     using SULS.Data;
     using SULS.Models;
 
@@ -58,6 +58,13 @@
             }
 
             return false;
+        }
+
+        public IQueryable<Submission> GetAllSubmissions(string id)
+        {
+            var submissions = this.context.Submissions.Where(x => x.ProblemId == id);
+
+            return submissions;
         }
     }
 }

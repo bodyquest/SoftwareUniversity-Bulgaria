@@ -1,14 +1,14 @@
 ﻿namespace SULS.Services
 {
     using System.Collections.Generic;
-
+    using System.Linq;
     using SULS.Models;
 
     public interface IProblemService
     {
         string CreateProblem(string name, int points);
 
-        IEnumerable<Problem> GetAllProblems();
+        IQueryable<Problem> GetAllProblems();
 
         Problem GetProblemById(string problemId);
     }

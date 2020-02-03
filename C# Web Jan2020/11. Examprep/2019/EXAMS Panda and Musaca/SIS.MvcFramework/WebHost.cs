@@ -123,6 +123,7 @@
                     
                     var collection = httpDataValue.Select(x => System.Convert.ChangeType(x,
                         parameter.ParameterType.GenericTypeArguments.First()));
+
                     parameterValues.Add(collection);
                     continue;
                 }

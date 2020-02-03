@@ -31,11 +31,9 @@
             return problem.Id;
         }
 
-        public IEnumerable<Problem> GetAllProblems()
+        public IQueryable<Problem> GetAllProblems()
         {
-            List<Problem> problems = this.context.Problems
-                .Include(x => x.Submissions).ToList();
-
+            var problems = this.context.Problems;
                 return problems;
         }
 

@@ -1,9 +1,7 @@
 ﻿namespace SULS.App.Controllers
 {
-    using System;
-    using System.Collections.Generic;
     using System.Linq;
-    using System.Text;
+
     using SIS.MvcFramework;
     using SIS.MvcFramework.Attributes;
     using SIS.MvcFramework.Attributes.Security;
@@ -16,11 +14,12 @@
     {
         private readonly IUserService userService;
         private readonly IProblemService problemService;
+        private readonly ISubmissionService submissionService;
 
-        public ProblemsController(IUserService userService, IProblemService problemService)
+        public ProblemsController(IProblemService problemService, ISubmissionService submissionService)
         {
-            this.userService = userService;
             this.problemService = problemService;
+            this.submissionService = submissionService;
         }
 
         [Authorize]
@@ -38,7 +37,7 @@
                 return this.Redirect("/Problems/Create");
             }
 
-            this.problemService.CreateProblem(problemCreateInputViewModel.Name, problemCreateInputViewModel.TotalPoints);
+            this.problemService.CreateProblem(problemCreateInputViewModel.Name, problemCreateInputViewModel.Points);
 
             return this.Redirect("/");
         }
@@ -46,22 +45,22 @@
         [Authorize]
         public IActionResult Details(string id)
         {
-            var problem = this.problemService.GetProblemById(id);
+            var name = this.problemService.GetProblemById(id).Name;
 
-            var viewModel = new ProblemDetailsViewModel
-            {
-                Name = problem.Name,
-                MaxPoints = problem.Points,
-                Submissions = problem.Submissions.Select(s => new SubmissionViewModel
+            var submission = this.submissionService.GetAllSubmissions(id)
+                .Select(x => new ProblemDetailsViewModel()
                 {
-                    Username = s.User.Username,
-                    AchievedResult = s.AchievedResult,
-                    CreatedOn = s.CreatedOn.ToString("dd/MM/yyyy"),
-                    SubmissionId = s.Id
-                })
-            };
+                    SubmissionId = x.Id,
+                    AchievedResult = x.AchievedResult,
+                    MaxPoints = x.Problem.Points,
+                    CreatedOn = x.CreatedOn,
+                    Username = x.User.Username
+                }).ToList();
 
-            return this.View(viewModel);
+            var allSubmissions = new ProblemSubmissionsViewModel() { Name = name, Submissions = submission };
+
+
+            return this.View(allSubmissions);
         }
     }
 }

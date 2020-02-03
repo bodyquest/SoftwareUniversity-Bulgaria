@@ -19,14 +19,19 @@
         }
 
         [Authorize]
-        public IActionResult Create(string problemId)
+        public IActionResult Create(string Id)
         {
-            var problem = this.problemService.GetProblemById(problemId);
+            var problem = this.problemService.GetProblemById(Id);
+
+            if (problem == null)
+            {
+                this.Redirect("/");
+            }
 
             var viewModel = new SubmissionCreateViewModel()
             {
                 Name = problem.Name,
-                ProblemId = problemId
+                ProblemId = problem.Id
             };
 
             return this.View(viewModel);
@@ -38,7 +43,13 @@
         {
             if (!this.ModelState.IsValid)
             {
-                return this.Redirect($"/Sbmissions/Create");
+                return this.Redirect($"/Submissions/Create?id={inputModel.ProblemId}");
+            }
+
+            var problem = this.problemService.GetProblemById(inputModel.ProblemId);
+            if (problem == null)
+            {
+                return this.Redirect("/Submissions/Create");
             }
 
             this.submissionService.CreateSubmission(inputModel.Code, this.User.Id, inputModel.ProblemId);
@@ -46,6 +57,7 @@
             return this.Redirect("/");
         }
 
+        [Authorize]
         public IActionResult Delete(string submissionId)
         {
             if (submissionId == null)

@@ -6,9 +6,6 @@
     using SIS.MvcFramework.Result;
     using SULS.App.ViewModels.Users;
     using SULS.Services;
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
 
     public class UsersController : Controller
     {
@@ -40,8 +37,7 @@
             }
 
             this.SignIn(user.Id, user.Username, user.Email);
-
-            return this.View();
+            return this.Redirect("/");
         }
 
         public IActionResult Register()
@@ -59,7 +55,7 @@
 
             var userId = this.userService.CreateUser(inputModel.Username, inputModel.Email, inputModel.Password);
 
-            return this.Redirect("Users/Login");
+            return this.Redirect("/Users/Login");
         }
 
         [Authorize]

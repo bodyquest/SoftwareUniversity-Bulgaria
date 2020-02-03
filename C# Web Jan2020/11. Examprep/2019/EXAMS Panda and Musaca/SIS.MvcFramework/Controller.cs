@@ -65,7 +65,7 @@
             string viewContent = System.IO.File.ReadAllText("Views/" + controllerName + "/" + viewName + ".html");
             viewContent = this.viewEngine.GetHtml(viewContent, model,this.ModelState, this.User);
 
-            string layoutContent = System.IO.File.ReadAllText("Views/_Layout.html");
+            string layoutContent = System.IO.File.ReadAllText("Views/Shared/_Layout.html");
             layoutContent = this.viewEngine.GetHtml(layoutContent, model,this.ModelState, this.User);
             layoutContent = layoutContent.Replace("@RenderBody()", viewContent);
 
