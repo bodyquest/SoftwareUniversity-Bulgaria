@@ -1,9 +1,7 @@
 ﻿namespace ChushkaWebPREP.Controllers
 {
     using System;
-    using System.Collections.Generic;
     using System.Linq;
-    using System.Text;
 
     using ChushkaWebPREP.Models;
     using ChushkaWebPREP.Models.Enums;
@@ -25,6 +23,11 @@
 
         public IHttpResponse Login()
         {
+            if (this.User.IsLoggedIn)
+            {
+                return this.Redirect("/");
+            }
+
             return this.View();
         }
 
@@ -59,6 +62,11 @@
 
         public IHttpResponse Register()
         {
+            if (this.User.IsLoggedIn)
+            {
+                return this.Redirect("/");
+            }
+
             return this.View();
         }
 
@@ -83,7 +91,7 @@
                 return this.BadRequestErrorWithView("Passwords don't match.");
             }
 
-            var role = UserRole.Admin;
+            var role = UserRole.User;
             if (!this.Context.Users.Any())
             {
                 role = UserRole.Admin;
@@ -112,9 +120,10 @@
             return this.Redirect("/Users/Login");
         }
 
+        [Authorize]
         public IHttpResponse Logout()
         {
-            if (this.Request.Cookies.ContainsCookie(".auth-chushka"))
+            if (!this.Request.Cookies.ContainsCookie(".auth-chushka"))
             {
                 return this.Redirect("/");
             }
@@ -122,7 +131,6 @@
             var cookie = this.Request.Cookies.GetCookie(".auth-chushka");
             cookie.Delete();
             this.Response.Cookies.Add(cookie);
-
             return this.Redirect("/");
         }
     }
