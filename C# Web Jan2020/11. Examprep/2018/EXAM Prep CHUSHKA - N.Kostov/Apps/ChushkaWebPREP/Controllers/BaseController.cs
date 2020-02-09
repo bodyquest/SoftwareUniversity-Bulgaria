@@ -3,9 +3,9 @@
     using ChushkaWebPREP.Data;
     using SIS.MvcFramework;
 
-    public class BaseController : Controller
+    public abstract class BaseController : Controller
     {
-        public BaseController()
+        protected BaseController()
         {
             this.Context = new ApplicationDbContext();
         }
