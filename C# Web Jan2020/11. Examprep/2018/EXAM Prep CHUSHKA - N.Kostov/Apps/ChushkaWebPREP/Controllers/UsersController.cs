@@ -40,7 +40,6 @@
 
             if (user == null)
             {
-                
                 return this.BadRequestErrorWithView("Invalid Username or Password.");
             }
 
@@ -48,7 +47,7 @@
             { 
                 Username = model.Username,
                 Role = user.Role.ToString(),
-                Info = user.Username
+                Info = user.FullName
             };
 
             var cookieContent = this.UserCookieService.GetUserCookie(mvcUser);
