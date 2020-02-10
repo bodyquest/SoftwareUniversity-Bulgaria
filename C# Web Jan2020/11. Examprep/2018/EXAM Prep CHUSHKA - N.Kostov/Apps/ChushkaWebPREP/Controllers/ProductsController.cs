@@ -89,43 +89,89 @@
         [Authorize("Admin")]
         public IHttpResponse Edit(int id)
         {
-            var product = this.Context.Products.Find(id);
-            var model = new EditProductModel
+            var model = this.Context.Products
+            .Select (x => new EditDeleteProductModel
             {
-                Id = product.Id,
-                Name = product.Name,
-                Description = product.Description,
-                Type = product.Type,
-                Price = product.Price,
-            };
+                Id = x.Id,
+                Name = x.Name,
+                Description = x.Description,
+                Type = x.Type.ToString(),
+                Price = x.Price,
+            })
+            .FirstOrDefault(x => x.Id == id);
+
+            if (model == null)
+            {
+                return this.BadRequestErrorWithView("Invalid id.");
+            }
 
             return this.View(model);
         }
 
-        //[Authorize("Admin")]
-        //[HttpPost]
-        //public IHttpResponse Edit(int id)
-        //{
-           
-        //    var id = 1;
+        [Authorize("Admin")]
+        [HttpPost]
+        public IHttpResponse Edit(EditDeleteProductModel model)
+        {
+            var product = this.Context.Products.FirstOrDefault(x => x.Id == model.Id);
 
-        //    return this.Redirect("/Products/Edit?id=" + id);
-        //}
+            if (product == null)
+            {
+                return this.BadRequestErrorWithView("Product not found.");
+            }
 
-        //[Authorize]
-        //public IHttpResponse Delete()
-        //{
-        //    return this.View();
-        //}
+            if (!Enum.TryParse(model.Type, out ProductType type))
+            {
+                return this.BadRequestErrorWithView("Invalid product type.");
+            }
 
-        //[Authorize("Admin")]
-        //[HttpPost]
-        //public IHttpResponse Delete(DeleteProductModel model)
-        //{
+            product.Type = type;
+            product.Description = model.Description;
+            product.Name = model.Name;
+            product.Price = model.Price;
 
-        //    var id = 1;
+            this.Context.Products.Update(product);
+            this.Context.SaveChanges();
 
-        //    return this.Redirect("/Products/Edit?id=" + id);
-        //}
+            return this.Redirect("/Products/Details?id=" + product.Id);
+        }
+
+        [Authorize]
+        public IHttpResponse Delete(int id)
+        {
+            var model = this.Context.Products
+            .Select(x => new EditDeleteProductModel
+            {
+                Id = x.Id,
+                Name = x.Name,
+                Description = x.Description,
+                Type = x.Type.ToString(),
+                Price = x.Price,
+            })
+            .FirstOrDefault(x => x.Id == id);
+
+            if (model == null)
+            {
+                return this.BadRequestErrorWithView("Invalid id.");
+            }
+
+            return this.View(model);
+        }
+
+        [Authorize("Admin")]
+        [HttpPost]
+        public IHttpResponse Delete(int id, string name)
+        {
+            var product = this.Context.Products.FirstOrDefault(x => x.Id == id);
+
+            if (product == null)
+            {
+                return this.Redirect("/");
+            }
+
+            this.Context.Remove(product);
+            this.Context.SaveChanges();
+
+            return this.Redirect("/");
+        }
     }
 }

@@ -1,0 +1,52 @@
+﻿<h1 class="text-center">Delete Product</h1>
+<hr class="bg-secondary half-width" />
+<div class="mx-auto w-50">
+    <div class="form-group"> 
+        <label for="name">Name</label>
+        <input type="text" disabled="disabled" value="@Model.Name" class="form-control" id="name" placeholder="Name..." name="name">
+    </div>
+    <div class="form-group">
+        <label for="price">Price</label>
+        <input type="number" disabled="disabled" value="@Model.Price" step="0.01" min="0" class="form-control" id="price" placeholder="Price..." name="price">
+    </div>
+    <div class="form-group">
+        <label for="description">Description</label>
+        <textarea class="form-control" disabled="disabled" id="description" name="description" rows="4" placeholder="Description...">@Model.Description</textarea>
+    </div>
+    <h4 class="text-center">Product type</h4>
+    <hr class="bg-secondary w-50" />
+    <div class="row justify-content-around">
+        { var types = new[] { "Food", "Domestic", "Health", "Cosmetic", "Other" }; }
+        @foreach(var type in types)
+        {
+        <div class="col-md-2">
+            <input id="type@type"
+                   disabled="disabled"
+                   type="radio"
+                   @if (Model.Type == type)
+                   {
+                    checked="checked"
+                   }
+                   name="type"
+                   value="@type" />
+            <label for="type@type">@type</label>
+        </div>
+        }
+    </div>
+</div>
+<hr class="hr-2 bg-secondary half-width" />
+<div class="row mt-auto justify-content-center text-center">
+    <form class="mx-4" method="post" action="/Products/Delete">
+        <div class="button-holder d-flex col-md-2">
+            <input type="hidden" name="id" value="@Model.Id" />
+            <button type="submit" class="btn chushka-bg-color">Delete</button>
+        </div>
+    </form>
+    <form class="mx-4" method="get" action="/">
+        <div class="button-holder d-flex col-md-2">
+            <button type="submit" class="btn chushka-bg-color">Cancel</button>
+        </div>
+    </form>
+</div>
+<br />
+<br />
