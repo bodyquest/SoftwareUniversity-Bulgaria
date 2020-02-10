@@ -15,7 +15,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ViewModels\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>
 
@@ -26,6 +25,10 @@
     <Content Include="Views/*.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Remove="Views\Home\Index.html" />
+    <None Remove="Views\Home\IndexLoggedIn.html" />
+    <None Remove="Views\Register.html" />
+    <None Remove="Views\Users\Login.html" />
     <None Update="Views\Error.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
