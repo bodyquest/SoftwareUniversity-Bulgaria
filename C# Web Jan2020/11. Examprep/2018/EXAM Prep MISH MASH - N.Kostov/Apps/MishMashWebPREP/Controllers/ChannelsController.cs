@@ -34,9 +34,20 @@
         }
 
         [Authorize]
-        public IHttpResponse Follow(int id)
+        public IHttpResponse Followed()
         {
-            return this.View();
+            var followedChannels = this.Context.Channels.Where(x => x.Followers.Any(f => f.User.Username == this.User.Username))
+                .Select(x => new FollowedChannelViewModel
+                {
+                    Id = x.Id,
+                    Type = x.Type,
+                    Name = x.Name,
+                    FollowersCount = x.Followers.Count()
+                }).ToList();
+
+            var model = new AllFollowedChannelsViewModel { FollowedChannels = followedChannels };
+
+            return this.View("/Channels/Followed", model);
         }
     }
 }

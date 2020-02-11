@@ -27,6 +27,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Remove="Views\Channels\Details.html" />
+    <None Remove="Views\Channels\Followed.html" />
     <None Remove="Views\Home\Index.html" />
     <None Remove="Views\Home\IndexLoggedIn.html" />
     <None Remove="Views\Register.html" />
