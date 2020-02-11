@@ -91,5 +91,19 @@
 
             return this.Redirect("/Users/Login");
         }
+
+        [Authorize]
+        public IHttpResponse Logout()
+        {
+            if (!this.Request.Cookies.ContainsCookie(".auth-mishmash"))
+            {
+                return this.Redirect("/");
+            }
+
+            var cookie = this.Request.Cookies.GetCookie(".auth-mishmash");
+            cookie.Delete();
+            this.Response.Cookies.Add(cookie);
+            return this.Redirect("/");
+        }
     }
 }

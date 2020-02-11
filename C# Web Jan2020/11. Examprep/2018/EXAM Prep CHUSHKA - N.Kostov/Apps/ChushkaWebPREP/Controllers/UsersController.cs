@@ -20,7 +20,6 @@
             this.hashService = hashService;
         }
 
-
         public IHttpResponse Login()
         {
             if (this.User.IsLoggedIn)
@@ -106,6 +105,7 @@
             };
 
             this.Context.Users.Add(user);
+
             try
             {
                 this.Context.SaveChanges();

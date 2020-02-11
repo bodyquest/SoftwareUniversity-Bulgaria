@@ -1,11 +1,73 @@
-﻿<!DOCTYPE html>
-
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <meta charset="utf-8" />
-    <title></title>
-</head>
-<body>
-
-</body>
-</html>
+﻿<h3 class="text-center text-mishmash">Welcome, @User.Username!</h3>
+<h5 class="text-left text-mishmash">Your channels</h5>
+<hr class="hr-2 bg-mishmash" />
+<div class="container-fluid">
+    <div class="row d-flex justify-content-around mb-3">
+        @for(int i = 0; i < 7; i++)
+        {
+            @if(i % 5 == 0 && i > 1)
+            {
+                </div>
+                <div class="row d-flex justify-content-around mb-3">
+            }
+                    <div class="col-md-2 bg-mishmash text-white text-center rounded">
+                        Text @i
+                        <hr class="hr-2 bg-white text-white" />
+                        Type
+                        <hr class="hr-2 bg-white text-white" />
+                        Following 500
+                        <hr class="hr-2 bg-white text-white" />
+                        <a href="/Channels/Follow?id=1" class="text-white">Follow</a>
+                        <a href="/Channels/Details?id=1" class="text-white">Details</a>
+                    </div>
+        }
+    </div>
+</div>
+<h5 class="text-left text-mishmash">Suggested</h5>
+<hr class="hr-2 bg-mishmash" />
+<div class="container-fluid">
+    <div class="row d-flex justify-content-around mb-3">
+        @for(int i = 0; i < 7; i++)
+        {
+            @if(i % 5 == 0 && i > 1)
+            {
+                </div>
+                <div class="row d-flex justify-content-around mb-3">
+            }
+            <div class="col-md-2 bg-mishmash text-white text-center rounded">
+                Text @i
+                <hr class="hr-2 bg-white text-white" />
+                Type
+                <hr class="hr-2 bg-white text-white" />
+                Following 500
+                <hr class="hr-2 bg-white text-white" />
+                Followers 1000
+            </div>
+        }
+    </div>
+</div>
+<h5 class="text-left text-mishmash">See Other</h5>
+<hr class="hr-2 bg-mishmash" />
+<div class="container-fluid">
+    <div class="row d-flex justify-content-around mb-3">
+        @for(int i = 0; i < 7; i++)
+        {
+            @if(i % 5 == 0 && i > 1)
+            {
+                </div>
+                <div class="row d-flex justify-content-around mb-3">
+            }
+            <div class="col-md-2 bg-mishmash text-white text-center rounded">
+                Text @i
+                <hr class="hr-2 bg-white text-white" />
+                Type
+                <hr class="hr-2 bg-white text-white" />
+                Following 500
+                <hr class="hr-2 bg-white text-white" />
+                Followers 1000
+            </div>
+        }
+    </div>
+</div>
+<br />
+<br />

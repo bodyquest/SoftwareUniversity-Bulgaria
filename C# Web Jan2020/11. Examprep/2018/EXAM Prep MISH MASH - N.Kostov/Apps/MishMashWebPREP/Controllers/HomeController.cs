@@ -1,5 +1,6 @@
 ﻿namespace MishMashWebPREP.Controllers
 {
+    using MishMashWebPREP.ViewModels.Home;
     using SIS.HTTP.Responses;
     using System;
     using System.Collections.Generic;
@@ -9,7 +10,17 @@
     {
         public IHttpResponse Index()
         {
-            return this.View();
+            if (this.User.IsLoggedIn)
+            {
+                var model = new IndexViewModel
+                {
+
+                };
+
+                return this.View("Home/IndexLoggedIn");
+            }
+
+            return this.View("Home/Index");
         }
     }
 }
