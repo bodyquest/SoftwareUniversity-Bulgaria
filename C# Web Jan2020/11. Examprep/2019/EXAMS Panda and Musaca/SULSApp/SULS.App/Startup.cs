@@ -12,7 +12,7 @@
         {
             using (var context = new SulsAppDbContext())
             {
-                //db.Database.EnsureCreated();
+                //comntext.Database.EnsureDeleted();
                 context.Database.EnsureCreated();
             }
         }

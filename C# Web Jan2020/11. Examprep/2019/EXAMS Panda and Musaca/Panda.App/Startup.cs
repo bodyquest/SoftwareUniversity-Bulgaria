@@ -5,6 +5,7 @@
     using SIS.MvcFramework;
     using SIS.MvcFramework.Routing;
     using SIS.MvcFramework.DependencyContainer;
+    using Microsoft.EntityFrameworkCore;
 
     public class Startup : IMvcApplication
     {
