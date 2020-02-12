@@ -1,14 +1,13 @@
 ﻿namespace MishMashWebPREP.Controllers
 {
+    using System;
     using System.Linq;
 
     using MishMashWebPREP.ViewModels.Channels;
     using SIS.HTTP.Responses;
     using SIS.MvcFramework;
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
     using MishMashWebPREP.Models;
+    using MishMashWebPREP.Models.Enums;
 
     public class ChannelsController :BaseController
     {
@@ -86,6 +85,63 @@
                 this.Context.SaveChanges();
 
             return this.Redirect("/Channels/Followed");
+        }
+
+        [Authorize]
+        [HttpGet("/Channels/Create")]
+        public IHttpResponse Create()
+        {
+            if (!this.User.IsLoggedIn || this.User.Role != "Admin")
+            {
+                return this.Redirect("/Users/Login");
+            }
+
+            return this.View("/Channels/Create");
+        }
+
+        [Authorize]
+        [HttpPost("/Channels/Create")]
+        public IHttpResponse Create(CreateChannelInputViewModel model)
+        {
+            if (!this.User.IsLoggedIn || this.User.Role != "Admin")
+            {
+                return this.Redirect("/Users/Login");
+            }
+
+            Enum.TryParse(model.Type, true, out ChannelType type);
+            var tags = model.Tags.Split(',', ';', StringSplitOptions.RemoveEmptyEntries);
+
+            var channel = new Channel
+            {
+                Name = model.Name,
+                Description = model.Description,
+                Type = type,
+            };
+
+            foreach (var tag in tags)
+            {
+                var dbTag = this.Context.Tags.FirstOrDefault(x => x.Name == tag.Trim());
+                if (dbTag == null)
+                {
+                    dbTag = new Tag
+                    {
+                        Name = tag.ToLower().Trim()
+                    };
+
+                    this.Context.Tags.Add(dbTag);
+                    this.Context.SaveChanges();
+                }
+
+                channel.Tags.Add(new ChannelTag
+                { 
+                    TagId = dbTag.Id
+                });
+            }
+
+            this.Context.Channels.Add(channel);
+            this.Context.SaveChanges();
+
+            return this.Redirect("/Channels/Details?id=" + channel.Id);
         }
     }
 }

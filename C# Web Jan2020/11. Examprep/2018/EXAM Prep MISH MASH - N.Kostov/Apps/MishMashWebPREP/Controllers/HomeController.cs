@@ -60,8 +60,6 @@
                         FollowersCount = x.Followers.Count()
                     }).ToList();
 
-
-
                 return this.View("Home/IndexLoggedIn", model);
             }
 
