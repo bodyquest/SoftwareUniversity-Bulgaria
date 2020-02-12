@@ -31,13 +31,13 @@
 
                 var followedChannelsTags = this.Context.Channels
                      .Where(x => x.Followers.Any(f => f.User.Username == this.User.Username))
-                     .SelectMany(x => x.Tags.Select(t => t.Id)).ToList();
+                     .SelectMany(x => x.Tags.Select(t => t.TagId)).ToList();
 
 
                 model.SuggestedChannels = this.Context.Channels
                     .Where(x => !x.Followers
                                  .Any(f => f.User.Username == this.User.Username)
-                                 && x.Tags.Any(t => followedChannelsTags.Contains(t.Id)))
+                                 && x.Tags.Any(t => followedChannelsTags.Contains(t.TagId)))
                     .Select(x => new BaseChannelViewModel
                     {
                         Id = x.Id,

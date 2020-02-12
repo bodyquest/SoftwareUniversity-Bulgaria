@@ -1,11 +1,10 @@
-﻿<h3 class="text-center text-mishmash">Welcome, @User.Username!</h3>
-@if(Model.UserRole == "Admin")
+﻿@if(Model.UserRole == "Admin")
 {
-<h3 class="text-center text-mishmash">Welcome, Admin-@User.Username!</h3>
+    <h3 class="text-center text-mishmash">Welcome, Admin-@User.Username!</h3>
 }
 @else
 {
-<h3 class="text-center text-mishmash">Welcome, @User.Username!</h3>
+    <h3 class="text-center text-mishmash">Welcome, @User.Username!</h3>
 }
 <h5 class="text-left text-mishmash">Your channels</h5>
 <hr class="hr-2 bg-mishmash" />
@@ -13,23 +12,23 @@
     <div class="row d-flex justify-content-around mb-3">
         @for(int i = 0; i < Model.YourChannels.Count(); i++)
         {
-        { var channel =  Model.YourChannels.ToList()[i]; }
+            { var channel =  Model.YourChannels.ToList()[i]; }
 
-        @if(i % 5 == 0 && i > 1)
-        {
-    </div>
-    <div class="row d-flex justify-content-around mb-3">
-        }
-        <div class="col-md-2 bg-mishmash text-white text-center rounded">
-            @channel.Name
-            <hr class="hr-2 bg-white text-white" />
-            @channel.Type Channel
-            <hr class="hr-2 bg-white text-white" />
-            @channel.FollowersCount Followers
-            <hr class="hr-2 bg-white text-white" />
-            Following
-            <hr class="hr-2 bg-white text-white" />
-        </div>
+            @if(i % 5 == 0 && i > 1)
+            {
+                </div>
+                <div class="row d-flex justify-content-around mb-3">
+            }
+                <div class="col-md-2 bg-mishmash text-white text-center rounded">
+                    @channel.Name
+                    <hr class="hr-2 bg-white text-white" />
+                    @channel.Type Channel
+                    <hr class="hr-2 bg-white text-white" />
+                    @channel.FollowersCount Followers
+                    <hr class="hr-2 bg-white text-white" />
+                    Following
+                    <hr class="hr-2 bg-white text-white" />
+                </div>
         }
     </div>
 </div>
@@ -39,23 +38,23 @@
     <div class="row d-flex justify-content-around mb-3">
         @for(int i = 0; i < Model.SuggestedChannels.Count(); i++)
         {
-        { var channel =  Model.SuggestedChannels.ToList()[i]; }
+            { var channel =  Model.SuggestedChannels.ToList()[i]; }
 
-        @if(i % 5 == 0 && i > 1)
-        {
-    </div>
-    <div class="row d-flex justify-content-around mb-3">
-        }
-        <div class="col-md-2 bg-mishmash text-white text-center rounded">
-            @channel.Name
-            <hr class="hr-2 bg-white text-white" />
-            @channel.Type Channel
-            <hr class="hr-2 bg-white text-white" />
-            @channel.FollowersCount Followers
-            <hr class="hr-2 bg-white text-white" />
-            <a href="/Channels/Follow?id=1" class="text-white">Follow</a>
-            <a href="/Channels/Details?id=1" class="text-white">Details</a>
-        </div>
+            @if(i % 5 == 0 && i > 1)
+            {
+                </div>
+                <div class="row d-flex justify-content-around mb-3">
+            }
+                <div class="col-md-2 bg-mishmash text-white text-center rounded">
+                    @channel.Name
+                    <hr class="hr-2 bg-white text-white" />
+                    @channel.Type Channel
+                    <hr class="hr-2 bg-white text-white" />
+                    @channel.FollowersCount Followers
+                    <hr class="hr-2 bg-white text-white" />
+                    <a href="/Channels/Follow?id=@channel.Id" class="text-white">Follow</a>
+                    <a href="/Channels/Details?id=@channel.Id" class="text-white">Details</a>
+                </div>
         }
     </div>
 </div>
@@ -65,23 +64,23 @@
     <div class="row d-flex justify-content-around mb-3">
         @for(int i = 0; i < Model.SeeOtherChannels.Count(); i++)
         {
-        { var channel =  Model.SeeOtherChannels.ToList()[i]; }
+            { var channel =  Model.SeeOtherChannels.ToList()[i]; }
 
-        @if(i % 5 == 0 && i > 1)
-        {
-    </div>
-    <div class="row d-flex justify-content-around mb-3">
-        }
-        <div class="col-md-2 bg-mishmash text-white text-center rounded">
-            @channel.Name
-            <hr class="hr-2 bg-white text-white" />
-            @channel.Type Channel
-            <hr class="hr-2 bg-white text-white" />
-            @channel.FollowersCount Followers
-            <hr class="hr-2 bg-white text-white" />
-            <a href="/Channels/Follow?id=1" class="text-white">Follow</a>
-            <a href="/Channels/Details?id=1" class="text-white">Details</a>
-        </div>
+            @if(i % 5 == 0 && i > 1)
+            {
+                </div>
+                <div class="row d-flex justify-content-around mb-3">
+            }
+                <div class="col-md-2 bg-mishmash text-white text-center rounded">
+                    @channel.Name
+                    <hr class="hr-2 bg-white text-white" />
+                    @channel.Type Channel
+                    <hr class="hr-2 bg-white text-white" />
+                    @channel.FollowersCount Followers
+                    <hr class="hr-2 bg-white text-white" />
+                    <a href="/Channels/Follow?id=@channel.Id" class="text-white">Follow</a>
+                    <a href="/Channels/Details?id=@channel.Id" class="text-white">Details</a>
+                </div>
         }
     </div>
 </div>
