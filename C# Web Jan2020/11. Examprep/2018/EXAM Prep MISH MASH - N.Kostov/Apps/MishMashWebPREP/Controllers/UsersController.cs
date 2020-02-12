@@ -28,10 +28,10 @@
                 return this.Redirect("/");
             }
 
-            return this.View();
+            return this.View("/Users/Login");
         }
 
-       [HttpPost]
+       [HttpPost("/Users/Login")]
         public IHttpResponse Login(LoginInputViewModel model)
         {
             var hashedPassword = this.hashService.Hash(model.Password);

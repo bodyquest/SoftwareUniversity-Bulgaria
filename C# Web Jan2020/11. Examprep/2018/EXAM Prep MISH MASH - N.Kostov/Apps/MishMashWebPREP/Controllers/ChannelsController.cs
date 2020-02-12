@@ -1,12 +1,14 @@
 ﻿namespace MishMashWebPREP.Controllers
 {
+    using System.Linq;
+
     using MishMashWebPREP.ViewModels.Channels;
     using SIS.HTTP.Responses;
     using SIS.MvcFramework;
     using System;
     using System.Collections.Generic;
-    using System.Linq;
     using System.Text;
+    using MishMashWebPREP.Models;
 
     public class ChannelsController :BaseController
     {
@@ -34,6 +36,7 @@
         }
 
         [Authorize]
+        [HttpGet("/Channels/Followed")]
         public IHttpResponse Followed()
         {
             var followedChannels = this.Context.Channels.Where(x => x.Followers.Any(f => f.User.Username == this.User.Username))
@@ -48,6 +51,49 @@
             var model = new AllFollowedChannelsViewModel { FollowedChannels = followedChannels };
 
             return this.View("/Channels/Followed", model);
+        }
+
+        [Authorize]
+        [HttpGet("/Channels/Follow")]
+        public IHttpResponse Follow(int id)
+        {
+            var user = this.Context.Users.FirstOrDefault(x => x.Username == this.User.Username);
+
+            if (!this.Context.UserChannel.Any(x => x.UserId == user.Id && x.ChannelId == id))
+            {
+                this.Context.UserChannel.Add(new UserChannel
+                {
+                    ChannelId = id,
+                    UserId = user.Id
+                });
+
+                this.Context.SaveChanges();
+            }
+
+            return this.Redirect("/Channels/Followed");
+        }
+
+        [Authorize]
+        [HttpGet("/Channels/Unfollow")]
+        public IHttpResponse Unfollow(int id)
+        {
+            var user = this.Context.Users.FirstOrDefault(x => x.Username == this.User.Username);
+
+            if (!this.Context.UserChannel.Any(x => x.UserId == user.Id && x.ChannelId == id))
+            {
+                this.Context.UserChannel.Add(new UserChannel
+                {
+                    ChannelId = id,
+                    UserId = user.Id
+                });
+
+                this.Context.SaveChanges();
+            }
+
+            return this.Redirect("/Channels/Followed");
+
+
+            return this.View();
         }
     }
 }

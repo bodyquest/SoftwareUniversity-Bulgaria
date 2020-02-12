@@ -1,13 +1,13 @@
-﻿using IRunes.Services;
-using IRunes.ViewModels.Home;
-using SIS.HTTP;
-using SIS.MvcFramework;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace IRunes.Controllers
+﻿namespace IRunes.Controllers
 {
+    using IRunes.Services;
+    using IRunes.ViewModels.Home;
+    using SIS.HTTP;
+    using SIS.MvcFramework;
+    using System;
+    using System.Collections.Generic;
+    using System.Text;
+
     public class HomeController : Controller
     {
         private readonly IUsersService usersService;
@@ -24,6 +24,7 @@ namespace IRunes.Controllers
             {
                 var viewModel = new IndexViewModel();
                 viewModel.Username = this.usersService.GetUsername(this.User);
+
                 return this.View(viewModel, "Home");
             }
 
