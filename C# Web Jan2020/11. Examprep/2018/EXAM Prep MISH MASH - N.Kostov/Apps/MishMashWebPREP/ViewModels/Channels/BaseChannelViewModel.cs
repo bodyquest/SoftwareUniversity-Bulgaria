@@ -2,7 +2,7 @@
 {
     using MishMashWebPREP.Models.Enums;
 
-    public class FollowedChannelViewModel
+    public class BaseChannelViewModel
     {
         public int Id { get; set; }
         public string Name { get; set; }

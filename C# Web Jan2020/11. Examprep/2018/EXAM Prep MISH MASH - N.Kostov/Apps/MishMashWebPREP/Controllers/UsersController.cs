@@ -56,7 +56,7 @@
 
             this.Response.Cookies.Add(cookie);
 
-            return this.View();
+            return this.Redirect("/");
         }
 
         public IHttpResponse Register()

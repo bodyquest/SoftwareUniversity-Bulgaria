@@ -18,7 +18,7 @@
         }
 
         [HttpGet("/")]
-        public HttpResponse Index()
+        public HttpResponse Index() 
         {
             if (this.IsUserLoggedIn())
             {
