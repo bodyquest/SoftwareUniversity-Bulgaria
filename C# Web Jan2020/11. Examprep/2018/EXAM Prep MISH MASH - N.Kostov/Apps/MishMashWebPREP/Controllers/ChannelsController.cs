@@ -9,7 +9,7 @@
     using MishMashWebPREP.Models;
     using MishMashWebPREP.Models.Enums;
 
-    public class ChannelsController :BaseController
+    public class ChannelsController : BaseController
     {
         [Authorize]
         public IHttpResponse Details(int id)
@@ -82,7 +82,7 @@
 
             this.Context.UserChannel.Remove(userChannel);
 
-                this.Context.SaveChanges();
+            this.Context.SaveChanges();
 
             return this.Redirect("/Channels/Followed");
         }
@@ -109,7 +109,6 @@
             }
 
             Enum.TryParse(model.Type, true, out ChannelType type);
-            var tags = model.Tags.Split(',', ';', StringSplitOptions.RemoveEmptyEntries);
 
             var channel = new Channel
             {
@@ -118,24 +117,29 @@
                 Type = type,
             };
 
-            foreach (var tag in tags)
+            if (!string.IsNullOrWhiteSpace(model.Tags))
             {
-                var dbTag = this.Context.Tags.FirstOrDefault(x => x.Name == tag.Trim());
-                if (dbTag == null)
+                var tags = model.Tags.Split(',', ';', StringSplitOptions.RemoveEmptyEntries);
+
+                foreach (var tag in tags)
                 {
-                    dbTag = new Tag
+                    var dbTag = this.Context.Tags.FirstOrDefault(x => x.Name == tag.Trim());
+                    if (dbTag == null)
                     {
-                        Name = tag.ToLower().Trim()
-                    };
+                        dbTag = new Tag
+                        {
+                            Name = tag.ToLower().Trim()
+                        };
 
-                    this.Context.Tags.Add(dbTag);
-                    this.Context.SaveChanges();
+                        this.Context.Tags.Add(dbTag);
+                        this.Context.SaveChanges();
+                    }
+
+                    channel.Tags.Add(new ChannelTag
+                    {
+                        TagId = dbTag.Id
+                    });
                 }
-
-                channel.Tags.Add(new ChannelTag
-                { 
-                    TagId = dbTag.Id
-                });
             }
 
             this.Context.Channels.Add(channel);
