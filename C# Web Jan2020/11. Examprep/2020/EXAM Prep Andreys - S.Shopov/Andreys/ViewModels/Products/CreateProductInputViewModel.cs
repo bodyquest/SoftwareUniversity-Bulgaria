@@ -1,18 +1,12 @@
-﻿namespace Andreys.Models
+﻿namespace Andreys.ViewModels.Products
 {
-    using Andreys.Models.Enums;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.Text;
 
-    public class Product
+    public class CreateProductInputViewModel
     {
-        public Product()
-        {
-            this.Id = Guid.NewGuid().ToString();
-        }
-
         public string Id { get; set; }
 
         [Required]
@@ -27,9 +21,9 @@
         public decimal Price { get; set; }
 
         [Required]
-        public ProductCategory Category { get; set; }
+        public string Category { get; set; }
 
         [Required]
-        public Gender Gender { get; set; }
+        public string Gender { get; set; }
     }
 }

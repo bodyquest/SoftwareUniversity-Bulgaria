@@ -1,5 +1,7 @@
 ﻿namespace Andreys.Controllers
 {
+    using Andreys.Services;
+    using Andreys.ViewModels.Products;
     using SIS.HTTP;
     using SIS.MvcFramework;
     using System;
@@ -8,12 +10,13 @@
 
     public class ProductsController : Controller
     {
-        public ProductsController()
-        {
+        private readonly IProductService productService;
 
+        public ProductsController(IProductService productService)
+        {
+            this.productService = productService;
         }
 
-        [HttpGet("/Products/Add")]
         public HttpResponse Add()
         {
             if (!this.IsUserLoggedIn())
@@ -21,34 +24,45 @@
                 return this.Redirect("/Users/Login");
             }
 
-
             return this.View();
         }
         
         [HttpPost("/Products/Add")]
-        public HttpResponse Add(int id)  //add ViewModel
+        public HttpResponse Add(CreateProductInputViewModel model)
         {
             if (!this.IsUserLoggedIn())
             {
                 return this.Redirect("/Users/Login");
             }
 
-
+            this.productService.CreateProduct(model.Name, model.Description, model.ImageUrl, model.Category, model.Gender, model.Price);
 
             return this.Redirect("/");
         }
 
-        [HttpGet("/Products/Details")]
-        public HttpResponse Details()
+        [HttpGet("/Products/Delete")]
+        public HttpResponse Delete(string id)
         {
             if (!this.IsUserLoggedIn())
             {
                 return this.Redirect("/Users/Login");
             }
 
+            this.productService.Delete(id);
 
+            return this.Redirect("/");
+        }
 
-            return this.View();
+        public HttpResponse Details(string id)
+        {
+            if (!this.IsUserLoggedIn())
+            {
+                return this.Redirect("/Users/Login");
+            }
+
+            var model = this.productService.GetDetails(id);
+
+            return this.View(model);
         }
     }
 }

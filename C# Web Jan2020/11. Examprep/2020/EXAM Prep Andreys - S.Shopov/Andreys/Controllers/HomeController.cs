@@ -1,13 +1,16 @@
 ﻿namespace Andreys.App.Controllers
 {
+    using Andreys.Services;
     using SIS.HTTP;
     using SIS.MvcFramework;
 
     public class HomeController : Controller
     {
-        public HomeController()
-        {
+        private readonly IProductService productService;
 
+        public HomeController(IProductService productService)
+        {
+            this.productService = productService;
         }
 
         [HttpGet("/")]
@@ -15,7 +18,9 @@
         {
             if (this.IsUserLoggedIn())
             {
-                return this.View("Home");
+                var model = this.productService.GetAll();
+
+                return this.View(model, "/Home");
             }
 
             return this.View();

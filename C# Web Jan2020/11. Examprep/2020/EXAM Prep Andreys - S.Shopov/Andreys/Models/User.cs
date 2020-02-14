@@ -1,28 +1,15 @@
 ﻿namespace Andreys.Models
 {
+    using SIS.MvcFramework;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
-    public class User
+    public class User : IdentityUser<string>
     {
         public User()
         {
             this.Id = Guid.NewGuid().ToString();
         }
-        
-        public string Id { get; set; }
-
-        [Required]
-        [MinLength(4), MaxLength(10)]
-        public string Username { get; set; }
-
-        [Required]
-        public string Password { get; set; }
-
-        [EmailAddress]
-        public string Email { get; set; }
-
-
     }
 }
