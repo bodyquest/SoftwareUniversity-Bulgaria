@@ -18,6 +18,12 @@
     <None Update="Views\Shared\_Layout.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Views\Users\Login.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Views\Users\Register.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="wwwroot\css\bootstrap.min.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -33,7 +39,6 @@
     <Folder Include="ViewModels\Channels\" />
     <Folder Include="ViewModels\Users\" />
     <Folder Include="Views\Channels\" />
-    <Folder Include="Views\Users\" />
   </ItemGroup>
 
   <ItemGroup>
