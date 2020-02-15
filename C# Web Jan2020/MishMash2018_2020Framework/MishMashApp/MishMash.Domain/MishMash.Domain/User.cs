@@ -1,23 +1,18 @@
 ﻿namespace MishMash.Domain
 {
+    using System;
     using System.Collections.Generic;
 
     using MishMash.Domain.Enums;
+    using SIS.MvcFramework;
 
-    public class User
+    public class User : IdentityUser<string>
     {
         public User()
         {
+            this.Id = Guid.NewGuid().ToString();
             this.Channels = new HashSet<UserChannel>();
         }
-
-        public int Id { get; set; }
-
-        public string Username { get; set; }
-
-        public string Password { get; set; }
-
-        public string Email { get; set; }
 
         public virtual ICollection<UserChannel> Channels { get; set; }
 
