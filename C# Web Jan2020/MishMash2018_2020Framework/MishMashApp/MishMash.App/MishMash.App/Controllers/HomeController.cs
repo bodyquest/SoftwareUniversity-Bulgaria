@@ -10,12 +10,18 @@
     {
         public HttpResponse Index()
         {
-            if (!this.IsUserLoggedIn())
+            if (this.IsUserLoggedIn())
             {
                 return this.View("");
             }
 
             return this.View();
+        }
+
+        [HttpGet("/")]
+        public HttpResponse SlashIndex()
+        {
+            return this.Index();
         }
     }
 }

@@ -5,9 +5,9 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <title>Mish Mash</title>
-    <link rel="stylesheet" type="text/css" href="reset-css.css">
-    <link rel="stylesheet" type="text/css" href="bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="/css/reset-css.css">
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
 </head>
 <body>
     <div class="container-fluid">
@@ -24,14 +24,20 @@
                         </li>
                         @if(User != null)
                         {
+                        <li class="nav-item">
+                            <a class="nav-link nav-link-white active" href="/Channels/Followed">My Channels</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link nav-link-white active" href="/Users/Logout">Logout</a>
+                        </li>
                         }
                         @else
                         {
                         <li class="nav-item">
-                            <a class="nav-link nav-link-white active" href="/login">Login</a>
+                            <a class="nav-link nav-link-white active" href="/Users/Login">Login</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link nav-link-white active" href="/register">Register</a>
+                            <a class="nav-link nav-link-white active" href="/Users/Register">Register</a>
                         </li>
                         }
                     </ul>
