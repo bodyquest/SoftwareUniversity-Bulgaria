@@ -6,23 +6,25 @@
 
     public class HomeController : Controller
     {
-        private readonly IUserService userService;
+        private readonly ITripService tripService;
 
-        public HomeController(IUserService userService)
+        public HomeController(ITripService tripService)
         {
-            this.userService = userService;
+            this.tripService = tripService;
         }
 
         [HttpGet("/")]
         public HttpResponse Index()
         {
-            return this.View();
-        }
+            if (this.IsUserLoggedIn())
+            {
+                
+                var model = this.tripService.GetAll();
 
-        [HttpGet("Home/Index")]
-        public HttpResponse IndexFull()
-        {
-            return this.Index();
+                return this.Redirect("/Trips/All");
+            }
+
+            return this.View();
         }
     }
 }

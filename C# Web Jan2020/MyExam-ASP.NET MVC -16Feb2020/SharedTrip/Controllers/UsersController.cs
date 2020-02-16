@@ -46,32 +46,32 @@
         {
             if (string.IsNullOrWhiteSpace(model.Email))
             {
-                return this.Error("Email cannot be empty!");
+                return this.Redirect("/Users/Register");
             }
 
             if (model.Password.Length < 6 || model.Password.Length > 20)
             {
-                return this.Error("Password must be between 6 and 20 characters long.");
+                return this.Redirect("/Users/Register");
             }
 
             if (model.Username.Length < 5 || model.Username.Length > 20)
             {
-                return this.Error("Username must be between 5 and 20 characters long.");
+                return this.Redirect("/Users/Register");
             }
 
             if (model.Password != model.ConfirmPassword)
             {
-                return this.Error("Passwords do not match.");
+                return this.Redirect("/Users/Register");
             }
 
             if (this.userService.EmailExists(model.Email))
             {
-                return this.Error("Email is already in use.");
+                return this.Redirect("/Users/Register");
             }
 
             if (this.userService.UsernameExists(model.Username))
             {
-                return this.Error("Username is already in use.");
+                return this.Redirect("/Users/Register");
             }
 
             this.userService.Register(model.Username, model.Email, model.Password);
