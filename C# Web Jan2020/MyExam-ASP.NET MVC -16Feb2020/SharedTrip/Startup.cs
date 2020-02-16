@@ -1,7 +1,7 @@
 ﻿namespace SharedTrip
 {
     using System.Collections.Generic;
-    using Microsoft.EntityFrameworkCore;
+    using SharedTrip.Services;
     using SIS.HTTP;
     using SIS.MvcFramework;
 
@@ -11,13 +11,13 @@
         {
             var context = new ApplicationDbContext();
 
-            context.Database.EnsureDeleted();
+            //context.Database.EnsureDeleted();
             context.Database.EnsureCreated();
         }
 
         public void ConfigureServices(IServiceCollection serviceCollection)
         {
-            
+            serviceCollection.Add<IUserService, UserService>();
         }
     }
 }

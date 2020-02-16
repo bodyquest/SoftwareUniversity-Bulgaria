@@ -1,12 +1,11 @@
 ﻿namespace SharedTrip.Services
 {
-    using SharedTrip.Models;
-    using SIS.MvcFramework;
-    using System;
-    using System.Collections.Generic;
     using System.Linq;
     using System.Security.Cryptography;
     using System.Text;
+
+    using SharedTrip.Models;
+    using SIS.MvcFramework;
 
     public class UserService : IUserService
     {
@@ -19,7 +18,7 @@
 
         public bool EmailExists(string email)
         {
-            throw new NotImplementedException();
+            return this.context.Users.Any(u => u.Email == email);
         }
 
         public string GetUserId(string username, string password)
@@ -66,7 +65,7 @@
 
         public bool UsernameExists(string username)
         {
-            throw new NotImplementedException();
+            return this.context.Users.Any(u => u.Username == username);
         }
 
         private string HashPassword(string password)
