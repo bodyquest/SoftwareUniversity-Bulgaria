@@ -4,7 +4,7 @@
     using System.Collections.Generic;
     using System.Text;
 
-    public class ITripService
+    public interface ITripService
     {
 
     }
