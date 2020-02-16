@@ -1,9 +1,9 @@
-﻿using SIS.MvcFramework;
-using System;
-using System.Collections.Generic;
-
-namespace SharedTrip.Models
+﻿namespace SharedTrip.Models
 {
+    using SIS.MvcFramework;
+    using System;
+    using System.Collections.Generic;
+
     public class User : IdentityUser<string>
     {
         public User()
@@ -12,6 +12,6 @@ namespace SharedTrip.Models
             this.UserTrips = new HashSet<UserTrip>();
         }
 
-        public ICollection<UserTrip> UserTrips { get; set; }
+        public virtual ICollection<UserTrip> UserTrips { get; set; }
     }
 }

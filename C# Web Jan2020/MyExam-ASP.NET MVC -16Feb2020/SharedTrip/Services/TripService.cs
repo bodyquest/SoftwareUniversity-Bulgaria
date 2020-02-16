@@ -1,18 +1,52 @@
 ﻿namespace SharedTrip.Services
 {
-    using SharedTrip.Models;
-    using SharedTrip.ViewModels.Trips;
     using System;
     using System.Globalization;
     using System.Linq;
 
+    using SharedTrip.Models;
+    using SIS.MvcFramework;
+    using SharedTrip.ViewModels.Trips;
+
     public class TripService : ITripService
     {
         private readonly ApplicationDbContext context;
+        private readonly IUserService userService;
 
-        public TripService(ApplicationDbContext context)
+        public TripService(ApplicationDbContext context, IUserService userService)
         {
             this.context = context;
+            this.userService = userService;
+        }
+
+        public bool AddUserToTrip(string userId, string tripId)
+        {
+            var trip = this.context.Trip.FirstOrDefault(x => x.Id == tripId);
+
+            var userTripExist = this.context.UserTrips.FirstOrDefault(x => x.UserId == userId && x.TripId == trip.Id);
+
+            if (userTripExist != null)
+            {
+                return false;
+            }
+
+            if (userTripExist == null && trip.Seats - trip.UserTrips.Count > 0)
+            {
+                var userTrip = new UserTrip
+                {
+                    TripId = tripId,
+                    UserId = userId
+                };
+
+                trip.UserTrips.Add(userTrip);
+                this.context.UserTrips.Add(userTrip);
+
+                this.context.SaveChanges();
+
+                return true;
+            }
+
+            return false;
         }
 
         public string Create(string strartingPoint, string endPoint, string departureTime, string carImage, int seats, string description)
@@ -41,7 +75,7 @@
                 {
                     Id = x.Id,
                     StartPoint = x.StartPoint,
-                    Seats = x.Seats,
+                    SeatsAvailable = x.Seats - x.UserTrips.Count,
                     EndPoint = x.EndPoint,
                     DepartureTime = x.DepartureTime.ToString("dd.MM.yyyy HH:mm")
                 }).ToList();
@@ -58,7 +92,7 @@
                     StartPoint = x.StartPoint,
                     EndPoint = x.EndPoint,
                     DepartureTime = x.DepartureTime.ToString("dd.MM.yyyy HH:mm"),
-                    Seats = x.Seats,
+                    SeatsAvailable = x.Seats - x.UserTrips.Count,
                     Description = x.Description,
                     ImagePath = x.ImagePath
                 })

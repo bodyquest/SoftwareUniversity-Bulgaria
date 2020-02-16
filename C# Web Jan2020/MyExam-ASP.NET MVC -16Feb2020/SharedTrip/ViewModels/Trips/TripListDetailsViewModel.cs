@@ -15,5 +15,7 @@
         public string DepartureTime { get; set; }
 
         public int Seats { get; set; }
+
+        public int SeatsAvailable { get; set; }
     }
 }

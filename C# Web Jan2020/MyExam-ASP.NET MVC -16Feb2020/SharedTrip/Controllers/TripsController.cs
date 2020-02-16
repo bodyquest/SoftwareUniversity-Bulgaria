@@ -4,9 +4,6 @@
     using SharedTrip.ViewModels.Trips;
     using SIS.HTTP;
     using SIS.MvcFramework;
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
 
     public class TripsController : Controller
     {
@@ -33,11 +30,6 @@
             if (!this.IsUserLoggedIn())
             {
                 return this.Redirect("/Users/Login");
-            }
-
-            if (!this.IsUserLoggedIn())
-            {
-                return this.View();
             }
 
             if (string.IsNullOrWhiteSpace(model.StartPoint))
@@ -75,14 +67,19 @@
             return this.Redirect("/");
         }
 
-        public HttpResponse Details(string id)
+        public HttpResponse Details(string tripId)
         {
             if (!this.IsUserLoggedIn())
             {
                 return this.Redirect("/Users/Login");
             }
 
-            var model = this.tripService.GetDetails(id);
+            var model = this.tripService.GetDetails(tripId);
+
+            if (model == null)
+            {
+                return this.View();
+            }
 
             return this.View(model);
         }
@@ -97,6 +94,18 @@
             }
 
             return this.Redirect("/Users/Login");
+        }
+
+       
+        public HttpResponse AddUserToTrip(string tripId)
+        {
+            var userId = this.User;
+            if (this.tripService.AddUserToTrip(userId, tripId)) 
+            {
+                return this.Redirect("/Trips/All");
+            };
+
+            return this.Redirect($"/Trips/Details?tripId={tripId}");
         }
     }
 }

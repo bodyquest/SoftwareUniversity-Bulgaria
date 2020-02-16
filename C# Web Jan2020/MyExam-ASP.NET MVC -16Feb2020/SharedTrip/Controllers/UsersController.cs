@@ -4,9 +4,6 @@
     using SharedTrip.ViewModels.Users;
     using SIS.HTTP;
     using SIS.MvcFramework;
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
 
     public class UsersController : Controller
     {
@@ -78,7 +75,6 @@
 
             return this.Redirect("/Users/Login");
         }
-
 
         public HttpResponse Logout()
         {

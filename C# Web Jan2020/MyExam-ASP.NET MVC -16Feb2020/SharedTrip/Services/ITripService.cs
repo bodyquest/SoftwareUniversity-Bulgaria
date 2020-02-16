@@ -12,5 +12,7 @@
         AllTripsViewModel GetAll();
 
         TripDetailsViewModel GetDetails(string id);
+
+        bool AddUserToTrip(string userId, string tripId);
     }
 }
