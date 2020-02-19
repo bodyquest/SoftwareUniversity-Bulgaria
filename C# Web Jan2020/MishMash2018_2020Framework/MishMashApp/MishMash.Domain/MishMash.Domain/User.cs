@@ -16,7 +16,5 @@
 
         public virtual ICollection<UserChannel> Channels { get; set; }
 
-        public UserRole Role { get; set; }
-
     }
 }

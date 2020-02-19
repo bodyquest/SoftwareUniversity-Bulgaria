@@ -1,0 +1,59 @@
+﻿@using _02.DemoCoreMVCApp.Models.CarAd
+@model CarInputModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>Create</h2>
+ 
+<form asp-controller="CarAd" asp-action="Create" method="post">
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    <label asp-for="Vehicle.Brand"></label>
+    <input asp-for="Vehicle.Brand" class="form-control" />
+    <span asp-validation-for="Vehicle.Brand" class="text-danger"></span>
+
+    @{
+        var items = new List<SelectListItem>
+        {
+            new SelectListItem{Text = "Dari", Value = "0"},
+            new SelectListItem{Text = "Radi", Value = "1"},
+            new SelectListItem{Text = "Rosi", Value = "2"}
+        };
+    }
+    <div>
+        <label asp-for="Type"></label>
+        <select asp-for="Type" class="form-control" asp-items="items">
+        </select>
+        <span asp-validation-for="Type" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="Type"></label>
+        <select asp-for="Type" class="form-control" asp-items="@Html.GetEnumSelectList<CarType>()">
+            <option value="0">Please select</option>
+        </select>
+    </div>
+    <div>
+        <label asp-for="Description"></label>
+        <input asp-for="Description" class="form-control" />
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="Year"></label>
+        <input asp-for="Year" class="form-control" />
+        <span asp-validation-for="Year" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="Price"></label>
+        <input asp-for="Price" class="form-control" />
+        <span asp-validation-for="Price" class="text-danger"></span>
+    </div>
+
+    <input type="submit" class="btn btn-info" />
+</form>
+
+@section Scripts
+{
+    <partial name="_ValidationScriptsPartial" />
+}
