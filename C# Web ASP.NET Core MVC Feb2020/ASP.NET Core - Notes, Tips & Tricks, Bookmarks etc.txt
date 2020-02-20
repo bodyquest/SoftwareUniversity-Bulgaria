@@ -1,0 +1,877 @@
+ASP.NET Core MVC
+{ Q & A
+	{ * How to get Db data into the view?
+		EXAMPLE:
+		- you have multiple drop-down menus in the View from one InputModel
+		Options:
+		1. AJAX query > WEB API > which returns a Model (JSON)
+		
+		2. RECOMMENDED-> The values of the dropdwon as IEnumerable in the InputModel. Several IEnumerable for several dropdowns in the View from the same InputModel
+		
+		3. In ViewData, or ViewBag
+		
+		4. RECOMMENDED-> Make ViewComponent
+		They have own Class and own Views.
+		VC can in the Invoke() method to inject the Service and it can give a ViewModel to the View which will visualise the dropdown
+	}
+	
+	{ * How to enter more data into the DB?
+		Best record it in JSON file, parse it, foreach it and enter in database
+		
+	}
+	
+	{ * How to start with Views 
+		- make Views first
+		-If something is duplicated, then make it like ViewComponent if it needs data, OR PartialView or as TagHelper if it is somall
+	}
+	
+	{ * Bingind Models == Input View Models
+	}
+	
+	{ * Dynamic sorting with multiple elements?
+		- Could be done by injecting parameter in the IActuonResult method or in the service which is called by the IActionResult method.
+		EXAMPLE:
+		
+		public string LatestUsername(string orderBy = "username")
+		{
+			if(orderBy == "username")
+			{
+				query = query.OrderBy(x => x.UserName);
+			}
+			
+			if(orderBy == "username")
+			{
+				query = query.OrderBy(x => x.Email);
+			}
+			
+			return query.Select(x => x.UserName).FirstOrDefault();
+		}
+	}
+	
+	{ * Where to handle Error/Exception in the Service?
+	
+	   The Service need to either RETURN result or THROW Exception.
+	   - should not return null, but either result or exception.
+	   - THE EXCEPTION MUST EXIT the service and be HANDLED BY the ACTION of the Controller !!!
+	   
+	   - OR the service can have its own EXCEPTION to make try/catch and catch the result of SingleOrDefault() for example and wrap it in the service exception. In this case the controlelr does not have to handle the exception.
+	   
+	   - In Azure, there is Application Insights. This system automatically records the exception (error logging) and we can see it in the list of errors.
+	   
+	}
+	
+	{ * Admin functionality should it be in separate AREA?
+	   
+	    Yes.
+		The  MVC Folders must be in the Folder AREA as SubFolder for the Admin (Say Admin Folder).
+		Every module that is large enough could be in separate AREA.
+	}
+	
+	{ * Sorting in the View() ?
+	    <select name="sort">
+        <option value="Name">Name</option>
+        <option value="Age">Age</option>
+		</select>
+		
+		In the Controller we get string sort injected.
+		if(sort== "Name")
+		{
+		   var users = context.Users.OrderBy(x => x.Name);
+		}
+	}
+}
+
+{ KENOV
+	{ Essentials
+	  * Mapping custom routes for admin for example:
+	  In STARTUP file:
+	  app.UseEndPoints(
+	  {
+	    endpoints.MapControllerRoute
+		(
+		  name: "admin",
+		  pattern: "/Admin/{controller}/{action}/"
+		  
+		)
+	  })
+	  
+	  * Use specific route as attribute for actions:
+	  Route("mycats/somedetails")
+	  public object Details()
+	  
+	  app.UseMvcWithDefaultRoute();
+	  
+	  * Default Url on top of the controller defines how it starts:
+	  Route("mycats")
+	  public class CatsController
+	  
+	  then the actions will start by default with /mycats/{action}
+	  
+	  { Controllers
+	  
+	    IActionResults are:
+		
+		this.View() - return view with same name
+		this.Redirect() - redirect to route
+---->	this.redirectToAction(nameof(Create), "Home") - 		redirects to the Action "Create" of HomeController.
+		This is best option to redirect, instead only this.Redirect().
+		
+		this.NotFound() - 404. status code returned
+		this.Unauthorized() - not authenticated
+		 
+		* If I want to give info to the View:
+		- by ViewData
+		- by ViewBag
+		Not a good practice to use ViewData and ViewBag
+---->	ALWAYS USE MODELS!!!
+		
+		* ModelState
+		To validate the data in the InputModel, we need to use:
+		 asp-for="Id" aso-for="Name" etc. if we use @model CatDetailsModel at the top of the View document.
+		 
+		 - IValidatableObject
+		 the INputModel should implement the interface IValidatableObject and then EXAMPLE:
+		 
+		 if (Id == 5 && Name == "Dari")
+            {
+                yield return new ValidationResult("Sorry, Id cannot be 5 if your name is Dari");
+            }
+			
+		var url = this.Url.Action("Index", "Home");
+		this or RedirectToAction guarantee that changing routes  
+	  }
+	  
+	}
+	
+	
+}
+
+
+{ Important !!!
+	github > ardalis/CleanArchitecture
+	
+	***** Roles
+		- are made where we seed the data
+		- could be located in teh Data Project
+		- could be in Startup > Configure() method - good place to call a seed method to make the roles
+		- OR better - make seed and role asignment in empty migration
+		ef database migrations add - it will be empty
+	
+	***** Make Services Async !!!
+	
+	***** To Visualize ERRORS 
+	in Startup > Configure > add.UseDeveloperExceptionPage();
+	
+	***** The sequence of execution of Controller/Layout/View:
+	1. Controller > its Constructor > its Action
+	2. View
+	3. Layout (the result of the rendered View gets into the method RenderView())
+	
+	***** Special LAYOUTS can be declared in the View that needs it.
+	in the View we write
+	@{
+		this.Layout = "_SpecialLayout"; // _SpecialLayout must be inn Shared FOLDER
+	}
+	
+	***** Install Package to make Tag-Helpers color the same
+	Microsoft.AspNetCore.Razor 
+	Microsoft.AspNetCore.Razor.Language
+	
+	***** Contact Form -> Best with Razor Page
+}
+
+{ 01. INTRO
+	
+	{* Can be started from CMD
+	> dotnet
+	> dotnet run
+	> dotnet --info  -> get info what is available
+	> cd Desktop
+	> mkdir mvcapp   -> make new directory 
+	> cd mvcapp      -> get into it
+	> dotent new     -> check what project we can make
+	> dotnet new mvc -> make new mvc project 
+	> dotnet run     -> start it
+	}
+	
+	* Whenwe select https for the local host, select ADVANCED, than Proceed (from the bottom)
+	
+	* From beginning need to be decided :
+	  - MVC project OR
+	  - WEB API + Angular
+	  - etc.
+	* can be hosted on IIS, Nginx, Apache, Docker or self-host
+	* works on middlewares  
+	
+	{API Project how it looks:
+		- No folder "Views"
+		- Controllers returns data in the JSON format
+	}
+	
+	{Angular Project how it looks:
+		- Has controllers
+		- ClientApp - written on TypeScript
+		  - all logic ist written here
+		  - the server only return the data
+	}
+	
+	{ MVC Pattern
+		- In HomeController - HOMEWORK: check what is available from this.
+		
+		- return this.View(new Result()); example of how to give ViewModel to the View().
+		- JSON is always returned if we dont return IActionResult()
+		- the perfect IActionResult:
+		public IActionResult Details(int id)
+		{
+			var viewModel = this.DataService.GetById(id)
+			.To<DetailsViewModel>();
+			
+			return this.View(viewModel);
+		}
+		
+		{Controller Actions are responses to Browser requests
+		- return this.PartialView (only the partial html view)
+		- return this.Redirect("https://....") returns a permanent redirect to the link
+		- return this.Content()
+		- retunr this.File()
+		}
+		
+		{ Params of the Controller Actions
+			* Attributes
+			  [ActionName("Index")]  what will be actually
+			  [NonAction]
+			  [HttpPost][HttpGet("/")]
+			  [RequireHttps] - a filter which loads the page as https
+			  [ResponseCache(Duration 30, Location = ResponseCacheLocation)] - caches the webpage if you want, to save heavy DB queries every time. So the Action is not triggered for the duration of the cache.
+			  [RequestSizeLimit] for the request to have limited size in bytes
+		}
+		
+		{ Routing
+			The routes maps the request with the controller/action 
+			
+			* Conventional Routing
+			Startup -> Configure() -> app.UseMvc
+			In routes.MapRoute()
+			Uses templates:
+			[HttpGet("[Controller]/Index/{username}")]
+			
+			in MapRoute we get the parameters "name" and "template":
+			name: "default",
+			template: "{controller=Home} {action=Index} {id?}"
+			defaults: new{controller = "Home", action = "BlogArticle"}; - THIS IS MANDATORY IF IT IS NOT CLEAR FROM THE TEMPLATE WHICH CONTROLLER/ACTION WE NEED
+			constraints: new {year : @"\d+"}; - limit the route input to numbers for the "year" part of the route.
+			----------------------------
+			
+			* Attribute Routing
+			[Route("/")] - making routes with atributes. This is with priority over the route of the IAction itself
+			
+			[HttpGet("")] - this is better than [Route("")]
+			
+			If we use routeValue
+			[HttpGet("Blog/{username}")]
+			public IActionResult MyAction(string username)
+			
+			this automatically goes as param for the IAction
+		}
+		
+		{ Razor View Engine
+			
+		}
+		
+		{ Identity
+			* In the solution we can add with right-click:
+			Add new scaffolded Item > Identity > Add > Seelct which you want : tick for Login  for Register and so on
+			Then Add
+			Select a Layout to be used
+			Select DbContext
+			Add at the end
+		}
+		
+		{ Async / Await
+			Quality IAction:
+			
+			
+			What needs to be based on async Task<IActionResult>:
+			* SaveChanges, Add, Read/Write Files, Streams they are based on Task
+			!!! WHEN we have somethign to wait for in the methods, we make them async Task and then inside the code is awaiting:
+			var viewModel = await this.dataService.GetByIdAsync(id).To<DetailsViewModel>();
+		}
+	}
+}
+	
+{ 01. INTRO	EXERCISE
+	* At 1:11:40 - the email sending configuration > Register.cshtml
+	* At 11:43:00 - how to keep input form fields stay intact if submit fails, so you dont have to enter the data all over again but just edit what is wrong
+	
+}
+	
+	
+{ 02. Razor Views
+	{Views are rendered in the server, only with Blazor the C# can be executed on the client side.
+	
+	***** Best to use ViewModels(strongly typed view)
+	- They are generated by the IActionResult from the Controller and are given to the views.
+	- The View declares the model with which it works - strongly typed View:
+	---------------
+	@{
+		ViewData["Title"] = View Engine Essentials";
+	}
+	<h1>Greetings, Dev</h1>
+	<h2>Have a nice @DateTime.Now.DayOfWeek!</h2>
+	---------------
+	
+	***** ViewModels
+	Action: return this.View(model);
+	View:   @model ModelDataType and then @Model.Message
+	-------------
+	Example:
+	@model WebApplication1.Models.UserModel
+	
+	@{
+		ViewBag.Title = "Home Page";
+	}
+	
+	<div class="text-center">
+	    <h1>Hi: @Model.Username!</h1>
+	    <h1>FullName: @Model.FullName</h1>
+	    <h1>Age: @Model.Age</h1>
+	</div>
+	--------------
+	}
+	
+	{ COMMENTS
+		
+		@{ 01. Code Block
+			/* A multi
+			   line C# comment
+			*/
+		}
+		
+		{ 02. Hidden
+			@*
+			    A Razor Comment
+			*@
+		}
+		
+		{ 03. HTML Comment
+		    <!--  -->
+		}
+		
+	}
+	
+	{ Dependency INjection
+		@inject DataService DataService  (the type and the name)
+		
+		* Usually here we use services for
+		- formatting
+		- presentation logic
+		- html sanitizer
+	}
+	
+	{ Layout and Special Views
+		
+		*_Layout
+		*_ViewImports
+		*_ViewStart
+		
+		_Layout
+		    - Rendering from inside-out: View first and then Layout
+			
+		    - @RenderSection
+			- TagHelpers
+			- ViewComponents
+			
+		{***** ViewStart
+		    - contains the Layout declared for all Views !!!
+			- Each View can specify custom layout pages
+		}
+		
+		{FLOW of Execution:
+		Action
+		_ViewStart
+		View
+		Layout
+		}
+		
+		{***** _ViewImports
+		    Only for two purposes: to ass using and to add TagHelpers
+		    - @using
+			- @addTagHelper
+		}
+		
+		{***** Sections
+		1. Declared in View as @section Sidebar{
+			<aside>
+					Some side text.
+			</aside>
+		}
+		all in the brackets is the section.
+		2. In Layout with @RenderSection(NameOfSection, required: true/false)
+		    - at the bottom of the View, we declare the section 
+		3. In Layout IsSectionDefined() if the View has declared the section
+		
+		4. USE OF SECTIONS
+		* Define it in the View
+		* In _Layout -> @RenderSection("Scripts", required: true/false)
+		This is used to call the scripts in the Layout usually at the bottom of the page.
+		}
+		
+		{ Helpers, TagHelpers, PartialViews, ViewComponents
+			 
+			{***** Html Helpers . They inherit ViewData, ViewBag etc.
+			EXAMPLE
+			* @Html.TextBox("Input") - input box for the property "Input" from the View
+			* @Html.TextBoxFor(x => x.Input) - automatic refactor when property name is changed
+			* @Html.BeginForm()
+			* @Html.CheckBox()
+			...
+			}
+			
+			{***** Tag Helpers
+				Enable server-side code in the HTML element creation and rendering in Razor Views
+				
+				Enable HTML friendly development experience
+				Intellisence
+				Maintainable
+				
+				!!! Must be in _ViewImports to use TagHelpers
+				@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+				(all files in the Namespace Microsoft.AspNetCore.Mvc.TagHelpers)
+			}
+			
+			{ Partial View & View Components
+				{***** Partial Views
+				- are View files which are in Shared or where the Views will use them.
+				- solve an issue with same logic in different Views
+				- when a View is very large, then they can be made to several smaller Partial Views
+				
+				- can have TagHelpers
+				- can have Model
+				
+				***** Best way to show Partial: *****
+				1. <partial name="_UsersListPartial" />
+				This is 100% async
+				
+				async operations with Html Helpers:
+				@await HtmlPartialAsync("_UsersListPartial")
+				@Html.RenderPartialAsync("_UsersListPartial")
+				
+				In the View we can add Model with partial:
+				<partial name="_UsersListPartial" model="Model.Usernames" />
+				<partial name="_UsersListPartial" for="Usernames" />
+				}
+				
+				***** View Components
+				* View Compoenent is used as a tag and its attributes go as params for the View Component
+				* Used for:
+				- Dynamic Navigation Menus
+				- Login Panels
+				- Shopping Carts
+				- Sidebar content
+				- Recently published articles
+				
+				COMPARISON:
+				- Partial Views - only views
+				- Tag Helpers - only code (c# class)
+				- View Components - View + Code
+				
+				Two parts:
+				- Action
+				- View
+				1. Class derived from ViewComponent
+				2. View (in Shared FOLDER)
+				---------------------------
+				---------------------------
+				VIEW COMPONENT:
+				1. Class ViewComponent : ViewComponent (inherits)
+					1.1. CTOR injects SomeService
+					1.2. public async Task<IViewComponentResult> InvokeAsync(string name)
+					{
+						string somethingFromDB = await this.SomeService.GetSomethingAsync();
+						
+						this.ViewData["Message"] = somethingFromDB;
+						this.ViewData["Name"] = name;
+						
+						return View();
+					}
+					
+					1.3. Usually the Invoke method gets ViewModel.
+					The Invoke returns View(ViewModel created by the service)
+					
+				2. The ViewComponent needs Views > Components > FOLDER (The VC Class name without ViewComponent at the end) > Default.cshtml (Razor View)
+					2.1. The view will have model:
+					@model NamespaceToTheVCViewModel.VCViewModel
+					2.2. Then using some logic like:
+					Latest user: @Model Username
+					
+				3. How to Use it: 
+				*In any View or in Layout like a TagHelper
+				<vc:viewmodel-vame></vc:viewmodel-vame>
+				
+			}
+		}
+	}
+}
+
+
+{ 03. Error Handling and Middleware
+	
+	{ Error Handling
+	   Three kinds of Error handling
+	   - Developer Exception Page
+	   - Exception Handler
+	   - Status Code Pages
+	   
+	   Other options:
+	   -Exception Filters
+	   -Model Validation (ModelState)
+	   
+	}
+	
+	{ Middleware
+		- The sequence of registration of Middleware is important!
+		- app.UseResponseCompression() - compress response size several times.
+		- app.UseRequestLocalization() - for given key to provide different value depending on the localization settings of the user.
+		- app.UseRouter() - middleware can work directly with the router
+		- app.UseSession() - allows to use session cookie 
+		  In ConfigureServices()
+		  services.AddDistributedMemoryCache();
+		  services.AddSession();
+	}
+	
+	{ Filters
+	   - Allow to run code in MVC, Pages, Web API:
+	   - before Action
+	   - at Authorization
+	   - at Error
+	   - after Result
+	   
+	   * At these stages we can put some code.
+	   * Filter is implementation of an interface, a child of Attribute
+	   { FIVE TYPES of filters:
+	   - Action Filters
+	   - Resource Filters
+	   - Authorization Filters => EXAMPLES: [Authorize]
+	   - Exception Filters
+	   - Result Filters
+	   }
+	   
+	   EXAMPLE: Check the Solution File -> MiddlewareExamples > Folder "Filters"
+	   public class ValidateModelStateFilterAttribute : Attribute, IActionFilter
+	   {
+	      public void OnActionExecuted()
+	   }
+	   
+	   
+	}
+}
+
+
+{ 04. Working with Data
+	{ FORMS
+	    * When we work with FORMS in MVC (not in PAGE) it needs 2-3 Actions
+	        - public IActionResult Create();
+	    	- 
+	    
+	    * AutoValidateAntiForgeryTokenAttribute() must be made global in the Configure() in Startup. Thus all POST requests will validate the token.
+	    BEST PRACTICE - POST request with Antiforgery attribute or global validation of the attribute.
+	    
+	    * When we want dropdown we use <select>
+	    In select tag we add asp-items=""
+	    <select asp-for="Type" class="form-control" asp-items="items">
+	    But we need to create a list:
+	    var items = new List<SelectListItem>{}
+	    
+	    A better approach is:
+	    asp-items = "@Html.GetEnumSelectList<CarType>()"
+	}
+	
+	{ Custom Model Binders
+	   ****************************
+	   [DataType(DataType.Date)]
+        [ModelBinder(typeof(DateTimeToYearModelBinder))]
+        public int Year { get; set; }
+	
+	   This is how to make special Binder for a property.
+	   The binder is:
+	   public class DateTimeToYearModelBinder : IModelBinder
+    {
+        public Task BindModelAsync(ModelBindingContext bindingContext)
+        {
+            var httpYear = bindingContext.ValueProvider.GetValue(bindingContext.ModelName);
+
+            if(DateTime.TryParse(httpYear.FirstValue, out var dateTime))
+            {
+                bindingContext.Result = ModelBindingResult.Success(dateTime.Year);
+            }
+            else
+            {
+                bindingContext.Result = ModelBindingResult.Failed();
+            }
+            
+            return Task.CompletedTask;
+        }
+    }
+	   
+	   this PROVIDER is added in the Configure by the FILTERS:
+	   
+	   services.AddMvc(options => 
+	   {
+	       options.ModelBinderProvider.Insert(0, new DateTimeToYearModelbinderProvider);
+	   })
+	   
+	   ****************************
+	   * How to make the ModelBinder Global
+	   With ModelBinderProvider
+	   
+	   
+	   ****************************
+	
+	   * By POST method we can take not only the InputModel injected but also 
+	   [FromQuery] or 
+	   [FromForm] 
+	   EXAMPLE:
+	   public IActionResult Create([FromQuery]CarInputModel model)
+	   
+	   [Bind("Description, Car.Brand")]  -> this binds only specified properties from the model.
+	}
+	
+	{ Model Validation
+	   * Extremely important to be made on the SERVER!!!
+	   * Mostly with Attributes
+	   - on  the properties of the InputModel 
+	   - on the parameters of the Action
+	   EXAMPLES:
+	   public IActionResult SaveUser([Required, EmailAddress] string Email, [Required, StringLength(50)] string Username)
+	   
+	   [Range(0, 999.99)]
+	   public decimal Price {get; set;}
+	   
+	   [CreditCard]
+	   [Compare]
+	   [EmailAddress]
+	   [Phone]
+	   [Url]
+	   [RegularExpression("")]
+	   [Range()]
+	   [StringLength()]
+	   
+	   Example for password validation and matching
+	   { ...
+	      [Required]
+          [DataType(DataType.Password)]
+          [Compare("Password")]
+          [NotMapped]
+          public string ConfirmPassword { get; set; }
+	   }
+	   
+	   Validation Tag-Helpers
+	   {
+	      To Make Client-Side Validation work:
+		  -Activate the scripts
+		  
+	      * UNDER Specific Input field we can put validation error
+		  <span asp-validation-for="Car.Brand" class="text-danger"></span>
+		  
+		  * For [Required] we can change default error message 
+		  [Required(ErrorMessageResourceName = "", ErrorMessageResourceType = "")]
+		  
+		  * Validation of Enum (if for example enum starts from 1)
+		  [Range(1, int.MaxValue, ErrorMessage = "Please select a valid Type")]
+		  
+	   }
+	   
+	   { Validation Attributes - Custom EMPTY
+	      
+	   }
+	   
+	   * Custom Validators work on the SERVER, NOT on the CLIENT. The Integrated Validators work on BOTH.
+	   
+	   { MAX File Size Custom Validation Attribute
+	   
+	      public class MaxFileSizeAttribute : ValidationAttribute
+          {
+           private readonly int _maxFileSize;
+           public MaxFileSizeAttribute(int maxFileSize)
+           {
+               _maxFileSize = maxFileSize;
+           }
+       
+           protected override ValidationResult IsValid(
+           object value, ValidationContext validationContext)
+           {
+               var file = value as IFormFile;
+               //var extension = Path.GetExtension(file.FileName);
+               //var allowedExtensions = new[] { ".jpg", ".png" };`enter code here`
+               if (file != null)
+               {
+                  if (file.Length > _maxFileSize)
+                   {
+                       return new ValidationResult(GetErrorMessage());
+                   }
+               }
+       
+               return ValidationResult.Success;
+           }
+       
+           public string GetErrorMessage()
+           {
+               return $"Maximum allowed file size is { _maxFileSize} bytes.";
+           }
+          }
+       }
+	   
+	   { Allowed Extensions Validation Attribute
+	      
+		  public class AllowedExtensionsAttribute:ValidationAttribute
+          {
+            private readonly string[] _Extensions;
+            public AllowedExtensionsAttribute(string[] Extensions)
+            {
+                _Extensions = Extensions;
+            }
+        
+            protected override ValidationResult IsValid(
+            object value, ValidationContext validationContext)
+            {
+                var file = value as IFormFile;
+                var extension = Path.GetExtension(file.FileName);
+                if (!(file == null))
+                {
+                    if (!_Extensions.Contains(extension.ToLower()))
+                    {
+                        return new ValidationResult(GetErrorMessage());
+                    }
+                }
+        
+                return ValidationResult.Success;
+            }
+        
+            public string GetErrorMessage()
+            {
+                return $"This photo extension is not allowed!";
+            }
+        }
+       }
+	   
+	   At the end
+	    [Required(ErrorMessage = "Please select a file.")]
+        [DataType(DataType.Upload)]
+        [MaxFileSize(5*1024*1024)]
+        [AllowedExtensions(new string[] { ".jpg", ".png" })]
+        public IFormFile Photo { get; set; }
+		
+		
+    }
+}
+
+
+
+
+{ 08. Advanced Topics I (Architecture)
+	
+	{ Architectures
+		* Monolithic apps
+			- single-tiered applications
+			ASP.NET Core MVC
+		
+	}
+	
+	{ Service-Oriented Architectures(SOA) vs. Microservices
+		{ SOA
+		- divided to modules/services
+		- Consumer Layer, ESB Layer(Enterprise Service Bus), Providers Layer (Account Service, Order Service, Shipping Service etc.), Database Layer
+		- Each module does nt know about the other modules.
+		- All Service actions are captured by ESB or requests from it are captured by the appropriate Module to do its job and return result.
+		- They have a common DB
+		- Not easy to maintain, but are a solution for large projects.
+		}
+		
+		{ Microservices
+			Architecture based on many small applications
+			EXAMPLE:
+			- Billing, Payments, Passenger WEB UI, Passenger Management, Trip Management, Driver WEB UI, Notification
+			- They are all interconnected.
+			- They usually have their own datastore, each of them. Functionally they are small.
+			- Each service can be deployed and changed individually
+			- Communication: REST, Web API, HTTP
+		}
+	}
+	
+	{ MVC vs Razor
+	
+	}
+	
+	{ Repository Pattern
+	
+	}
+	
+	{ Automapper
+		{ Injecting TViewModel in Services
+			No need of DTO in this case!!!!
+			public class CarService : ICarsService
+            {
+                private readonly ApplicationDbContext context;
+	        
+                public CarService(ApplicationDbContext context)
+                {
+                    this.context = context;
+                }
+	        
+                public IEnumerable<TViewModel> GetTopCars<TViewModel>(int count = 5)
+                {
+                    var cars = this.context.Cars
+                        .OrderByDescending(x => x.CreatedOn)
+                        .To<TViewModel>()
+                        .Take(5)
+                        .ToList();
+	        
+                    return cars;
+                }
+            }
+			------------
+			ViewModel!
+			using RPM.Data.Models;
+            using RPM.Services.Mapping;
+            public class HomePageCarViewModel : IMapFrom<Car>
+            {
+                public string Title { get; set; }
+	        
+                public string ModelName { get; set; }
+            }
+			------------
+			HomeController!
+			public IActionResult Index()
+            {
+                var cars = this.carsService.GetTopCars<HomePageCarViewModel>(10);
+                return this.View(cars);
+            }
+			
+			{ Startup > ConfigureServices()
+				services.AddTransient<ICarsService, CarService>();
+			}
+			
+		}
+	}
+	
+	
+}
+
+
+{ 09. Advanced Topics II (Details)
+	
+	
+	
+	
+	
+}
+	
+	
+
+
+
+
+
+
+
+

@@ -1,0 +1,15 @@
+﻿@model CatDetailsModel
+
+<h2>Cats Index</h2>
+
+<form method="post">
+    <input asp-for="Id" type="text" name="Id" />
+    <br />
+    <input asp-for="Name" type="text" name="Name" />
+    <br />
+    <select name="sort">
+        <option value="Name">Name</option>
+        <option value="Age">Age</option>
+    </select>
+    <input type="submit" value="Save Cat" />
+</form>
