@@ -36,7 +36,7 @@
     </div>
     <div>
         <label asp-for="Description"></label>
-        <input asp-for="Description" class="form-control" />
+        <textarea asp-for="Description" class="form-control"></textarea>
         <span asp-validation-for="Description" class="text-danger"></span>
     </div>
     <div>
@@ -49,8 +49,10 @@
         <input asp-for="Price" class="form-control" />
         <span asp-validation-for="Price" class="text-danger"></span>
     </div>
-
-    <input type="submit" class="btn btn-info" />
+    <br />
+    <div>
+        <input type="submit" class="btn btn-info" value="Submit" />
+    </div>
 </form>
 
 @section Scripts
