@@ -79,6 +79,12 @@ ASP.NET Core MVC
 		   var users = context.Users.OrderBy(x => x.Name);
 		}
 	}
+	
+	{ * Antiforgery Global
+	    services.AddMvc(options => {
+                options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>();
+            });
+	}
 }
 
 { KENOV
@@ -143,7 +149,37 @@ ASP.NET Core MVC
 	  
 	}
 	
-	
+	{ Identity
+	   * Setup Password options or OtherOptions related to Username/Password symbols, length etc.:
+		services.AddIdentity<User, IdentityRole>(options => 
+            {
+                options.Password.RequireUppercase = false;
+
+                options.User.RequireUniqueEmail = false;
+            });
+	   
+	   * In AccountController
+	   - UserManager and SignInManager are two Generic classes which allows many things.
+	   
+	   * Login
+	   var signInStatus = await SignInManager.PasswordSignInAsync("maria", "someP@$$");
+	   if(signInStatus.Succeeded)
+	     // Successful login
+	   else
+		 // Login failed
+	    
+		* Logged-in user changes password
+		User - this is what comes from the controller. This is the claims User who keeps minimal data from the cookie, not the real DB User.
+		var currentUser = await user.Manager.GetUserAsync(User);
+		var result = await userManager.ChangePasswordAsync(user, "old pass", "new pass");
+		
+	    * Amin resets users's password
+		var user = await userManager.FindByEmailAsync(model.Email);
+		var token = await userManager.GeneratePasswordResetTokenAsync(user);
+		var result = await userManager.ResetPasswordAsync(user, token, "new pass");
+		
+		
+	}
 }
 
 
