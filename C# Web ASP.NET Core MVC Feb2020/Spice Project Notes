@@ -20,5 +20,10 @@ Spice Project
 	* Change in Startup the default route for HOME
 	{area=NAME}/{controller=Home}/{action=Index}/{id?}
 	
-	
+}
+
+{ Change _Layout to reflect the desired UI 
+	- Add DropDownMenu for Categories
+	- Create Admin CategoryController
+	- Add TagHelpers to the dropdown-items
 }
