@@ -9,5 +9,7 @@
     public interface IAdminCategoryService
     {
         Task<IEnumerable<AdminCategoriesListingServiceModel>> AllCategoriesAsync();
+
+        Task<bool> CreateAsync(string name);
     }
 }

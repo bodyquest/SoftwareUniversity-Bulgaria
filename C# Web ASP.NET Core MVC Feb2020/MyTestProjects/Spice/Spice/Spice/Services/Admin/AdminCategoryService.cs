@@ -29,5 +29,23 @@
 
             return categories;
         }
+
+        public async Task<bool> CreateAsync(string name)
+        {
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                return  false;
+            }
+
+            var category = new Category
+            {
+                Name = name
+            };
+
+            await this.context.Categories.AddAsync(category);
+            await this.context.SaveChangesAsync();
+
+            return true;
+        }
     }
 }
