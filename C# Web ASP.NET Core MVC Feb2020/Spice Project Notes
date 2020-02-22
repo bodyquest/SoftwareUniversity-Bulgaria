@@ -1,0 +1,10 @@
+Spice Project
+
+{ SetUp Specifics
+	Install RazorPages runtimecompilation
+	Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation
+	- In order to get automatic refresh of changed razor pages
+	
+	- In ConfigureServices:
+	services.AddRazorPages().AddRazorRuntimeCompilation();
+}
