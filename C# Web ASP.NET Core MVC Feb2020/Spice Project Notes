@@ -8,3 +8,17 @@ Spice Project
 	- In ConfigureServices:
 	services.AddRazorPages().AddRazorRuntimeCompilation();
 }
+
+{ Create Areas
+	* Move to their Views Folders the _ViewStart and _ViewImports
+	* In _ViewStart , add the actual path to the _Layout file.
+	
+	* In Package Manager Console - update-database (to apply migration of the Identity schema)
+	
+	* Scaffold the Identity Area in order to see its pages in the Identiy Folder
+	
+	* Change in Startup the default route for HOME
+	{area=NAME}/{controller=Home}/{action=Index}/{id?}
+	
+	
+}
