@@ -77,5 +77,51 @@ namespace Spice.Areas.Admin.Controllers
 
             return Json(new SelectList(model, "Id", "Name"));
         }
+
+        // GET - Edit
+        public async Task<IActionResult> EditAsync(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var model = await this.adminSubcategoryService.GetEditAsync(id);
+
+            if (model == null)
+            {
+                return NotFound();
+            }
+
+            return this.View(model);
+        }
+
+        // POST - Edit
+        [HttpPost, ActionName("Edit")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditAsyc(int id, SubcategoryAndCategoryViewModel model)
+        {
+            var modelVM = await this.adminSubcategoryService.GetEditAsync(id);
+
+            if (ModelState.IsValid)
+            {
+                var subcategoryExists = await this.adminSubcategoryService.CreateAsync(model.Subcategory.Name, model.Subcategory.CategoryId);
+
+                if (subcategoryExists == null)
+                {
+                    StatusMessage = "Error : Subcategory already exists";
+
+                    modelVM.Subcategory = model.Subcategory;
+                    modelVM.StatusMessage = StatusMessage;
+
+                    return this.View(modelVM);
+                }
+
+                return RedirectToAction(nameof(Index));
+            }
+
+            return this.View(modelVM);
+        }
+
     }
 }

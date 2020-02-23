@@ -12,6 +12,8 @@
 
         Task<SubcategoryAndCategoryViewModel> GetCreateAsync();
 
+        Task<SubcategoryAndCategoryViewModel> GetEditAsync(int? id);
+
         Task<IEnumerable<SubcategoryViewModel>> GetListAsync(int id);
 
         Task<int?> CreateAsync(string name, int categoryId);

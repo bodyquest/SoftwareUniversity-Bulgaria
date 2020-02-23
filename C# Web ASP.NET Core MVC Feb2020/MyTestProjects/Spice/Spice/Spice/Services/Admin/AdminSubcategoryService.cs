@@ -50,6 +50,31 @@
             return model;
         }
 
+        public async Task<SubcategoryAndCategoryViewModel> GetEditAsync(int? id)
+        {
+            var subcategory = await this.context.Subcategories.FindAsync(id);
+            if (subcategory == null)
+            {
+                return null;
+            }
+
+            SubcategoryAndCategoryViewModel model = new SubcategoryAndCategoryViewModel
+            {
+                CategoryList = await this.context
+                    .Categories
+                    .OrderBy(c => c.Name)
+                    .ToListAsync(),
+                Subcategory = subcategory,
+                SubcategoryList = await this.context.Subcategories
+                    .OrderBy(x => x.Name)
+                    .Select(x => x.Name)
+                    .Distinct()
+                    .ToListAsync()
+            };
+
+            return model;
+        }
+
         public async Task<bool> DeleteAsync(int? id)
         {
             throw new NotImplementedException();
