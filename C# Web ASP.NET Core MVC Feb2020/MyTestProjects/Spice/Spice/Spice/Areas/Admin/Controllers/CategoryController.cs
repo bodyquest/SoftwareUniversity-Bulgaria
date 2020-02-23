@@ -32,6 +32,7 @@ namespace Spice.Areas.Admin.Controllers
             return this.View();
         }
 
+        // POST - Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(AdminCategoryCreateViewModel model)
@@ -42,6 +43,83 @@ namespace Spice.Areas.Admin.Controllers
 
                 return RedirectToAction(nameof(Index));
             }
+
+            return this.View(model);
+        }
+
+        //GET - Edit
+        public async Task<IActionResult> Edit(int? id)
+        {
+
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var model = await this.adminCategoryService.GetAsync(id);
+
+            return this.View(model);
+        }
+
+        //POST - Edit
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit (AdminCategoryEditDeleteViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var isUpdated = await this.adminCategoryService.UpdateAsync(model.Id, model.Name);
+
+                if (isUpdated)
+                {
+                    return RedirectToAction(nameof(Index));
+                }
+
+                return this.View(model);
+            }
+
+            return this.View(model);
+        }
+
+        //GET - Delete
+        public async Task<IActionResult> Delete(int? id)
+        {
+
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var model = await this.adminCategoryService.GetAsync(id);
+
+            return this.View(model);
+        }
+
+        //POST - Delete
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int? id)
+        {
+            var isDeleted = await this.adminCategoryService.DeleteAsync(id);
+
+            if (!isDeleted)
+            {
+                return this.View();
+            }
+
+            return this.RedirectToAction(nameof(Index));
+        }
+
+        //GET - Details
+        public async Task<IActionResult> Details(int? id)
+        {
+
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var model = await this.adminCategoryService.GetAsync(id);
 
             return this.View(model);
         }

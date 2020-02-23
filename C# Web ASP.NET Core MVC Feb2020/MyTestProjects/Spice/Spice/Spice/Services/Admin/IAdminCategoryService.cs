@@ -11,5 +11,11 @@
         Task<IEnumerable<AdminCategoriesListingServiceModel>> AllCategoriesAsync();
 
         Task<bool> CreateAsync(string name);
+
+        Task<AdminCategoryEditDeleteViewModel> GetAsync(int? id);
+
+        Task<bool> UpdateAsync(int? id, string name);
+
+        Task<bool> DeleteAsync(int? id);
     }
 }

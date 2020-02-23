@@ -1,13 +1,14 @@
 ﻿namespace Spice.Services.Admin
 {
-    using Microsoft.EntityFrameworkCore;
-    using Spice.Data;
-    using Spice.Models;
-    using Spice.Services.Admin.Models;
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
+
+    using Microsoft.EntityFrameworkCore;
+    using Spice.Data;
+    using Spice.Models;
+    using Spice.Services.Admin.Models;
 
     public class AdminCategoryService : IAdminCategoryService
     {
@@ -45,6 +46,53 @@
             await this.context.Categories.AddAsync(category);
             await this.context.SaveChangesAsync();
 
+            return true;
+        }
+
+        public async Task<bool> DeleteAsync(int? id)
+        {
+            var category = await this.context.Categories.FindAsync(id);
+            if (category == null)
+            {
+                return false;
+            }
+
+            this.context.Remove(category);
+            await this.context.SaveChangesAsync();
+
+            return true;
+        }
+
+        public async Task<AdminCategoryEditDeleteViewModel> GetAsync(int? id)
+        {
+            var category = await this.context.Categories.FindAsync(id);
+
+            if (category == null)
+            {
+                return null;
+            }
+
+            var model = new AdminCategoryEditDeleteViewModel
+            {
+                Id = category.Id,
+                Name = category.Name
+            };
+
+            return model;
+        }
+
+        public async Task<bool> UpdateAsync(int? id, string name)
+        {
+            var category = await this.context.Categories.FindAsync(id);
+
+            if (id == null || string.IsNullOrWhiteSpace(name))
+            {
+                return false;
+            }
+
+            category.Name = name;
+            this.context.Categories.Update(category);
+            await this.context.SaveChangesAsync();
             return true;
         }
     }

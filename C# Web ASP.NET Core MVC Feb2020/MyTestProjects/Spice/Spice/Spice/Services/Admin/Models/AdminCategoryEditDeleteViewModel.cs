@@ -6,11 +6,11 @@
     using System.Linq;
     using System.Threading.Tasks;
 
-    public class AdminCategoriesListingServiceModel
+    public class AdminCategoryEditDeleteViewModel
     {
         public int Id { get; set; }
 
-        [Display(Name="Category Name")]
+        [Display(Name = "Category Name")]
         public string Name { get; set; }
     }
 }
