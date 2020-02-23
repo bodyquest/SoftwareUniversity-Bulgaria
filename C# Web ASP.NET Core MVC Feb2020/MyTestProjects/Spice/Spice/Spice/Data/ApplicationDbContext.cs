@@ -10,6 +10,7 @@ namespace Spice.Data
     public class ApplicationDbContext : IdentityDbContext
     {
         public DbSet<Category> Categories { get; set; }
+        public DbSet<Subcategory> Subcategories { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)

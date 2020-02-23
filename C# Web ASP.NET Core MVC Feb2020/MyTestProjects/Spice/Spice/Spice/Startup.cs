@@ -13,6 +13,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Spice.Services.Admin;
+using Spice.Services.Admin.Models;
 
 namespace Spice
 {
@@ -37,6 +38,7 @@ namespace Spice
             services.AddRazorPages().AddRazorRuntimeCompilation();
 
             services.AddTransient<IAdminCategoryService, AdminCategoryService>();
+            services.AddTransient<IAdminSubcategoryService, AdminSubcategoryService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -46,6 +48,15 @@ namespace Spice
             {
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
+
+
+
+
+
+
+
+
+
             }
             else
             {

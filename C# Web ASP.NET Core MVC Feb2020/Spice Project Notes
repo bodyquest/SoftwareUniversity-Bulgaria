@@ -27,3 +27,55 @@ Spice Project
 	- Create Admin CategoryController
 	- Add TagHelpers to the dropdown-items
 }
+
+{ !!! Create related list of items from selected item in dropdown !!!
+	
+	
+	
+	
+	
+	AJAX Call  - It needs to be called two times:
+	- when we see the document is ready, we call the function
+	- next time whenever the dropdown is changed (when ddlCategoryList changes).
+	
+	@section Scripts{ 
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial")}
+
+    <script>
+        function updateSubcastegoryList() {
+            var categorySelected = document.getElementById("ddlCategoryList").value;
+
+            $list = $('#SubcategoryList');
+
+            $.ajax({
+                url: '/Admin/Subcategory/GetSubcategory' + categorySelected,
+                type: 'GET',
+                dataType: 'text',
+                success: function (data) {
+                    results = JSON.parse(data);
+                    $lis.html('');
+                    $lis.append(' <ul class="list-group"> ');
+                    for (i in results) {
+                        $list.append('<li class="list-group-item">' + results[i].text + '</li>');
+                    }
+                    $list.append('</ul>');
+                }
+            });
+        }
+		
+		$(document).ready(function () {
+            updateSubcastegoryList();
+        });
+
+        $("#ddlCategoryList").on("change", function () {
+            updateSubcastegoryList();
+        })
+		
+    </script>
+
+}
+
+
+}
+
+

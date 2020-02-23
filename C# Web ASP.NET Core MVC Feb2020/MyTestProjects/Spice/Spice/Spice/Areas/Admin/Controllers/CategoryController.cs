@@ -64,7 +64,7 @@ namespace Spice.Areas.Admin.Controllers
         //POST - Edit
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit (AdminCategoryEditDeleteViewModel model)
+        public async Task<IActionResult> Edit (AdminSubcategoryEditDeleteViewModel model)
         {
             if (ModelState.IsValid)
             {

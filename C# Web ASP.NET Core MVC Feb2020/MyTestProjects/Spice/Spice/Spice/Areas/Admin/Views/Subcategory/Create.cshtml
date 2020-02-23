@@ -1,0 +1,94 @@
+﻿@model Spice.Models.ViewModels.SubcategoryAndCategoryViewModel
+@using Spice.Extensions
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+<h2 class="text-info">Create Subcategory</h2>
+<br />
+
+<partial name="_StatusMessage" model="Model.StatusMessage" />
+
+<div class="border backgroundWhite row">
+    <div class="col-8 border-right">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="Subcategory.CategoryId" class="col-form-label"></label>
+                </div>
+                <div class="col-5">
+                    <select id="ddlCategoryList" asp-for="Subcategory.CategoryId" asp-items="Model.CategoryList.ToSelectListItem(Model.Subcategory.CategoryId)" class="form-control"></select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="Subcategory.Name" class="col-form-label"></label>
+                </div>
+                <div class="col-5">
+                    <input asp-for="Subcategory.Name" class="form-control" />
+                </div>
+                <span asp-validation-for="Subcategory.Name" class="text-danger"></span>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-5 offset-3">
+                    <partial name="_CreateAndBackToListButton" />
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="col-3 offset-1">
+        @if(Model.SubcategoryList.Count() > 0)
+        {
+            <p> Existing Subcategories: </p>
+            <div id="SubcategoryList">
+                <ul class="list-group">
+                </ul>
+            </div>
+        }
+    </div>
+
+   
+</div>
+@section Scripts{ 
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script>
+        function updateSubcategoryList() {
+            var categorySelected = document.getElementById("ddlCategoryList").value;
+
+            $list = $('#SubcategoryList');
+
+            $.ajax({
+                url: '/Admin/Subcategory/GetSubcategory/' + categorySelected,
+                type: 'GET',
+                dataType: 'text',
+                success: function (data) {
+                    results = JSON.parse(data);
+                    $list.html('');
+                    $list.append(' <ul class="list-group"> ');
+                    for (i in results) {
+                        $list.append('<li class="list-group-item">' + results[i].text + '</li>');
+                    }
+                    $list.append('</ul>');
+                }
+            }); 
+        }
+
+        $(document).ready(function () {
+            updateSubcategoryList();
+        });
+
+        $("#ddlCategoryList").on("change", function () {
+            updateSubcategoryList();
+        });
+
+    </script>
+
+}
+
