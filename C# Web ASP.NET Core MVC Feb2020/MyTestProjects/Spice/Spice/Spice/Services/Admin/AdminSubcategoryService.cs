@@ -50,36 +50,6 @@
             return model;
         }
 
-        public async Task<SubcategoryAndCategoryViewModel> GetEditAsync(int? id)
-        {
-            var subcategory = await this.context.Subcategories.FindAsync(id);
-            if (subcategory == null)
-            {
-                return null;
-            }
-
-            SubcategoryAndCategoryViewModel model = new SubcategoryAndCategoryViewModel
-            {
-                CategoryList = await this.context
-                    .Categories
-                    .OrderBy(c => c.Name)
-                    .ToListAsync(),
-                Subcategory = subcategory,
-                SubcategoryList = await this.context.Subcategories
-                    .OrderBy(x => x.Name)
-                    .Select(x => x.Name)
-                    .Distinct()
-                    .ToListAsync()
-            };
-
-            return model;
-        }
-
-        public async Task<bool> DeleteAsync(int? id)
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task<int?> CreateAsync(string name, int categoryId)
         {
             var subcategory = await this.context.Subcategories
@@ -105,9 +75,81 @@
             }
         }
 
-        public Task<bool> UpdateAsync(int? id, string name)
+        public async Task<bool> ExistsAsync(string name, int categoryId)
+        {
+            var subcategory = await this.context.Subcategories
+                .FirstOrDefaultAsync(s => s.Name == name && s.CategoryId == categoryId);
+
+            if (subcategory == null)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        public async Task<SubcategoryAndCategoryViewModel> GetEditAsync(int? id)
+        {
+            var subcategory = await this.context.Subcategories.FindAsync(id);
+            if (subcategory == null)
+            {
+                return null;
+            }
+
+            SubcategoryAndCategoryViewModel model = new SubcategoryAndCategoryViewModel
+            {
+                CategoryList = await this.context
+                    .Categories
+                    .OrderBy(c => c.Name)
+                    .ToListAsync(),
+                Subcategory = subcategory,
+                SubcategoryList = await this.context.Subcategories
+                    .OrderBy(x => x.Name)
+                    .Select(x => x.Name)
+                    .Distinct()
+                    .ToListAsync()
+            };
+
+            return model;
+        }
+
+        public async Task<SubcategoryViewModel> GetByIdAsync(int id)
+        {
+            var subcategory = await this.context.Subcategories.FindAsync(id);
+            if (subcategory != null)
+            {
+                return null;
+            }
+
+            var model = new SubcategoryViewModel()
+            {
+                Id = subcategory.Id,
+                Name = subcategory.Name
+            };
+
+            return model;
+        }
+
+        public async Task<bool> DeleteAsync(int? id)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<bool> UpdateAsync(int id, string name)
+        {
+            var subcategory = await this.context.Subcategories.FindAsync(id);
+            if (subcategory == null)
+            {
+                return false;
+            }
+
+            subcategory.Name = name;
+            // this.context.Subcategories.Update(subcategory); this would update all props
+            await this.context.SaveChangesAsync();
+
+            return true;
         }
 
         public async Task<IEnumerable<SubcategoryViewModel>> GetListAsync(int id)

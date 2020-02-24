@@ -12,13 +12,17 @@
 
         Task<SubcategoryAndCategoryViewModel> GetCreateAsync();
 
+        Task<int?> CreateAsync(string name, int categoryId);
+
+        Task<bool> ExistsAsync(string name, int categoryId);
+
         Task<SubcategoryAndCategoryViewModel> GetEditAsync(int? id);
+
+        Task<SubcategoryViewModel> GetByIdAsync(int id);
 
         Task<IEnumerable<SubcategoryViewModel>> GetListAsync(int id);
 
-        Task<int?> CreateAsync(string name, int categoryId);
-
-        Task<bool> UpdateAsync(int? id, string name);
+        Task<bool> UpdateAsync(int id, string name);
 
         Task<bool> DeleteAsync(int? id);
     }

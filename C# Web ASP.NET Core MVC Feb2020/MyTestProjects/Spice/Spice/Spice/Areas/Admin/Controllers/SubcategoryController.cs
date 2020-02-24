@@ -35,6 +35,7 @@ namespace Spice.Areas.Admin.Controllers
             return this.View(model);
         }
 
+
         // GET - Create
         public async Task<IActionResult> CreateAsync()
         {
@@ -42,6 +43,7 @@ namespace Spice.Areas.Admin.Controllers
 
             return this.View(model);
         }
+
 
         // POST - Create
         [HttpPost, ActionName("Create")]
@@ -70,6 +72,7 @@ namespace Spice.Areas.Admin.Controllers
             return this.View(modelVM); 
         }
 
+
         [ActionName("GetSubcategory")]
         public async Task<IActionResult> GetSubcategory(int id)
         {
@@ -77,6 +80,7 @@ namespace Spice.Areas.Admin.Controllers
 
             return Json(new SelectList(model, "Id", "Name"));
         }
+
 
         // GET - Edit
         public async Task<IActionResult> EditAsync(int? id)
@@ -96,6 +100,7 @@ namespace Spice.Areas.Admin.Controllers
             return this.View(model);
         }
 
+
         // POST - Edit
         [HttpPost, ActionName("Edit")]
         [ValidateAntiForgeryToken]
@@ -105,9 +110,9 @@ namespace Spice.Areas.Admin.Controllers
 
             if (ModelState.IsValid)
             {
-                var subcategoryExists = await this.adminSubcategoryService.CreateAsync(model.Subcategory.Name, model.Subcategory.CategoryId);
+                var subcategoryExists = await this.adminSubcategoryService.ExistsAsync(model.Subcategory.Name, model.Subcategory.CategoryId);
 
-                if (subcategoryExists == null)
+                if (subcategoryExists)
                 {
                     StatusMessage = "Error : Subcategory already exists";
 
@@ -117,7 +122,14 @@ namespace Spice.Areas.Admin.Controllers
                     return this.View(modelVM);
                 }
 
-                return RedirectToAction(nameof(Index));
+                var updated = await this.adminSubcategoryService.UpdateAsync(id, model.Subcategory.Name);
+
+                if (updated)
+                {
+                    return RedirectToAction(nameof(Index));
+                }
+                
+                return this.View(modelVM);
             }
 
             return this.View(modelVM);
