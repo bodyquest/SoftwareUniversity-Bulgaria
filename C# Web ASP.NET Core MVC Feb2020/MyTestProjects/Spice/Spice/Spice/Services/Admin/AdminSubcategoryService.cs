@@ -115,18 +115,28 @@
             return model;
         }
 
-        public async Task<SubcategoryViewModel> GetByIdAsync(int id)
+        public async Task<AdminSubcategoryEditDeleteViewModel> GetByIdAsync(int id)
         {
-            var subcategory = await this.context.Subcategories.FindAsync(id);
-            if (subcategory != null)
+            var subcategory = await this.context
+                .Subcategories
+                .FindAsync(id);
+
+            var category = await this.context
+                .Categories
+                .FindAsync(subcategory.CategoryId);
+
+            subcategory.Category = category;
+
+            if (subcategory == null)
             {
                 return null;
             }
 
-            var model = new SubcategoryViewModel()
+            var model = new AdminSubcategoryEditDeleteViewModel()
             {
                 Id = subcategory.Id,
-                Name = subcategory.Name
+                Name = subcategory.Name,
+                Category = subcategory.Category
             };
 
             return model;
@@ -134,7 +144,17 @@
 
         public async Task<bool> DeleteAsync(int? id)
         {
-            throw new NotImplementedException();
+            var subcategory = await this.context.Subcategories.FindAsync(id);
+
+            if (subcategory == null)
+            {
+                return false;
+            }
+
+            this.context.Subcategories.Remove(subcategory);
+            await this.context.SaveChangesAsync();
+
+            return true;
         }
 
         public async Task<bool> UpdateAsync(int id, string name)

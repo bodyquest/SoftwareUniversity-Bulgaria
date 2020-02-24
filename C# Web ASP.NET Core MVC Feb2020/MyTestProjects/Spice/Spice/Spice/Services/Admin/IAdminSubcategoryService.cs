@@ -1,9 +1,7 @@
 ﻿namespace Spice.Services.Admin.Models
 {
     using Spice.Models.ViewModels;
-    using System;
     using System.Collections.Generic;
-    using System.Linq;
     using System.Threading.Tasks;
 
     public interface IAdminSubcategoryService
@@ -18,7 +16,7 @@
 
         Task<SubcategoryAndCategoryViewModel> GetEditAsync(int? id);
 
-        Task<SubcategoryViewModel> GetByIdAsync(int id);
+        Task<AdminSubcategoryEditDeleteViewModel> GetByIdAsync(int id);
 
         Task<IEnumerable<SubcategoryViewModel>> GetListAsync(int id);
 

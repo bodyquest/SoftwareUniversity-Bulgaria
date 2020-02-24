@@ -44,7 +44,6 @@ namespace Spice.Areas.Admin.Controllers
             return this.View(model);
         }
 
-
         // POST - Create
         [HttpPost, ActionName("Create")]
         [ValidateAntiForgeryToken]
@@ -73,15 +72,6 @@ namespace Spice.Areas.Admin.Controllers
         }
 
 
-        [ActionName("GetSubcategory")]
-        public async Task<IActionResult> GetSubcategory(int id)
-        {
-            var model = await this.adminSubcategoryService.GetListAsync(id);
-
-            return Json(new SelectList(model, "Id", "Name"));
-        }
-
-
         // GET - Edit
         public async Task<IActionResult> EditAsync(int? id)
         {
@@ -99,7 +89,6 @@ namespace Spice.Areas.Admin.Controllers
 
             return this.View(model);
         }
-
 
         // POST - Edit
         [HttpPost, ActionName("Edit")]
@@ -135,5 +124,54 @@ namespace Spice.Areas.Admin.Controllers
             return this.View(modelVM);
         }
 
+
+        //GET - Details
+        public async Task<IActionResult> Details(int id)
+        {
+            var model = await this.adminSubcategoryService.GetByIdAsync(id);
+            if (model == null)
+            {
+                return this.RedirectToAction(nameof(Index));
+            }
+
+            return this.View(model);
+        }
+
+        //GET - Delete
+        public async Task<IActionResult> Delete(int id)
+        {
+            var model = await this.adminSubcategoryService.GetByIdAsync(id);
+
+            if (model == null)
+            {
+                return this.RedirectToAction(nameof(Index));
+            }
+
+            return this.View(model);
+        }
+
+        //POST - Delete
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int? id)
+        {
+            var isDeleted = await this.adminSubcategoryService.DeleteAsync(id);
+
+            if (!isDeleted)
+            {
+                return this.View();
+            }
+
+            return this.RedirectToAction(nameof(Index));
+        }
+
+
+        [ActionName("GetSubcategory")]
+        public async Task<IActionResult> GetSubcategory(int id)
+        {
+            var model = await this.adminSubcategoryService.GetListAsync(id);
+
+            return Json(new SelectList(model, "Id", "Name"));
+        }
     }
 }

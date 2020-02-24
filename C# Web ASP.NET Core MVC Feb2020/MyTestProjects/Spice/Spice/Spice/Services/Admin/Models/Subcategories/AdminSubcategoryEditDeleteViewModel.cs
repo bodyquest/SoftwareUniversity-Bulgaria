@@ -1,5 +1,6 @@
 ﻿namespace Spice.Services.Admin.Models
 {
+    using Spice.Models;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
@@ -10,7 +11,10 @@
     {
         public int Id { get; set; }
 
-        [Display(Name = "Category Name")]
+        [Display(Name = "Subcategory Name")]
         public string Name { get; set; }
+
+        public int CategoryId { get; set; }
+        public Category Category { get; set; }
     }
 }
