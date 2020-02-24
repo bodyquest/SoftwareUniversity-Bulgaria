@@ -104,15 +104,15 @@ namespace Spice.Areas.Admin.Controllers
         // POST - Edit
         [HttpPost, ActionName("Edit")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditAsyc(int id, SubcategoryAndCategoryViewModel model)
+        public async Task<IActionResult> EditAsyc(SubcategoryAndCategoryViewModel model)
         {
-            var modelVM = await this.adminSubcategoryService.GetEditAsync(id);
+            var modelVM = await this.adminSubcategoryService.GetEditAsync(model.Subcategory.Id);
 
             if (ModelState.IsValid)
             {
                 var subcategoryExists = await this.adminSubcategoryService.ExistsAsync(model.Subcategory.Name, model.Subcategory.CategoryId);
 
-                if (subcategoryExists)
+                if (subcategoryExists) 
                 {
                     StatusMessage = "Error : Subcategory already exists";
 
@@ -122,7 +122,7 @@ namespace Spice.Areas.Admin.Controllers
                     return this.View(modelVM);
                 }
 
-                var updated = await this.adminSubcategoryService.UpdateAsync(id, model.Subcategory.Name);
+                var updated = await this.adminSubcategoryService.UpdateAsync(model.Subcategory.Id, model.Subcategory.Name);
 
                 if (updated)
                 {
