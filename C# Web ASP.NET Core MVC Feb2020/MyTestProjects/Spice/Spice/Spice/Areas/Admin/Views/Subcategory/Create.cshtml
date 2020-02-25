@@ -43,7 +43,7 @@
         </form>
     </div>
     <div class="col-3 offset-1">
-        @if(Model.SubcategoryList.Count() > 0)
+        @if (Model.SubcategoryList.Count() > 0)
         {
             <p> Existing Subcategories: </p>
             <div id="SubcategoryList">
@@ -53,9 +53,9 @@
         }
     </div>
 
-   
+
 </div>
-@section Scripts{ 
+@section Scripts{
     @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 
     <script>
@@ -77,7 +77,7 @@
                     }
                     $list.append('</ul>');
                 }
-            }); 
+            });
         }
 
         $(document).ready(function () {
@@ -90,5 +90,9 @@
 
     </script>
 
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
 }
+
+
 

@@ -101,4 +101,36 @@
             tinycomments_author: 'Author name',
         });
     </script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            getSubcategory();
+            $('#CategoryId').change(function () {
+                getSubcategory();
+            });
+        });
+
+        function getSubcategory() {
+
+            var url = '@Url.Content("~/")' + "Admin/Subcategory/GetSubcategory";
+
+            var ddlSource = '#CategoryId';
+
+            $.getJSON(url, { id: $(ddlSource).val() }, function (data) {
+
+                var items = '';
+
+                $('#SubcategoryId').empty();
+
+                $.each(data, function (i, subcategory) {
+                    items += "<option value ='" + subcategory.value + "'>" + subcategory.text + "</option>";
+                });
+
+                $('#SubcategoryId').html(items);
+            })
+        }
+    </script>
+
+    @{  await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
 }

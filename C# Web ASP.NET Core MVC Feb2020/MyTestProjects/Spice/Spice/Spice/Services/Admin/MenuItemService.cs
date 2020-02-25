@@ -6,6 +6,7 @@
     using System.Threading.Tasks;
     using Microsoft.EntityFrameworkCore;
     using Spice.Data;
+    using Spice.Models;
     using Spice.Services.Admin.Models.MenuItems;
 
     public class MenuItemService : IMenuItemService
@@ -25,6 +26,7 @@
                 {
                     Id = x.Id,
                     Name = x.Name,
+                    Price = x.Price,
                     Category = x.Category,
                     Subcategory = x.Subcategory
                 })
@@ -33,7 +35,36 @@
             return list;
         }
 
+        public async Task<bool> CreateAsync(MenuItem menuItem)
+        {
+            var itemExists = await this.context.MenuItems.AnyAsync(x => x.Name == menuItem.Name);
 
+            if (!itemExists)
+            {
+                await this.context.MenuItems.AddAsync(menuItem);
+                await this.context.SaveChangesAsync();
+
+                return true;
+            }
+
+            return false;
+        }
+
+        public async Task<MenuItem> GetByIdAsync(int id)
+        {
+            var item = await this.context.MenuItems.FirstOrDefaultAsync(x => x.Id == id);
+
+            return item;
+        }
+
+        public async Task<int> UpdateItemImageAsync(MenuItem menuItem)
+        {
+            this.context.MenuItems.Update(menuItem);
+
+            var result = await this.context.SaveChangesAsync();
+
+            return result;
+        }
 
     }
 }

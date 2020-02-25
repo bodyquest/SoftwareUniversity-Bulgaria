@@ -1,5 +1,14 @@
 Spice Project
 
+{ DEBUGGING
+	* When Action Method is not hit by debugging, then it has NEVER been INVOKED ! 
+	- EITHER Url is wrong, OR ActionName is incorrect
+	
+	
+}
+	
+
+
 { SetUp Specifics
 	Install RazorPages runtimecompilation
 	Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation
@@ -77,6 +86,40 @@ Spice Project
 }
 
 { IMAGES
-	* When dealing with images- we need IWebHostingEnvironment when strogin them on the server
+	* When dealing with images- we need IWebHostEnvironment when storing them on the server.
+	
+	1. GET the WebRootPath
+	string webRootPath = hostingEnv.WebRootPath;
+	
+	2. GET the files from the request
+	var files = HttpContext.Request.Form.Files;
+	
+	3. GET the Entity from DB which contains the image, by entityId
+	
+	4. GET complete path to IMG folder in wwwroot
+	var uploads = Path.Combine(webRootPath, "img");
+	
+	5. GET extension of the file. We allow now only one file upload
+	
+	6. SAVE the file location from server as string
+	 using (var filesStream = new FileStream(Path.Combine(uploads, MenuItemVM.MenuItem.Id + extension), FileMode.Create))
+    {
+        files[0].CopyTo(filesStream);
+    }
+	
+	7. Change Image Column in the DB with the location where it is saved
+	menuItemFromDb.Image = @"\img\" + entityId + extension;
+	
+	8. If NO UPLOADED image, then:
+	
+	   8.1. GET Default Image
+	   var uploads = Path.Combine(webRootPath, @"img\" + StaticDetails.DefaultFoodImage);
+	   
+	   8.2. Copy it in the wwwroot with unique name
+	   System.IO.File.Copy(uploads, @"\img\" + MenuItemVM.MenuItem.Id + ".jpg");
+	   
+	   8.3. Update this entry in DB
+	
+	
 	
 }
