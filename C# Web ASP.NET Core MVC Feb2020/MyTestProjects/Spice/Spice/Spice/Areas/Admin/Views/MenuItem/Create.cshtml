@@ -12,7 +12,7 @@
 <br />
 <h2 class="text-info">Create MenuItem</h2>
 <br />
-<form method="post" asp-action="Create" enctype="multipart/form-data" >
+<form method="post" asp-action="Create" enctype="multipart/form-data">
     <div class="border backgroundWhite">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="form-group row">
@@ -89,3 +89,16 @@
         </div>
     </div>
 </form>
+
+@section Scripts{
+    <script>
+        tinymce.init({
+            selector: 'textarea',
+            plugins: 'lists',
+            toolbar: 'a11ycheck addcomment showcomments casechange checklist code formatpainter pageembed permanentpen table',
+            toolbar_drawer: 'floating',
+            tinycomments_mode: 'embedded',
+            tinycomments_author: 'Author name',
+        });
+    </script>
+}
