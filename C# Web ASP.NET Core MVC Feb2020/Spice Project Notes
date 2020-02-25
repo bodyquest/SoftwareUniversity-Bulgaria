@@ -31,14 +31,12 @@ Spice Project
 { !!! Create related list of items from selected item in dropdown !!!
 	
 	
-	
-	
-	
 	AJAX Call  - It needs to be called two times:
 	- when we see the document is ready, we call the function
 	- next time whenever the dropdown is changed (when ddlCategoryList changes).
 	
-	@section Scripts{ 
+	@section Scripts
+	{ 
     @{ await Html.RenderPartialAsync("_ValidationScriptsPartial")}
 
     <script>
@@ -73,9 +71,12 @@ Spice Project
 		
     </script>
 
-}
+	}
 
 
 }
 
-
+{ IMAGES
+	* When dealing with images- we need IWebHostingEnvironment when strogin them on the server
+	
+}

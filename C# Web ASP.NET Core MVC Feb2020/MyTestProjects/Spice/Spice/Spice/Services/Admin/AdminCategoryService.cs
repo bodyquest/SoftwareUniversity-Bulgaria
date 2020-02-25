@@ -31,6 +31,14 @@
             return categories;
         }
 
+        public async Task<IEnumerable<Category>> AllAsync()
+        {
+            var categories = await context.Categories
+            .ToListAsync();
+
+            return categories;
+        }
+
         public async Task<bool> CreateAsync(string name)
         {
             if (string.IsNullOrWhiteSpace(name))

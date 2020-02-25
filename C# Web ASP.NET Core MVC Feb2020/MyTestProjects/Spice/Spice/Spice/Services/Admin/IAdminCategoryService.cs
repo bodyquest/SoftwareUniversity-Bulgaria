@@ -1,5 +1,6 @@
 ﻿namespace Spice.Services.Admin
 {
+    using Spice.Models;
     using Spice.Services.Admin.Models;
     using System;
     using System.Collections.Generic;
@@ -9,6 +10,8 @@
     public interface IAdminCategoryService
     {
         Task<IEnumerable<AdminCategoriesListingServiceModel>> AllCategoriesAsync();
+
+        Task<IEnumerable<Category>> AllAsync();
 
         Task<bool> CreateAsync(string name);
 
