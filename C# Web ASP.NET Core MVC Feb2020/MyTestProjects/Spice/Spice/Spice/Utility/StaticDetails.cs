@@ -7,6 +7,6 @@
 
     public static class StaticDetails
     {
-        public const string DefaultFoodImage = "default-menuitem-jpg";
+        public const string DefaultFoodImage = "default-menuitem-jpg.jpg";
     }
 }

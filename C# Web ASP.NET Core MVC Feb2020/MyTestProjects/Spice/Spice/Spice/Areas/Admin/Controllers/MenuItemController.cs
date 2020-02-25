@@ -89,7 +89,7 @@
                     files[0].CopyTo(filesStream);
                 }
 
-                menuItemFromDb.Image = @"\img\" + menuItemFromDb.Id + extension;
+                menuItemFromDb.Image = @"\img\" + MenuItemVM.MenuItem.Id + extension;
             }
             else
             {
@@ -97,9 +97,9 @@
 
                 var uploads = Path.Combine(webRootPath, @"img\" + StaticDetails.DefaultFoodImage);
 
-                System.IO.File.Copy(uploads, @"\img\" + menuItemFromDb.Id + ".jpg");
+                System.IO.File.Copy(uploads, webRootPath + @"\img\" + MenuItemVM.MenuItem.Id + ".jpg");
 
-                menuItemFromDb.Image = @"\img\" + menuItemFromDb.Id + ".jpg";
+                menuItemFromDb.Image = @"\img\" + MenuItemVM.MenuItem.Id + ".jpg";
             }
 
             await this.menuItemService.UpdateItemImageAsync(menuItemFromDb);
