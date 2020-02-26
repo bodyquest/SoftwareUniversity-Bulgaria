@@ -66,5 +66,18 @@
             return result;
         }
 
+        public async Task<bool> UpdateAsync(MenuItem menuItem) 
+        {
+            var result = this.context.Update(menuItem);
+            var success = await this.context.SaveChangesAsync();
+
+            if (success > 0)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
     }
 }

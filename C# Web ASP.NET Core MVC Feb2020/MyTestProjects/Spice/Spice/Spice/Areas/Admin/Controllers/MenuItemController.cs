@@ -122,35 +122,30 @@
                 return NotFound();
             }
 
-            var subcategories = await this.subcategoryService.GetListAsync(MenuItemVM.MenuItem.CategoryId);
-            this.MenuItemVM.Subcategories = subcategories.Select(x => new Subcategory 
-            {
-                Id = x.Id,
-                Name = x.Name
-            }).ToList(); 
-
-            return this.View(this.MenuItemVM);
+            return await GetModelwithSubcategoriesAsync();
         }
 
         //POST - Edit
         [HttpPost]
         [ValidateAntiForgeryToken]
         [ActionName("Edit")]
-        public async Task<IActionResult> EditPost(int id)
+        public async Task<IActionResult> EditPost()
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
             MenuItemVM.MenuItem.SubcategoryId = int.Parse(this.Request.Form["SubcategoryId"].ToString());
+
+            #region test smth
+            string test = "str";
+            var array = new string[] { "vm", "model" };
+
+            var result = array.Any(test.Contains);
+            #endregion
 
             if (!ModelState.IsValid)
             {
-                return this.View(this.MenuItemVM);
+                return await GetModelwithSubcategoriesAsync();
             }
 
-            await this.menuItemService.CreateAsync(MenuItemVM.MenuItem);
+            //await this.menuItemService.CreateAsync(MenuItemVM.MenuItem);
 
             string webRootPath = hostingEnv.WebRootPath;
             var files = HttpContext.Request.Form.Files;
@@ -159,35 +154,52 @@
 
             if (files.Count > 0)
             {
-                // if file has been uploaded
-
+                // new image file has been uploaded
                 var uploads = Path.Combine(webRootPath, "img");
+                var extension_new = Path.GetExtension(files[0].FileName);
 
-                // whatever is the first file extension, this will be the required for the rest of the files.
+                // delete the original file
+                if (menuItemFromDb.Image != null)
+                {
+                    var imagePath = Path.Combine(webRootPath, menuItemFromDb.Image.TrimStart('\\'));
 
-                var extension = Path.GetExtension(files[0].FileName);
+                    if (System.IO.File.Exists(imagePath))
+                    {
+                        System.IO.File.Delete(imagePath);
+                    }
+                }
 
-                using (var filesStream = new FileStream(Path.Combine(uploads, menuItemFromDb.Id + extension), FileMode.Create))
+                // upload the new file
+                using (var filesStream = new FileStream(Path.Combine(uploads, menuItemFromDb.Id + extension_new), FileMode.Create))
                 {
                     files[0].CopyTo(filesStream);
                 }
 
-                menuItemFromDb.Image = @"\img\" + MenuItemVM.MenuItem.Id + extension;
-            }
-            else
-            {
-                // no file was uploded, so use default
-
-                var uploads = Path.Combine(webRootPath, @"img\" + StaticDetails.DefaultFoodImage);
-
-                System.IO.File.Copy(uploads, webRootPath + @"\img\" + MenuItemVM.MenuItem.Id + ".jpg");
-
-                menuItemFromDb.Image = @"\img\" + MenuItemVM.MenuItem.Id + ".jpg";
+                menuItemFromDb.Image = @"\img\" + MenuItemVM.MenuItem.Id + extension_new;
             }
 
-            await this.menuItemService.UpdateItemImageAsync(menuItemFromDb);
+            menuItemFromDb.Name = MenuItemVM.MenuItem.Name;
+            menuItemFromDb.Description = MenuItemVM.MenuItem.Description;
+            menuItemFromDb.Price = MenuItemVM.MenuItem.Price;
+            menuItemFromDb.Spicyness = MenuItemVM.MenuItem.Spicyness;
+            menuItemFromDb.CategoryId = MenuItemVM.MenuItem.CategoryId;
+            menuItemFromDb.SubcategoryId = MenuItemVM.MenuItem.SubcategoryId;
+
+            await this.menuItemService.UpdateAsync(menuItemFromDb);
 
             return this.RedirectToAction(nameof(Index));
+        }
+
+        private async Task<IActionResult> GetModelwithSubcategoriesAsync()
+        {
+            var subcategories = await this.subcategoryService.GetListAsync(MenuItemVM.MenuItem.CategoryId);
+            this.MenuItemVM.Subcategories = subcategories.Select(x => new Subcategory
+            {
+                Id = x.Id,
+                Name = x.Name
+            }).ToList();
+
+            return this.View(this.MenuItemVM);
         }
     }
 }

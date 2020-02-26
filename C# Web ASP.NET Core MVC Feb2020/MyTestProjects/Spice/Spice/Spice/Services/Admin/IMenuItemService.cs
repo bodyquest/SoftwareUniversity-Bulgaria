@@ -16,6 +16,8 @@
 
         Task<int> UpdateItemImageAsync(MenuItem menuItem);
 
+        Task<bool> UpdateAsync(MenuItem menuItem);
+
         //Task<AdminMenuItemVM> GetByIdAsync(int id);
 
         //Task<int> CreateAsync(string name, int categoryId, int subcategoryId);
