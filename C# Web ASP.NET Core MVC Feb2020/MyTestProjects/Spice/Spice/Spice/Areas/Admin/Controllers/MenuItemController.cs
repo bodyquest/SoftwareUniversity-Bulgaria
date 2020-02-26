@@ -62,7 +62,7 @@
         }
 
 
-        public async Task <IActionResult> Index()
+        public async Task<IActionResult> Index()
         {
             var model = await this.menuItemService.GetAllAsync();
 
@@ -128,7 +128,7 @@
 
             return this.RedirectToAction(nameof(Index));
         }
-        
+
 
 
         //GET - Edit
@@ -227,6 +227,7 @@
         }
 
 
+
         //GET - Delete
         public async Task<IActionResult> DeleteAsync(int id)
         {
@@ -238,6 +239,32 @@
             }
 
             return await GetModelwithSubcategoriesAsync();
+        }
+
+        //POST - Delete
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [ActionName("Delete")]
+        public async Task<IActionResult> DeleteAsync()
+        {
+            string webRootPath = hostingEnv.WebRootPath;
+
+            var menuItemFromDb = await this.menuItemService.GetByIdAsync(MenuItemVM.MenuItem.Id);
+
+            // delete the original image file
+            if (menuItemFromDb.Image != null)
+            {
+                var imagePath = Path.Combine(webRootPath, menuItemFromDb.Image.TrimStart('\\'));
+
+                if (System.IO.File.Exists(imagePath))
+                {
+                    System.IO.File.Delete(imagePath);
+                }
+            }
+
+            await this.menuItemService.DeleteAsync(menuItemFromDb);
+
+            return this.RedirectToAction(nameof(Index));
         }
     }
 }

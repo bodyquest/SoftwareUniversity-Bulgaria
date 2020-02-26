@@ -80,5 +80,12 @@
             return false;
         }
 
+        public async Task<bool> DeleteAsync(MenuItem menuItem)
+        {
+            this.context.MenuItems.Remove(menuItem);
+            await this.context.SaveChangesAsync();
+
+            return true;
+        }
     }
 }

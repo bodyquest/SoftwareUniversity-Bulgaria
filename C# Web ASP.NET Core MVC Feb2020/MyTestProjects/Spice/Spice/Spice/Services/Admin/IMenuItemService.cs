@@ -18,12 +18,6 @@
 
         Task<bool> UpdateAsync(MenuItem menuItem);
 
-        //Task<AdminMenuItemVM> GetByIdAsync(int id);
-
-        //Task<int> CreateAsync(string name, int categoryId, int subcategoryId);
-
-        //Task<bool> UpdateAsync(int id, string name);
-
-        //Task<bool> DeleteAsync(int id);
+        Task<bool> DeleteAsync(MenuItem menuItem);
     }
 }
