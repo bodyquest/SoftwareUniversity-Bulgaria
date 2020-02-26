@@ -53,6 +53,7 @@
         public async Task<MenuItem> GetByIdAsync(int id)
         {
             var item = await this.context.MenuItems.FirstOrDefaultAsync(x => x.Id == id);
+            item.Subcategory = await this.context.Subcategories.FirstAsync(x => x.Id == item.SubcategoryId);
 
             return item;
         }

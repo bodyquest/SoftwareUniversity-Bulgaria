@@ -7,7 +7,9 @@
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Mvc;
+    using Spice.Data;
     using Spice.Models;
+    using Spice.Models.Enums;
     using Spice.Models.ViewModels;
     using Spice.Services.Admin;
     using Spice.Services.Admin.Models;
@@ -44,12 +46,29 @@
         [BindProperty]
         public MenuItemViewModel MenuItemVM { get; set; }
 
+        private async Task<IActionResult> GetModelwithSubcategoriesAsync()
+        {
+            var subcategories = await this.subcategoryService.GetListAsync(MenuItemVM.MenuItem.CategoryId);
+            this.MenuItemVM.Subcategories = subcategories.Select(x => new Subcategory
+            {
+                Id = x.Id,
+                Name = x.Name
+            }).ToList();
+
+            var spicy = ((SpicynessLevel)(int.Parse(this.MenuItemVM.MenuItem.Spicyness)));
+            this.MenuItemVM.Spicyness = spicy.ToString();
+
+            return this.View(this.MenuItemVM);
+        }
+
+
         public async Task <IActionResult> Index()
         {
             var model = await this.menuItemService.GetAllAsync();
 
             return this.View(model);
         }
+
 
         //GET - Create
         public IActionResult Create()
@@ -61,7 +80,7 @@
         [HttpPost]
         [ValidateAntiForgeryToken]
         [ActionName("Create")]
-        public async Task<IActionResult> CreatePost()
+        public async Task<IActionResult> CreateAsync()
         {
             MenuItemVM.MenuItem.SubcategoryId = int.Parse(this.Request.Form["SubcategoryId"].ToString());
 
@@ -111,6 +130,7 @@
         }
         
 
+
         //GET - Edit
         [ActionName("Edit")]
         public async Task<IActionResult> EditAsync(int id)
@@ -129,7 +149,7 @@
         [HttpPost]
         [ValidateAntiForgeryToken]
         [ActionName("Edit")]
-        public async Task<IActionResult> EditPost()
+        public async Task<IActionResult> EditAsync()
         {
             MenuItemVM.MenuItem.SubcategoryId = int.Parse(this.Request.Form["SubcategoryId"].ToString());
 
@@ -190,16 +210,21 @@
             return this.RedirectToAction(nameof(Index));
         }
 
-        private async Task<IActionResult> GetModelwithSubcategoriesAsync()
-        {
-            var subcategories = await this.subcategoryService.GetListAsync(MenuItemVM.MenuItem.CategoryId);
-            this.MenuItemVM.Subcategories = subcategories.Select(x => new Subcategory
-            {
-                Id = x.Id,
-                Name = x.Name
-            }).ToList();
 
-            return this.View(this.MenuItemVM);
+
+        //GET - Details
+        [ActionName("Details")]
+        public async Task<IActionResult> DetailsAsync(int id)
+        {
+            this.MenuItemVM.MenuItem = await this.menuItemService.GetByIdAsync(id);
+
+            if (this.MenuItemVM.MenuItem == null)
+            {
+                return NotFound();
+            }
+
+            return await GetModelwithSubcategoriesAsync();
         }
+
     }
 }
