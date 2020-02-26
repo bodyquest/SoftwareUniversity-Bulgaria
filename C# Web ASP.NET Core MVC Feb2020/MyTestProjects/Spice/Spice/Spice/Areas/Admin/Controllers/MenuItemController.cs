@@ -226,5 +226,18 @@
             return await GetModelwithSubcategoriesAsync();
         }
 
+
+        //GET - Delete
+        public async Task<IActionResult> DeleteAsync(int id)
+        {
+            this.MenuItemVM.MenuItem = await this.menuItemService.GetByIdAsync(id);
+
+            if (this.MenuItemVM.MenuItem == null)
+            {
+                return NotFound();
+            }
+
+            return await GetModelwithSubcategoriesAsync();
+        }
     }
 }
