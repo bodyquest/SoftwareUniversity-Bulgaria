@@ -40,6 +40,7 @@ namespace Spice
             services.AddTransient<IAdminCategoryService, AdminCategoryService>();
             services.AddTransient<IAdminSubcategoryService, AdminSubcategoryService>();
             services.AddTransient<IMenuItemService, MenuItemService>();
+            services.AddTransient<ICouponService, CouponService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
