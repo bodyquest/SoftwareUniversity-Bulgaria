@@ -144,6 +144,18 @@
         }
 
 
+        //GET - Details
+        [ActionName("Details")]
+        public async Task<IActionResult> DetailsAsync(int id)
+        {
+            this.CouponVM = await this.couponService.GetByIdAsync(id);
 
+            if (this.CouponVM == null)
+            {
+                return NotFound();
+            }
+
+            return this.View(this.CouponVM);
+        }
     }
 }
