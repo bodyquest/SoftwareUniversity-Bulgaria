@@ -3,6 +3,7 @@
     using Microsoft.EntityFrameworkCore;
     using Spice.Data;
     using Spice.Models;
+    using Spice.Models.Enums;
     using Spice.Services.Admin.Models.Coupons;
     using System;
     using System.Collections.Generic;
@@ -43,13 +44,14 @@
         {
             var couponExists = await this.context.Coupons.AnyAsync(c => c.Name == model.Name);
 
+            var type = ((CouponType)(int.Parse(model.CouponType)));
             var coupon = new Coupon()
             {
                 Id = model.Id,
                 Name = model.Name,
                 CouponType = model.CouponType,
                 Picture = model.Picture,
-                ECouponType = model.ECouponType,
+                ECouponType = type,
                 Discount = model.Discount,
                 MinimumAmount = model.MinimumAmount,
                 IsActive = model.IsActive
@@ -71,6 +73,52 @@
             return false;
         }
 
+        public async Task<AdminCouponListingServiceModel> GetByIdAsync(int id)
+        {
+            var couponFromDb = await this.context.Coupons.FirstOrDefaultAsync(x => x.Id == id);
 
+            if (couponFromDb == null)
+            {
+                return null;
+            }
+
+            var model = new AdminCouponListingServiceModel()
+            {
+                Id = couponFromDb.Id,
+                Name = couponFromDb.Name,
+                CouponType = couponFromDb.CouponType,
+                Picture = couponFromDb.Picture,
+                ECouponType = couponFromDb.ECouponType,
+                Discount = couponFromDb.Discount,
+                MinimumAmount = couponFromDb.MinimumAmount,
+                IsActive = couponFromDb.IsActive
+            };
+            
+            return model;
+        }
+
+        public async Task<bool> UpdateAsync(AdminCouponListingServiceModel model)
+        {
+            var couponFromDb = await this.context.Coupons.FirstAsync(x => x.Id == model.Id);
+            var type = ((CouponType)(int.Parse(model.CouponType)));
+
+            couponFromDb.Name = model.Name;
+            couponFromDb.CouponType = model.CouponType;
+            couponFromDb.Picture = model.Picture;
+            couponFromDb.ECouponType = type;
+            couponFromDb.Discount = model.Discount;
+            couponFromDb.MinimumAmount = model.MinimumAmount;
+            couponFromDb.IsActive = model.IsActive;
+
+            var result = this.context.Update(couponFromDb);
+            var success = await this.context.SaveChangesAsync();
+
+            if (success > 0)
+            {
+                return true;
+            }
+
+            return false;
+        }
     }
 }

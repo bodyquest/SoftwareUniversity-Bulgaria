@@ -9,5 +9,9 @@
         Task<IEnumerable<AdminCouponListingServiceModel>> AllAsync();
 
         Task<bool> CreateAsync(AdminCouponListingServiceModel model);
+
+        Task<AdminCouponListingServiceModel> GetByIdAsync(int id);
+
+        Task<bool> UpdateAsync(AdminCouponListingServiceModel model);
     }
 }

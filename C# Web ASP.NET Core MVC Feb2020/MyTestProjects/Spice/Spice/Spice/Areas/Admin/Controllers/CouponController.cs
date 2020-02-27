@@ -51,6 +51,7 @@
         //POST - Create
         [HttpPost]
         [ActionName("Create")]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(AdminCouponListingServiceModel model)
         {
             if (!ModelState.IsValid)
@@ -74,6 +75,7 @@
 
                 model.Picture = pic1;
                 bool isSuccessful = await this.couponService.CreateAsync(model);
+
                 if (isSuccessful)
                 {
                     return this.RedirectToAction(nameof(Index));
@@ -83,6 +85,62 @@
             }
 
             return this.View(model);
+        }
+
+
+        //GET - Edit
+        [ActionName("Edit")]
+        public async Task<IActionResult> EditAsync(int id)
+        {
+            this.CouponVM = await this.couponService.GetByIdAsync(id);
+
+            if (this.CouponVM == null)
+            {
+                return NotFound();
+            }
+
+            return this.View(this.CouponVM);
+        }
+
+        //POST - Edit
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [ActionName("Edit")]
+        public async Task<IActionResult> EditAsync()
+        {
+            if (!ModelState.IsValid)
+            {
+                return this.View(CouponVM);
+            }
+
+            var files = HttpContext.Request.Form.Files;
+
+            if (files.Count > 0)
+            {
+                byte[] newPic = null;
+
+                using (var newFileStram = files[0].OpenReadStream())
+                {
+                    using (var newMemoryStream = new MemoryStream())
+                    {
+                        newFileStram.CopyTo(newMemoryStream);
+                        newPic = newMemoryStream.ToArray();
+                    }
+                }
+
+                CouponVM.Picture = newPic;
+
+                bool isSuccessful = await this.couponService.UpdateAsync(CouponVM);
+
+                if (isSuccessful)
+                {
+                    return this.RedirectToAction(nameof(Index));
+                }
+
+                return this.View(CouponVM);
+            }
+
+            return this.View(CouponVM);
         }
 
 
