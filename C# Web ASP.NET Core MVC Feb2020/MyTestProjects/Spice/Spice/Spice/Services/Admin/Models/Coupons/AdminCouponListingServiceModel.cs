@@ -1,5 +1,6 @@
 ﻿namespace Spice.Services.Admin.Models.Coupons
 {
+    using Spice.Models;
     using Spice.Models.Enums;
     using System;
     using System.Collections.Generic;

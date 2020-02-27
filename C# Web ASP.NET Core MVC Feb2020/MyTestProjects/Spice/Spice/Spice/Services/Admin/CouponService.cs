@@ -2,6 +2,7 @@
 {
     using Microsoft.EntityFrameworkCore;
     using Spice.Data;
+    using Spice.Models;
     using Spice.Services.Admin.Models.Coupons;
     using System;
     using System.Collections.Generic;
@@ -38,10 +39,37 @@
             return coupons;
         }
 
-        // public async Task<> Async()
-        // { 
-        //
-        // }
+        public async Task<bool> CreateAsync(AdminCouponListingServiceModel model)
+        {
+            var couponExists = await this.context.Coupons.AnyAsync(c => c.Name == model.Name);
+
+            var coupon = new Coupon()
+            {
+                Id = model.Id,
+                Name = model.Name,
+                CouponType = model.CouponType,
+                Picture = model.Picture,
+                ECouponType = model.ECouponType,
+                Discount = model.Discount,
+                MinimumAmount = model.MinimumAmount,
+                IsActive = model.IsActive
+            };
+
+            if (!couponExists)
+            {
+                await this.context.Coupons.AddAsync(coupon);
+                int result = await this.context.SaveChangesAsync();
+
+                if (result > 0)
+                {
+                    return true;
+                }
+
+                return false;
+            }
+
+            return false;
+        }
 
 
     }
