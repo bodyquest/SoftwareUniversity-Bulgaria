@@ -88,6 +88,7 @@
         }
 
 
+
         //GET - Edit
         [ActionName("Edit")]
         public async Task<IActionResult> EditAsync(int id)
@@ -144,6 +145,7 @@
         }
 
 
+
         //GET - Details
         [ActionName("Details")]
         public async Task<IActionResult> DetailsAsync(int id)
@@ -153,6 +155,37 @@
             if (this.CouponVM == null)
             {
                 return NotFound();
+            }
+
+            return this.View(this.CouponVM);
+        }
+
+
+
+        //GET - Delete
+        public async Task<IActionResult> DeleteAsync(int id)
+        {
+            this.CouponVM = await this.couponService.GetByIdAsync(id);
+
+            if (this.CouponVM == null)
+            {
+                return NotFound();
+            }
+
+            return this.View(this.CouponVM);
+        }
+
+        //POST - Delete
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [ActionName("Delete")]
+        public async Task<IActionResult> DeleteAsync()
+        {
+            bool isDeleted = await this.couponService.DeleteAsync(this.CouponVM);
+
+            if (isDeleted)
+            {
+                return this.RedirectToAction(nameof(Index));
             }
 
             return this.View(this.CouponVM);

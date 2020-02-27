@@ -121,6 +121,19 @@
             return false;
         }
 
+        public async Task<bool> DeleteAsync(AdminCouponListingServiceModel model)
+        {
+            var couponFromDb = await this.context.Coupons.FirstAsync(x => x.Id == model.Id);
 
+            this.context.Remove(couponFromDb);
+            var success = await this.context.SaveChangesAsync();
+
+            if (success > 0)
+            {
+                return true;
+            }
+
+            return false;
+        }
     }
 }

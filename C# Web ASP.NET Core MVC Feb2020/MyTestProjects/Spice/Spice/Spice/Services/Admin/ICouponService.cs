@@ -13,5 +13,7 @@
         Task<AdminCouponListingServiceModel> GetByIdAsync(int id);
 
         Task<bool> UpdateAsync(AdminCouponListingServiceModel model);
+
+        Task<bool> DeleteAsync(AdminCouponListingServiceModel model);
     }
 }
