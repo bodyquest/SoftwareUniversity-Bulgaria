@@ -96,6 +96,11 @@ body {
     border: 1px solid #ddd;
 }
 
+
+.move-left {
+    width: auto;
+    box-shadow: none;
+}
 /*----------------------------------------*/
 
 /*

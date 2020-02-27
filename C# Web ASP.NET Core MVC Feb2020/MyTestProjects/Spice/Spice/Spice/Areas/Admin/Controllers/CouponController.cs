@@ -24,13 +24,12 @@
             return this.View(model);
         }
 
-        ////GET - Edit
-        //public async Task<> CreateAsync()
-        //{
+        //GET - Create
+        public IActionResult Create()
+        {
 
-
-        //    return this.View();
-        //}
+            return this.View();
+        }
 
     }
 }
