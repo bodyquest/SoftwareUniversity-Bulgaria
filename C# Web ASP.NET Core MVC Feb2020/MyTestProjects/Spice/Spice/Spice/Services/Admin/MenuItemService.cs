@@ -27,6 +27,9 @@
                     Id = x.Id,
                     Name = x.Name,
                     Price = x.Price,
+                    Image = x.Image,
+                    Description = x.Description,
+                    Spicyness = x.Spicyness,
                     Category = x.Category,
                     Subcategory = x.Subcategory
                 })

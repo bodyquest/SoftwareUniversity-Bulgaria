@@ -14,6 +14,12 @@
 
         public string Name { get; set; }
 
+        public string Spicyness { get; set; }
+
+        public string Description { get; set; }
+
+        public string Image { get; set; }
+
         [Display(Name = "Category")]
         public int CategoryId { get; set; }
 

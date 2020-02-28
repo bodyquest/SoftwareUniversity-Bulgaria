@@ -1,8 +1,47 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model Spice.Models.ViewModels.IndexViewModel
+@{
+    var list = Model.Coupons.Where(x => x.IsActive == true).ToList();
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<br />
+
+@if (list.Count() > 0)
+{
+    <div class="border pb-5">
+        <div class="carousel" data-ride="carousel" data-interval="3000">
+            @for (int i = 0; i < Model.Coupons.Count(); i++)
+            {
+                if (i == 0)
+                {
+                var base64 = Convert.ToBase64String(list[i].Picture);
+                var imgSrc = String.Format("data:image/jpg;base64,{0}", base64);
+                    <div class="carousel-item active">
+                        <img src="@imgSrc" height="50px" class="d-block w-100" />
+                    </div>
+
+                }
+                else
+                {
+                    var base64 = Convert.ToBase64String(list[i].Picture);
+                var imgSrc = String.Format("data:image/jpg;base64,{0}", base64);
+                    <div class="carousel-item">
+                        <img src="@imgSrc" height="50px" class="d-block w-100" />
+                    </div>
+                }
+            }
+        </div>
+    </div>
+}
+
+<br />
+<br />
+
+<div class="backgroundWhite container">
+
+    @foreach (var category in Model.Categories)
+    {
+        <div class="row" id="menu-wrapper">
+            <partial name="_ThumbnailAreaPartial" model="@Model.MenuItems.Where(x => x.Category.Name.Equals(category.Name))" />
+        </div>
+    }
 </div>
