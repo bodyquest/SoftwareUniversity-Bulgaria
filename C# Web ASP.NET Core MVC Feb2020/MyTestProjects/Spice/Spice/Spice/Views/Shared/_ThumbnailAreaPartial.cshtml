@@ -16,7 +16,6 @@
                         <img src="@item.Image" width="99%" style="border radius: 5px; border: 1px solid #bbb9b9" />
                     </div>
                     <div class="col-md-9 col-sm-12">
-                        <div class="row">
                             <div class="row pr-3">
                                 <div class="col-8">
                                     <label class="text-primary" style="font-size: 20px; color: darkslategrey">@item.Name</label>
@@ -32,7 +31,6 @@
                                     {
                                         <img srcset="/img/veryspicy.png" title="Very Spicy" />
                                     }
-
                                 </div>
                                 <div class="col-4 text-right" style=" color: darkslategrey">
                                     <h4>$@item.Price</h4>
@@ -43,10 +41,9 @@
                                 <p>@Html.Raw(item.Description)</p>
                             </div>
 
-                            <div class="mt-auto col-md-3 col-sm-12 offset-md-9 text-center text-white">
+                            <div class="col-md-3 col-sm-12 offset-md-9 text-center text-white">
                                 <a asp-action="Details" class="btn btn-primary form-control" asp-route-id="@item.Id">Details</a>
                             </div>
-                        </div>
                     </div>
                 </div>
             </div>

@@ -7,13 +7,13 @@ namespace Spice.Models.Enums
         [Display(Name = "NA")]
         NA = 0,
 
-        [Display(Name = "NotSpicy")]
+        [Display(Name = "Not Spicy")]
         NotSpicy = 1,
 
         [Display(Name = "Spicy")]
         Spicy = 2,
 
-        [Display(Name = "VerySpicy")]
+        [Display(Name = "Super Ultra Spicy")]
         VerySpicy = 3
     }
 }

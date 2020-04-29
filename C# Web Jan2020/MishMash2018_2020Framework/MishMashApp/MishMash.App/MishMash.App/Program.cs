@@ -9,6 +9,32 @@ namespace MishMash.App
         public static async Task Main()
         {
             await WebHost.StartAsync(new Startup());
+
+            #region Seed Countries
+            
+            #endregion
+
+            #region Seed Cities
+
+            #endregion
+
+            #region Seed Towns
+
+            #endregion
+
+            #region Seed Users
+
+            #endregion
+
+            #region Seed Images
+
+            #endregion
+
+            #region Seed Properties
+
+            #endregion
+
+
         }
     }
 }

@@ -89,10 +89,13 @@
                 return this.View(this.MenuItemVM);
             }
 
-            await this.menuItemService.CreateAsync(MenuItemVM.MenuItem);
-
             string webRootPath = hostingEnv.WebRootPath;
             var files = HttpContext.Request.Form.Files;
+
+            var filePath = Path.GetTempFileName();
+
+            await this.menuItemService.CreateAsync(MenuItemVM.MenuItem);
+
 
             var menuItemFromDb = await this.menuItemService.GetByIdAsync(MenuItemVM.MenuItem.Id);
 
