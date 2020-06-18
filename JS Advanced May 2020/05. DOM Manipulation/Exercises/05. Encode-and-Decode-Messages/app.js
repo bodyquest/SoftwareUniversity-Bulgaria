@@ -1,4 +1,5 @@
 function encodeAndDecodeMessages() {
+
     // get the text area
     const $textAreasDivs = document
         .querySelectorAll("div#container main#main div");
@@ -13,10 +14,10 @@ function encodeAndDecodeMessages() {
     $buttonDecode.addEventListener("click", decode);
 
     function encode() {
-        let text = $textAreaEncode.value;
+        const text = $textAreaEncode.value;
         let encoded = text
             .split("")
-            .map(x => String.fromCharCode(x.codePointAt(0) + 1))
+            .map(x => String.fromCharCode(x.charCodeAt(0) + 1))
             .join("");
 
         $textAreaEncode.value = "";
@@ -24,10 +25,10 @@ function encodeAndDecodeMessages() {
     }
 
     function decode() {
-        let decoded = $textAreaDecode.value
-        .split("")
-        .map(x => String.fromCharCode(x.codePointAt(0) - 1))
-        .join("");
-        $textAreaDecode.value = decoded;
+        const text = $textAreaDecode.value;
+        $textAreaDecode.value = [...text].
+        map((_, i) => text[i] = String.fromCharCode(text[i]
+            .charCodeAt(0) - 1))
+            .join("");
     }
 }

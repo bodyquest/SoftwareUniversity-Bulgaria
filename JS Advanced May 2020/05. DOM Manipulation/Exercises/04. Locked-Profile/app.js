@@ -2,28 +2,34 @@
 
 function lockedProfile() {
 
-    // select all buttons in NodeList
-    const $buttons = document.querySelectorAll("div#container main#main div.profile");
-    
-    // make array form the NodeList of buttons
-    [...$buttons].forEach((button) => {
-        
-        // hook event handler to each button
-        button.addEventListener("click", (event) => {
-            const divSibling = event.currentTarget.parentNode.children[9];
+    // add event handlers
+    document.querySelector("main"). addEventListener("click", onClick);
 
-            const selector = divSibling.id.split("HiddenFields")[1];
-            const $lockInput = document
-                .querySelector(`input[name="${selector + 'Locked'}"]`);
-            
-            if (!$lockInput.checked && button.textContent == "Show more") {
-                divSibling.style.display = "block";
-                button.textContent = "Hide it";
+    function onClick(e) {
+        // check if button si clicked
+        if (e.target.nodeName === "BUTTON") {
+            // fin the parent of the button
+            const parent = e.target.parentNode;
+
+            // find the lock and if is locked, return;
+            const lock = parent.querySelector("input[type='radio'][value='lock']");
+            if (lock.checked) {
+                return;
             }
-            else{
-                divSibling.style.display = "none";
-                button.textContent = "Show more";
+
+            // find the hidden field
+            const hiddenFields = [...parent.querySelectorAll("div")]
+                .filter(d => d.id.includes("HiddenFields"))[0];
+
+            if (hiddenFields.style.display !== "block") {
+                // if is hidden, show "Hide it"
+                hiddenFields.style.display = "block";
+                e.target.textContent = "Hide it";
+            } else{
+                // else hide it and show "Show more"
+                hiddenFields.style.display = "none";
+                e.target.textContent = "Show mode";
             }
-        })
-    })
+        }
+    }
 }

@@ -1,4 +1,5 @@
 function attachEventsListeners() {
+    
     // object with time unit ratio
     const ratios = {
         days: 1,
@@ -24,7 +25,7 @@ function attachEventsListeners() {
 
     // hook eventHandler
         
-    document.querySelector("main").addEventListener("clikc", onClick);
+    document.querySelector("main").addEventListener("click", onClick);
 
     function onClick(e){
         if (e.target.nodeName === "INPUT" && e.target.type === "button") {
@@ -36,42 +37,6 @@ function attachEventsListeners() {
             display(convertedValues);
         }
     }
-
-    // function convertDays(e) {
-    //     const value = Number(days.value);
-        
-    //     // call the conversion function
-    //     const convertValues = convert(value, "days");
-    //     // visualize the values
-    //     display(convertValues);
-    // }
-
-    // function convertHours(e) {
-    //     const value = Number(hours.value);
-        
-    //     // call the conversion function
-    //     const convertValues = convert(value, "hours");
-    //     // visualize the values
-    //     display(convertValues);
-    // }
-
-    // function convertMinutes(e) {
-    //     const value = Number(minutes.value);
-        
-    //     // call the conversion function
-    //     const convertValues = convert(value, "minutes");
-    //     // visualize the values
-    //     display(convertValues);
-    // }
-
-    // function convertSeconds(e) {
-    //     const value = Number(seconds.value);
-        
-    //     // call the conversion function
-    //     const convertValues = convert(value, "seconds");
-    //     // visualize the values
-    //     display(convertValues);
-    // }
 
     function display(values){
         days.value = values.days;
