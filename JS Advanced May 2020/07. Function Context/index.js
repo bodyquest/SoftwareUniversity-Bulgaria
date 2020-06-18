@@ -20,7 +20,6 @@ function solve(){
                 [...items].forEach(i => i.style.backgroundColor = "");
                 row.style.backgroundColor = "#413f5e";
             }
-
         }
     }
 }
