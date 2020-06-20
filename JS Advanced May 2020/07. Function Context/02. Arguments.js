@@ -1,31 +1,24 @@
 function solve (){
     // create object
-    const argTypes = [];
-    const index = {};
+    const argTypes = {};
     
     // walk the arguments
     for (let arg of arguments) {
         const type = typeof arg;
-
+        console.log(`${type}: ${arg}`);
         // count type count
-        let argIndex = index[type];
-        if (argIndex === undefined) {
+        if (argTypes[type] === undefined) {
 
-            argIndex = argTypes.length;
-            argTypes.push({
-                type,
-                count: 0
-            });
-
-            index[type] = argIndex;
+            argTypes[type] = 0;
         }
 
-        argTypes[argIndex].count ++;
+        argTypes[type]++;
     };
 
     // print the count
-    argTypes.sort((a, b) => b.count - a.count).forEach(e => console.log(`${e.type} = ${e.count}`));
-    
+    Object.entries(argTypes)
+        .sort((a,b) => b[1] - a[1])
+        .forEach(e => console.log(`${e[0]} = ${e[1]}`));
 }
 
 solve("cat", 42, function() {console.log("Hello world!"); });

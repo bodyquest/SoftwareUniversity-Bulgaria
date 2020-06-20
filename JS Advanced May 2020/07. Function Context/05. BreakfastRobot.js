@@ -1,4 +1,5 @@
 function solve(){
+
     // declare the variables for the microelement
     const recipes = {
         apple : {
@@ -41,8 +42,9 @@ function solve(){
     const operations = {
         restock,
         prepare,
-
+        report
     }
+
     // declare the functions -> the make operations on the variables
     function restock(element, qty){
         microElements[element] += qty;
@@ -64,7 +66,7 @@ function solve(){
         }
 
         required.order.forEach(key => {
-            microElements[key] = required[key];
+            microElements[key] -= required[key];
         });
 
         return "Success";
@@ -85,8 +87,9 @@ function solve(){
 
 let manager = solve();
 
-console.log(manager("restock flavor 50"));
-console.log(manager("prepare lemonade 4"));
-
-
-
+console.log(manager("restock carbohydrate 10"));
+console.log(manager("restock flavour 10"));
+console.log(manager("prepare apple 1"));
+console.log(manager("restock fat 10"));
+console.log(manager("prepare burger 1"));
+console.log(manager("report"));
