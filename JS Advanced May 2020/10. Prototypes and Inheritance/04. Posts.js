@@ -36,7 +36,10 @@ function solve() {
 
             if (this.comments.length > 0) {
                 result.push("Comments:");
+                this.comments.forEach(c => result.push(` * ${c}`));
             }
+
+            return result.join("\n");
         }
     }
 
@@ -57,6 +60,8 @@ function solve() {
                 super.toString(),
                 `Views: ${this.views}`
             ].join("\n");
+
+            return result;
         }
     }
 
