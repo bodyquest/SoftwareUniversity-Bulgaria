@@ -2,7 +2,7 @@ function solve(){
     class Balloon {
         constructor(color, gasWeight){
             this.color = color;
-            this.gasWeight = gasWeight;
+            this.gasWeight = Number(gasWeight);
         }
     }
 
@@ -16,9 +16,9 @@ function solve(){
                 length: ribbonLength
             }
 
-            Object.defineProperty(this, "ribbon", {
-                get: () => _ribbon
-            });
+            // Object.defineProperty(this, "ribbon", {
+            //     get: () => _ribbon
+            // });
         }
 
         get ribbon(){

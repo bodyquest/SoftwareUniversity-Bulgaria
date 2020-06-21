@@ -15,7 +15,6 @@ function solve(){
 
     // we make the PartyBalloon to have the prototype Balloon
     Object.setPrototypeOf(PartyBalloon, Balloon);
-    
     // PartyBalloon.prototype = Object.create(Balloon.prototype);
 
     Object.defineProperty(PartyBalloon.prototype, "ribbon", {

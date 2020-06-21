@@ -1,9 +1,10 @@
 function solve(){
+
     const juniorTasks = [
         " is working on a simple task."
     ];
     const seniorTasks = [
-        " is working on complicated task.",
+        " is working on a complicated task.",
         " is taking time off work.",
         " is supervising junior workers."
     ];
@@ -14,11 +15,15 @@ function solve(){
 
     class Employee{
         constructor(name, age){
+
+            if (new.target === Employee) {
+                throw new Error("Cannot instantiate directly.");
+            }
+
             this.name = name;
             this.age = age;
             this.salary = 0;
-            this.tasks = null;
-
+            this.tasks = [];
         }
 
         work(){
@@ -28,7 +33,11 @@ function solve(){
         }
 
         collectSalary(){
-            console.log(`${this.name} received ${this.salary} this month.`);
+            console.log(`${this.name} received ${this.getSalary()} this month.`);
+        }
+
+        getSalary(){
+            return this.salary;
         }
     }
 
@@ -38,7 +47,6 @@ function solve(){
 
             juniorTasks.forEach(t => this.tasks.push(t));
         }
-
     }
 
     class Senior extends Employee{
@@ -62,6 +70,10 @@ function solve(){
         collectSalary(){
             console.log(`${this.name} received ${this.salary + this.dividend} this month.`);
         }
+
+        getSalary(){
+            return this.super.getSalary() + this.dividend;
+        }
     }
 
     return {
@@ -73,11 +85,21 @@ function solve(){
 }
 
 const people = solve();
-const a = new people.Employee()
+//const a = new people.Employee() // must return error not allowing instantiation
 
 const b = new people.Junior("George", 25)
-a.work();
+b.salary = 1000;
+b.work(); // works on a simple task
 
 const c = new people.Senior("Peter", 27)
-b.work();
+c.salary = 2000;
+c.work();
+c.work();
+c.collectSalary();
+
+const d = new people.Manager("John Doe", 33)
+d.salary = 3000;
+d.dividend = 1000;
+d.work();
+d.collectSalary();
 
