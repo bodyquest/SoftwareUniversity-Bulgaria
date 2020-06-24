@@ -69,32 +69,34 @@ class Library{
             return `${this.libraryName} has no information about any subscribers`;
         }
 
-        return this.subscribers
-        .map(s => {
-            const books = s.books
-            .map(b => `${b.title} by ${b.author}`)
-            .join(", ");
+        // THIS ALSO WORKS
+        // return this.subscribers
+        // .map(s => {
+        //     const books = s.books
+        //     .map(b => `${b.title} by ${b.author}`)
+        //     .join(", ");
 
-            return `Subscriber: ${s.name}, Type: ${s.type}\nReceived books: ${books}`;
-        })
-        .join("\n");
-     
-
+        //     return `Subscriber: ${s.name}, Type: ${s.type}\nReceived books: ${books}`;
+        // })
+        // .join("\n");
         
-        // else{
-        //     for (const person of this.subscribers) {
-        //         let type = person.type;
-        //         let books = person.books.reduce((acc, curr) => acc.push(`${curr.title} by ${curr.author}`), []);
+        else{
+            for (const person of this.subscribers) {
+                let type = person.type;
 
-        //         result.push(
-        //             `Subscriber: ${subscriberName}, Type: ${type}`,
-        //             `Received books: ${books.join(", ")}`
+                let books = person.books.reduce((acc, curr) => {
+                    acc.push(`${curr.title} by ${curr.author}`);
+                    return acc;
+                }, []);
 
-        //         ).join("\n");
-        //     }
-        // }
+                result.push(
+                    `Subscriber: ${person.name}, Type: ${type}`,
+                    `Received books: ${Array.from(books).join(", ")}`
+                )
+            }
+        }
 
-        // return result;
+        return result.join("\n");
     }
 }
 
