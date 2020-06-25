@@ -11,9 +11,9 @@ function solve(){
         constructor(color, gasWeight, ribbonColor, ribbonLength){
             super(color, gasWeight);
 
-            _ribbon = {
+            this._ribbon = {
                 color: ribbonColor,
-                length: ribbonLength
+                length: Number(ribbonLength)
             }
 
             // Object.defineProperty(this, "ribbon", {

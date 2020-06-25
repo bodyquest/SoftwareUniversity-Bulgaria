@@ -1,25 +1,21 @@
-function solve() {
-
-    class Post {
+function solve(){
+    class Post{
         constructor(title, content){
-            this.title = title;
-            this.content = content;
+            this.title = title,
+            this.content = content
         }
 
-
-        toString(){
-            return [
-                `Post: ${this.title}`,
-                `Content: ${this.content}`
-            ].join("\n")
+        toString() {
+            let result = [`Post: ${this.title}`, `Content: ${this.content}`];
+            return result.join("\n");
         }
     }
 
-    class SocialMediaPost extends Post {
-        constructor(title, comment, likes, dislikes){
-            super(title, comment);
-            
-
+    class SocialMediaPost extends Post{
+        constructor(title, content, likes, dislikes){
+            super(title, content);
+            this.likes = Number(likes);
+            this.dislikes = Number(dislikes);
             this.comments = [];
         }
 
@@ -28,49 +24,49 @@ function solve() {
         }
 
         toString(){
-            const result = [
-                super.toString(),
+            let result = [
+                `Post: ${this.title}`,
+                `Content: ${this.content}`,
                 `Rating: ${this.likes - this.dislikes}`
+            ]
 
-            ];
-
-            if (this.comments.length > 0) {
+            if(this.comments.length > 0){
                 result.push("Comments:");
-                this.comments.forEach(c => result.push(` * ${c}`));
+
+                this.comments.forEach(element => {
+                   result.push(` * ${element}`);
+                });
             }
 
             return result.join("\n");
         }
     }
 
-    class BlogPost extends Post {
-        constructor(title, comment, views){
-            super(title, comment);
-
-            this.views = views;
+    class BlogPost extends Post{
+        constructor(title, content, views){
+            super(title, content);
+            this.views = Number(views);
         }
 
-        view(){
+        view() {
             this.views++;
             return this;
         }
 
         toString(){
-            result = [
-                super.toString(),
-                `Views: ${this.views}`
-            ].join("\n");
+            let result = [
+                `Post: ${this.title}`,
+                `Content: ${this.content}`,
+                `Views: ${this.views}`,               
+            ];
 
-            return result;
+            return result.join("\n");
         }
     }
 
-    return {
-        Post,
-        SocialMediaPost,
-        BlogPost
-    }
+    return {Post, SocialMediaPost, BlogPost }
 }
+
 
 const posts = solve();
 
