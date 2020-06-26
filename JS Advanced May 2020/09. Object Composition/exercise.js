@@ -358,7 +358,7 @@ class List {
     }
 }
 
-function List2() {
+function List() {
     const list = [];
 
     const instance = {
@@ -403,5 +403,3 @@ function List2() {
 let list = new List();
 list.add(5).add(6).add(3).add(10);
 console.log(list._list);
-
-
