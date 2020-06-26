@@ -1,13 +1,4 @@
 function solve(){
-    // create new Book DIV -> old books or new books depending on YEAR
-    // Update Total Store Profit H1 each time a book is added to NEW BOOKS
-    
-    // get Add new Book button OK
-    // get inputs OK
-    // get New Books section OK
-    // get Old Books section OK
-    // make button "Move to old section" 
-    // make "Buy it only for ..."
 
     const $elements = {
         bookInput: document.querySelectorAll("form input")[0],
