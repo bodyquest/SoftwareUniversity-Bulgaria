@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Phonebook</title>
+    <link rel="stylesheet" type="text/css" href="styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+          <div class="col-4 mt-5">
+            <h1>Phonebook</h1>
+            <ul id="phonebook"></ul>
+            <button id="btnLoad" class="ml-5">Load</button>
+            <h2>Create Contact</h2>
+            Person: <input type="text" id="person" />
+            <br />
+            Phone: <input type="text" id="phone" />
+            <br />
+            <button id="btnCreate" class="ml-5">Create</button>
+            <script src="phonebook.js"></script>
+            <script>
+              attachEvents();
+            </script>
+            <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+          </div>
+        </div>
+    </div>
+  </body>
+</html>

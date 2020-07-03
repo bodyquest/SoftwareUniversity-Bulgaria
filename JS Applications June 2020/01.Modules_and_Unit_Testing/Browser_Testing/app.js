@@ -7,4 +7,4 @@ const result = myModule.addNumbers(myVar, myModule.getNumber());
 
 console.log(people);
 
-myModule.output("The result is" + result + " -> " + people.join(" : ")); 
+myModule.output("The result is " + result + " -> " + people.join(" : ")); 
