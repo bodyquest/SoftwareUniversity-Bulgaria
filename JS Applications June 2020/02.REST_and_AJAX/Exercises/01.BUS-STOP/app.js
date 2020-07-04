@@ -2,12 +2,6 @@ function getInfo() {
     const baseUrl = `http://judgetests.firebaseio.com/businfo/{stopId}.json`;
     const validIDs = ["1287", "1308", "1327", "2334"];
 
-    // const checkBtn = document.querySelector("#submit");
-    // const stopInfo = document.querySelector("#stopId");
-
-    // const stopName = document.querySelector("#stopName");
-    // const busList = document.querySelector("#buses");
-
     const elements = {
         stopId() { return document.querySelector("#stopId"); },
         stopName() { return document.querySelector("#stopName"); },
@@ -26,13 +20,6 @@ function getInfo() {
     fetch(url)
         .then((response) => response.json())
         .then((result) => showInfo(result)
-            // stopName.textContent = result.name;
-            // const buses = [...result.buses];
-            // buses.forEach(bus => {
-            //     const li = document.createElement("li");
-            //     li.textContent = `Bus ${bus.busId} arrive in ${bus[busId]} minutes`;
-            //     busList.appendChild(li);
-            // });
         );
 
     function showInfo(data) {

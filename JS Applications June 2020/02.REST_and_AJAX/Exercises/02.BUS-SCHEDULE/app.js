@@ -14,14 +14,22 @@ function solve() {
 
         fetch(baseUrl + `${busStop}.json`)
         .then((response) => response.json())
-        .then((result) => showBusInfo(result));
+        .then((result) => showBusInfo(result))
+        .catch(throwError());
 
     }
 
     function arrive() {
 
-        elements.stopInfo().textContent = `Arriving at ${busStopName}`;
-        switchBusState();
+        fetch(baseUrl + `${busStop}.json`)
+            .then(resources => resources.json())
+            .then(data => {
+                elements.stopInfo().textContent = `Arriving at ${data.name}`;
+                busStop = data.next;
+            })
+            .catch(throwError());
+        
+            switchBusState();
     }
 
     function showBusInfo(data) {
@@ -44,6 +52,14 @@ function solve() {
             elements.arrive().disabled = true;
             elements.depart().disabled = false;
         }
+    }
+
+    function throwError() {
+        return () => {
+            elements.stopInfo.textContent = "Error";
+            elements.arrive().disabled = true;
+            elements.depart().disabled = true;
+        };
     }
 
     return {
