@@ -21,10 +21,13 @@ function attachEvents() {
     const forecast = `https://judgetests.firebaseio.com/forecast/upcoming/`;
 
     elements.sendBtn().addEventListener("click", getWeather);
-    const { value: location} = elements.location();
 
     async function getWeather() {
+        
         let data = [];
+        
+        elements.currentSection().textContent = "";
+        elements.upcomingSection().textContent = "";
 
         try {
             data =  await fetch(locations)
@@ -38,13 +41,13 @@ function attachEvents() {
 
             let cityCode = "";
             for (const city of data) {
-                if (city.name.toLowerCase() === location.toLowerCase()) {
+                if (city.name.toLowerCase() === elements.location().value.toLowerCase()) {
                     cityCode = city.code;
                     break;
                 }
-                else{
-                    throw new Error("Invalid input data");
-                }
+            }
+            if (cityCode == "") {
+                throw new Error("Invalid input data");
             }
             
             const [today, upcoming] = await Promise.all([
@@ -60,8 +63,11 @@ function attachEvents() {
             const symbol = symbols[today.forecast.condition];
         
             elements.location().value = "";
+
+            // Create DOM elements
             elements.forecastSection().style.display = "block";
-        
+            
+            let div = createHTML("div", "label", "Current conditions");
             let spanOne = createHTML("span", "condition-symbol", `${symbol}`);
             let spanTwo = createHTML("span", "condition");
             let name = createHTML("span", "forecast-data", `${today.name}`);
@@ -69,7 +75,7 @@ function attachEvents() {
             let condition = createHTML("span", "forecast-data", `${today.forecast.condition}`);
 
             appendChildrenToParent([name, temp, condition], spanTwo);
-
+            elements.currentSection().appendChild(div);
             elements.currentSection().appendChild(spanOne);
             elements.currentSection().appendChild(spanTwo);
 
@@ -81,6 +87,7 @@ function attachEvents() {
 
                 const symbol = symbols[data.condition];
 
+                let div = createHTML("div", "label", "Three-day forecast");
                 let forecastInfoDiv = createHTML("div", "forecast-info")
                 let spanMain = createHTML("span", "upcoming");
                 let spanOne = createHTML("span", "symbol", `${symbol}`);
@@ -89,7 +96,8 @@ function attachEvents() {
                 
                 appendChildrenToParent([spanOne, spanTwo, spanThree], spanMain);
                 forecastInfoDiv.appendChild(spanMain);
-                    
+                
+                elements.upcomingSection().appendChild(div);
                 elements.upcomingSection().appendChild(forecastInfoDiv);
             };
 
