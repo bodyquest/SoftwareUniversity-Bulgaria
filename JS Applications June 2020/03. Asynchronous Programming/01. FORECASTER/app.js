@@ -9,11 +9,11 @@ function attachEvents() {
     }
 
     const symbols = {
-        "Sunny" : "☀",
-        "Partly sunny": "⛅",
-        "Overcast": "☁",
-        "Rain": "☂",
-        "Degrees": "°"
+        "Sunny" : "☀",  // ☀
+        "Partly sunny": "⛅",  // ⛅
+        "Overcast": "☁", // ☁
+        "Rain": "☂", // ☂
+        "Degrees": "°" //
     };
 
     const locations = "https://judgetests.firebaseio.com/locations.json";
@@ -68,37 +68,45 @@ function attachEvents() {
             elements.forecastSection().style.display = "block";
             
             let div = createHTML("div", "label", "Current conditions");
-            let spanOne = createHTML("span", "condition-symbol", `${symbol}`);
+            let forecastDiv = createHTML("div", "forecasts");
+
+            let spanOne = createHTML("span");
+            spanOne.classList.add("condition");
+            spanOne.classList.add("symbol");
+            spanOne.innerHTML = symbols[today.forecast.condition];
+
             let spanTwo = createHTML("span", "condition");
             let name = createHTML("span", "forecast-data", `${today.name}`);
             let temp = createHTML("span", "forecast-data", `${today.forecast.low}${symbols.Degrees} / ${today.forecast.high}${symbols.Degrees}`);
             let condition = createHTML("span", "forecast-data", `${today.forecast.condition}`);
 
             appendChildrenToParent([name, temp, condition], spanTwo);
+            appendChildrenToParent([spanOne, spanTwo], forecastDiv);
             elements.currentSection().appendChild(div);
-            elements.currentSection().appendChild(spanOne);
-            elements.currentSection().appendChild(spanTwo);
+            elements.currentSection().appendChild(forecastDiv);
+
+            let divLabel = createHTML("div", "label", "Three-day forecast");
+            let forecastInfoDiv = createHTML("div", "forecast-info");
 
             for (let day of upcoming.forecast) {
-                renderForecast(day);
+                forecastInfoDiv.appendChild(renderForecast(day));
             }
+
+            elements.upcomingSection().appendChild(divLabel);
+            elements.upcomingSection().appendChild(forecastInfoDiv);
 
             function renderForecast(data) {
 
                 const symbol = symbols[data.condition];
-
-                let div = createHTML("div", "label", "Three-day forecast");
-                let forecastInfoDiv = createHTML("div", "forecast-info")
+                
                 let spanMain = createHTML("span", "upcoming");
                 let spanOne = createHTML("span", "symbol", `${symbol}`);
-                let spanTwo = createHTML("span", "forecast-data", `${data.low}${symbols.Degrees} / ${data.high}${symbols.Degrees}`);
-                let spanThree = createHTML("span", "forecast-data", `${data.condition}`);
+                let spanTwo = createHTML("span", null, `${data.low}${symbols.Degrees} / ${data.high}${symbols.Degrees}`);
+                let spanThree = createHTML("span", null, `${data.condition}`);
                 
-                appendChildrenToParent([spanOne, spanTwo, spanThree], spanMain);
-                forecastInfoDiv.appendChild(spanMain);
+                const result = appendChildrenToParent([spanOne, spanTwo, spanThree], spanMain);
                 
-                elements.upcomingSection().appendChild(div);
-                elements.upcomingSection().appendChild(forecastInfoDiv);
+                return result;
             };
 
         }
