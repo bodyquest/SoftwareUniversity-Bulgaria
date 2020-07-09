@@ -9,11 +9,11 @@ function attachEvents() {
     }
 
     const symbols = {
-        "Sunny" : "☀",  // ☀
-        "Partly sunny": "⛅",  // ⛅
-        "Overcast": "☁", // ☁
-        "Rain": "☂", // ☂
-        "Degrees": "°" //
+        "Sunny" : "☀",
+        "Partly sunny": "⛅",
+        "Overcast": "☁",
+        "Rain": "☂",
+        "Degrees": "°"
     };
 
     const locations = "https://judgetests.firebaseio.com/locations.json";
@@ -40,6 +40,7 @@ function attachEvents() {
         try {
 
             let cityCode = "";
+            
             for (const city of data) {
                 if (city.name.toLowerCase() === elements.location().value.toLowerCase()) {
                     cityCode = city.code;
@@ -94,26 +95,25 @@ function attachEvents() {
 
             elements.upcomingSection().appendChild(divLabel);
             elements.upcomingSection().appendChild(forecastInfoDiv);
-
-            function renderForecast(data) {
-
-                const symbol = symbols[data.condition];
-                
-                let spanMain = createHTML("span", "upcoming");
-                let spanOne = createHTML("span", "symbol", `${symbol}`);
-                let spanTwo = createHTML("span", null, `${data.low}${symbols.Degrees} / ${data.high}${symbols.Degrees}`);
-                let spanThree = createHTML("span", null, `${data.condition}`);
-                
-                const result = appendChildrenToParent([spanOne, spanTwo, spanThree], spanMain);
-                
-                return result;
-            };
-
         }
         catch (error) {
             handleError(error);
         }
     }
+
+    function renderForecast(data) {
+
+        const symbol = symbols[data.condition];
+        
+        let spanMain = createHTML("span", "upcoming");
+        let spanOne = createHTML("span", "symbol", `${symbol}`);
+        let spanTwo = createHTML("span", "forecast-data", `${data.low}${symbols.Degrees} / ${data.high}${symbols.Degrees}`);
+        let spanThree = createHTML("span", "forecast-data", `${data.condition}`);
+        
+        const result = appendChildrenToParent([spanOne, spanTwo, spanThree], spanMain);
+        
+        return result;
+    };
 
     function handleError(error){
         elements.forecastSection().style.display = "block";

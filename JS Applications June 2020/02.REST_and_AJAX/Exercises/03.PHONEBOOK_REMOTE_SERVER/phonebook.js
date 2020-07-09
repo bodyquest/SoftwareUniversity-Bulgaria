@@ -34,25 +34,25 @@ function attachEvents(){
     function loadPhoneBook() {
 
         fetch(baseUrl)
-        .then((response) => response.json())
-        .then(data => {
-            elements.phoneBook().textContent = "";
+            .then((response) => response.json())
+            .then(data => {
+                elements.phoneBook().textContent = "";
 
-            Object.entries(data).forEach(([elementId, phoneBook]) => {
-                const {person, phone} = phoneBook;
-                const li = document.createElement("li");
-                const deleteBtn = document.createElement("button");
+                Object.entries(data).forEach(([elementId, phoneBook]) => {
+                    const {person, phone} = phoneBook;
+                    const li = document.createElement("li");
+                    const deleteBtn = document.createElement("button");
 
-                li.textContent = `${person}: ${phone}`;
-                deleteBtn.textContent = "Delete";
-                deleteBtn.id = elementId;
-                deleteBtn.addEventListener("click", deletePhone);
+                    li.textContent = `${person}: ${phone}`;
+                    deleteBtn.textContent = "Delete";
+                    deleteBtn.id = elementId;
+                    deleteBtn.addEventListener("click", deletePhone);
 
-                li.appendChild(deleteBtn);
-                elements.phoneBook().appendChild(li);
-            });
-        })
-        .catch(() => console.log("Error"));
+                    li.appendChild(deleteBtn);
+                    elements.phoneBook().appendChild(li);
+                });
+            })
+            .catch(() => console.log("Error"));
     }
 
     function deletePhone(){
