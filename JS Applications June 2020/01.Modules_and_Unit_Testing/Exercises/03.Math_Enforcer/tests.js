@@ -1,6 +1,6 @@
 const expect = require("chai").expect;
 const assert = require("chai").assert;
-const mathEnforcer = require("./tests.js");
+const mathEnforcer = require("./mathEnforcer.js");
 
 describe("Main functionality", () => {
     describe("addFive tests", function () {
