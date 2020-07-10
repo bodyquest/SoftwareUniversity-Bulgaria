@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <input type="email" id="username" placeholder="Email..." />
+        <input type="password" id="password" placeholder="Password..." />
+        <button type="button" id="btn">Register</button>
+        <div id="error" style="color: red;"></div>
+
+        <input type="email" id="usernameLog" placeholder="Email..." />
+        <input type="password" id="passwordLog" placeholder="Password..." />
+        <button type="button" id="btnLog">Login</button>
+        <button type="button" id="btnExit">SignOut</button>
+        <div id="error" style="color: red;"></div>
+
+        <!-- The core Firebase JS SDK is always required and must be listed first -->
+        <script src="https://www.gstatic.com/firebasejs/7.16.0/firebase-app.js"></script>
+
+        <!-- TODO: Add SDKs for Firebase products that you want to use
+        https://firebase.google.com/docs/web/setup#available-libraries -->
+
+        <!--<script defer src="https://www.gstatic.com/firebasejs/7.16.0/firebase-app.js"></script>-->
+
+        <script src="https://www.gstatic.com/firebasejs/7.16.0/firebase-auth.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/7.16.0/firebase-firestore.js"></script>
+
+
+        <script>
+        // Your web app's Firebase configuration
+        var firebaseConfig = {
+            apiKey: "AIzaSyD4DDfn7145irRV2zKbviVA_p1hH2s5Jp8",
+            authDomain: "remotedb-dotnetdari.firebaseapp.com",
+            databaseURL: "https://remotedb-dotnetdari.firebaseio.com",
+            projectId: "remotedb-dotnetdari",
+            storageBucket: "remotedb-dotnetdari.appspot.com",
+            messagingSenderId: "366386984457",
+            appId: "1:366386984457:web:f36b499b5c597208816ad8",
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        </script>
+        <script>
+            let btn = document.getElementById("btn");
+            let ext = document.getElementById("btnExit");
+
+            ext.onclick = (e) => {
+                firebase.auth().signOut()
+                    .catch(function(error) {
+                        let errorCode = error.code;
+                        let errorMessage = error.message;
+                        errorContainer.textContent = `Error code ${errorCode}, ${errorMessage}`;
+                    });
+            }
+
+            btn.onclick = (e) => {
+                let email = document.getElementById("username").value;
+                let pass = document.getElementById("password").value;
+                let errorContainer = document.getElementById("error");
+                errorContainer.textContent = "";
+
+                if (!(email && pass)) {
+                    errorContainer.textContent = "Email and password are required!";
+                }
+
+                firebase.auth().createUserWithEmailAndPassword(email, pass)
+                    .catch(function(error) {
+                        let errorCode = error.code;
+                        let errorMessage = error.message;
+                        errorContainer.textContent = `Error code ${errorCode}, ${errorMessage}`;
+                    });
+
+                firebase.auth().onAuthStateChanged(function(user) {
+                if (user) {
+                        console.log("User is signed in..");
+                    let displayName = user.displayName;
+                } else {
+                        console.log("User signed out...");
+                        
+                    }
+                });
+
+                email.textContent = "";
+                pass.textContent = "";
+
+                // firebase.auth().signInWithEmailAndPassword(email, pass)
+                // .catch(function(error) {
+                //     let errorCode = error.code;
+                //     let errorMessage = error.message;
+                //     errorContainer.textContent = `Error code ${errorCode}, ${errorMessage}`;
+                // });
+
+            }
+
+            btnLog.onclick = (e) => {
+                let email = document.getElementById("usernameLog").value;
+                let pass = document.getElementById("passwordLog").value;
+                let errorContainer = document.getElementById("error");
+                errorContainer.textContent = "";
+
+                if (!(email && pass)) {
+                    errorContainer.textContent = "Email and password are required!";
+                }
+
+                // firebase.auth().createUserWithEmailAndPassword(email, pass)
+                //     .catch(function(error) {
+                //         let errorCode = error.code;
+                //         let errorMessage = error.message;
+                //         errorContainer.textContent = `Error code ${errorCode}, ${errorMessage}`;
+                //     });
+
+                firebase.auth().onAuthStateChanged(function(user) {
+                if (user) {
+                        console.log("User is signed in..");
+                    let displayName = user.displayName;
+                } else {
+                        console.log("User signed out...");
+                        
+                    }
+                });
+
+
+                firebase.auth().signInWithEmailAndPassword(email, pass)
+                .catch(function(error) {
+                    let errorCode = error.code;
+                    let errorMessage = error.message;
+                    errorContainer.textContent = `Error code ${errorCode}, ${errorMessage}`;
+                });
+
+                email.textContent = "";
+                pass.textContent = "";
+
+            }
+        </script>
+    </body>
+</html>
