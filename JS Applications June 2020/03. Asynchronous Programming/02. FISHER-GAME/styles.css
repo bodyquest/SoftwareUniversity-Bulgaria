@@ -7,9 +7,9 @@ h1 {
     text-align: center;
 }
 
-div {
+div.catch{
     display: inline-block;
-    width: 45%;
+    width: 24%;
 }
 
 aside {
