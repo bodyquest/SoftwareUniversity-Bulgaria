@@ -32,5 +32,7 @@ function getInfo() {
             li.textContent = `Bus ${bus} arrive in ${data.buses[bus]} minutes`;
             elements.buses().appendChild(li);
         });
+
+        elements.stopId().value = "";
     }
 }
