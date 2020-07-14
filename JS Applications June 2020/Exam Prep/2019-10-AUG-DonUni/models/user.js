@@ -1,8 +1,11 @@
 export default {
-    register(data){
-
+    register(email, password){
+        return firebase.auth().createUserWithEmailAndPassword(email, password);
     },
-    login(data) {
-
+    login(email, password) {
+        return firebase.auth().signInWithEmailAndPassword(email, password);
+    },
+    logout(){
+        return firebase.auth().signOut();
     }
 };

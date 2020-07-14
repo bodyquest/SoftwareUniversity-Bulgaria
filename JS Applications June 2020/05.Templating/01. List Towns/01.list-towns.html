@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>List Towns</title>
+    <script src="../handlebars.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <form action="#" class="content">
+        <label for="towns">Towns</label>
+        <input id="towns" type="text" />
+        <button id="btnLoadTowns">Load</button>
+    </form>
+    <div id="root">
+        
+    </div>
+</body>
+<script src="./app.js"></script>
+<script id="main-template" type="text/x-handlebars-template">
+    <ul>
+        {{#each towns}}
+
+            {{>town}}
+        
+        {{/each}}
+    </ul>
+</script>
+<script id="town-template" type="text/x-handlebars-template">
+    <li>{{this}}</li>
+</script>
+
+</html>

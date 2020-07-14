@@ -12,10 +12,12 @@ const app = Sammy ("#root", function() {
 
     this.post("#/user/login", controllers.user.post.login);
     this.post("#/user/register", controllers.user.post.register);
+
+    this.get("#/user/logout", controllers.user.get.logout);
     
     // causes
-    
-    
+    this.get("#/cause/create")
+;    
 });
 
 (() => {
