@@ -33,7 +33,7 @@ function loadCanvas(player){
     });
 
     function drawCanvas(mouseX, mouseY){
-        ctx.drawImage(background, 0, 0, 800, 600);
+        ctx.drawImage(background, 0, 0, 880, 660);
         ctx.drawImage(target, targetObj.x, targetObj.y,targetObj.width,targetObj.height);
         ctx.fillText(`Player: ${player.name}`, 650, 25);
         ctx.fillText(`Money: ${player.money}`, 650, 50);
