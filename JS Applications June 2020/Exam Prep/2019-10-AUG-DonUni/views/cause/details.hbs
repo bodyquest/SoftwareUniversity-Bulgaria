@@ -1,3 +1,4 @@
+     {{> header}}
     <!-- Details View (Become a donor) -->
     <div class="container" style="margin-bottom: 2%; margin-top:5%;">
         <div class="row">
@@ -9,37 +10,40 @@
                 <div class="modal-body">
                     <center>
                         <img style="border-radius: 5px;"
-                            src="https://cdn.pixabay.com/photo/2017/01/20/00/30/maldives-1993704_960_720.jpg"
+                            src="{{ pictureUrl }}"
                             name="aboutme" width="500" height="auto" border="0" class="img-circle">
-                        <h3 class="media-heading">CAUSE</h3>
+                        <h3 class="media-heading">{{ cause.cause }}</h3>
                         <span>Collected</span>
-                        <strong class="label text-success">$0.00</strong>
+                        <strong class="label text-success">${{collectedFunds}}</strong>
                         <span> from </span>
-                        <strong class="label text-info">$900000.00</strong>
+                        <strong class="label text-info">${{neededFunds}}</strong>
                     </center>
                     <hr>
                     <center>
                         <p style="word-wrap: break-word;" class="text-left"><strong>Description: </strong><br>
-                            DESCRIPTION
+                            {{description}}
                         </p>
                         <br>
                         <p style="word-wrap: break-word;" class="text-left"><strong>Donors:</strong><br>
-                            <span>Donor 1</span>
-                            <span>Donor 2</span>
-                            <span>Donor 3</span>
-                            <span>Donor 4</span>
+                        {{#each donors}}
+                            <span>{{this}}</span>
+                        {{/each}}
                         </p>
                     </center>
                 </div>
                 <div class="modal-footer">
-                    <a href="" class="btn btn-danger">Close the cause</a>
-                    <form method="" action="">
-                        <label class="grey-text font-weight-light">My donation: </label>
-                        <input name="currentDonation" type="number" min="1" class="form-control" />
-                        <button style="width: 100%;" class="btn btn-success" type="submit">Make the donation</button>
-                    </form>
+                    {{#if canDonate }}
+                        <form method="POST" action="#/cause/donate/{{id}}">
+                            <label class="grey-text font-weight-light">My donation: </label>
+                            <input name="currentDonation" type="number" min="1" class="form-control" />
+                            <button style="width: 100%;" class="btn btn-success" type="submit">Make the donation</button>
+                        </form>
+                    {{else}}
+                        <a href="#/cause/close/{{id}}" class="btn btn-danger">Close the cause</a>
+                    {{/if}}
                 </div>
             </div>
         </div>
     </div>
     <!-- ./Details View (Become a donor) -->
+{{> footer}}

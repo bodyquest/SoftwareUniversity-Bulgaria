@@ -3,27 +3,24 @@ export default function (context){
         if (user) {
           // User is signed in.
           context.isLoggedIn = true;
-          context.username = user.email;
           context.userId = user.uid;
-          localStorage.setItem("userId", user.uid);
+          context.username = user.email;
 
-          var displayName = user.displayName;
-          var emailVerified = user.emailVerified;
-          var photoURL = user.photoURL;
-          var isAnonymous = user.isAnonymous;
-          var providerData = user.providerData;
-          // ...
+          localStorage.setItem("userId", user.uid);
+          localStorage.setItem("userEmail", user.email);
         } else {
+          
           // User is signed out.
           context.isLoggedIn = false;
           context.username = null;
           context.userId = null;
-          localStorage.removeItem("userId", user.uid);
-          // ...
+
+          localStorage.removeItem("userId");
+          localStorage.removeItem("userEmail");
         }
       });
 
-      context.loadPartials({
+      return context.loadPartials({
           header: "../views/shared/header.hbs",
           footer: "../views/shared/footer.hbs"
         });
