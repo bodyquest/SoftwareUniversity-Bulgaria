@@ -7,6 +7,7 @@ window.addEventListener("load", () =>{
         .addEventListener("click", displayBooks);
 
     const table = document.querySelector("table tbody");
+    let edit = {};
 
     const input = {
         title: document.querySelector("#title"),
@@ -37,7 +38,7 @@ window.addEventListener("load", () =>{
 
             const created = await api.createBook(book);
             table.appendChild(renderBook(created));
-            Object.entries(input).forEach(([k, v]) => v.disabled = "");
+            Object.entries(input).forEach(([k, v]) => v.disabled = true);
 
         } catch (error) {
             alert(error);
@@ -55,7 +56,7 @@ window.addEventListener("load", () =>{
     function validateInput() {
         let valid = true;
 
-        Object.entries(input).forEach(([k, v]) => {
+        Object.entries(edit).forEach(([k, v]) => {
             if (v.value.length === 0) {
                 v.className = "inputError";
                 valid = false;
@@ -133,7 +134,7 @@ window.addEventListener("load", () =>{
                 table.replaceChild(element, editor);
             });
 
-            const edit = {
+            edit = {
                 title: createHTML("input", null, {type: "text", value: book.title}),
                 author: createHTML("input", null, {type: "text", value: book.author}),
                 isbn: createHTML("input", null, {type: "text", value: book.isbn}),
