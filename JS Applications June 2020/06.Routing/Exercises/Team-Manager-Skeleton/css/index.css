@@ -44,5 +44,16 @@ body {
 
 .jumbotron {
   background: rgb(3,167,151);
-  background: linear-gradient(90deg, rgba(3,167,151,1) 0%, rgba(120,9,121,1) 0%, rgba(0,212,255,1) 100%);
+  background-image: linear-gradient(to right, #fa709a 0%, #fee140 100%);
 }
+
+h1 {
+  font-family: "Work Sans", "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+  font-size: 48px;
+  font-weight: 800;
+  background: -webkit-linear-gradient(45deg, #09009f, #00ff95 80%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
