@@ -1,5 +1,6 @@
 import controllers from "../controllers/index.js";
 
+
 $(() => {
     const app = Sammy ("#main", function() {
         this.use("Handlebars", "hbs");
@@ -30,6 +31,9 @@ $(() => {
         this.get("#/catalog/:id", controllers.catalog.get.details);
         this.get("#/create", controllers.catalog.get.create);
         this.get("#/edit/:id", controllers.catalog.get.edit);
+
+        this.post("#/create", controllers.catalog.post.create);
+        this.post("#/edit/:id", controllers.catalog.post.edit);
         
 
     });

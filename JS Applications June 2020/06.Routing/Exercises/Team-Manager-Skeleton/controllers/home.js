@@ -6,7 +6,7 @@ export default {
                 footer: "../templates/common/footer.hbs"
             }).then(function(){
     
-                this.partial("../templates/home/home.hbs");
+                this.partial("../templates/home/home.hbs", context.app.userData);
             });
         }
     }

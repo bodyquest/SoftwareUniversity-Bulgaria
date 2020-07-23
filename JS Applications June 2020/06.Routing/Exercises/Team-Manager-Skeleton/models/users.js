@@ -5,13 +5,25 @@ function host(endpoint) {
 
 const endpoints = {
     register: `users/register`,
-    login: `users/login`
+    login: `users/login`,
+    logout: `users/logout`
 }
 
 export default {
-    // async login(username, password) {
-    //     return firebase.auth().signInWithEmailAndPassword(email, password);
-    // },
+    async login(username, password){
+
+        return (await fetch(host(endpoints.login), {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                login: username,
+                password
+            })
+        })).json();
+     },
+
     async register(username, password){
        return (await fetch(host(endpoints.register), {
            method: "POST",
@@ -19,12 +31,18 @@ export default {
                "Content-Type": "application/json"
            },
            body: JSON.stringify({
-               email: username,
-               password: password
+               username,
+               password
            })
        })).json();
+    },
+
+    async logout()
+    {
+        return (await fetch(host(endpoints.logout), {
+            headers: {
+                "user-token": `${localStorage["user-token"]}`
+            }
+        }));
     }
-    // logout(){
-    //     return firebase.auth().signOut();
-    // }
 };

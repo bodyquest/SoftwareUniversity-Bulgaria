@@ -1,5 +1,16 @@
 import models from "../models/index.js";
 
+function userLoggedOut()
+{
+  console.log( "user has been logged out" );
+}
+
+function gotError( err )
+{
+  console.log( "error message - " + err.message );
+  console.log( "error code - " + err.statusCode );
+}
+
 export default {
     get: {
         login(context){
@@ -25,10 +36,23 @@ export default {
             });
         },
         logout(context){
-            models.user.logout()
+            models.users.logout()
                 .then((response) => {
-                context.redirect("#/home");
-            });
+
+                    this.app.userData.loggedIn = false;
+                    this.app.userData.userId = undefined;
+                    this.app.userData.username = undefined;
+                    this.app.userData.hasTeam = false;
+                    this.app.userData.teamId = undefined;
+
+                    localStorage.removeItem("username");
+                    localStorage.removeItem("userToken");
+                    localStorage.removeItem("userId");
+
+                    context.redirect("#/home");
+            })
+            .then( userLoggedOut )
+            .catch( gotError );
         }
     },
     post: {
@@ -36,20 +60,28 @@ export default {
             const {username, password} = context.params;
             
             models.users.login(username, password)
-                .then((response) => {
-                    // context.notification = true;
-                    // context.message = "Login successful!";
-
-                     context.user = response;
-                     context.username = response.email;
-                     context.isLoggedIn = true;
-                     context.redirect("#/home")
+            .then((response) => {
+                if (response.hasOwnProperty("errorData")) {
+                    
+                    const error = new Error();
+                    Object.assign(error, response);
+                    throw error;
+                }
+                
+                this.app.userData.loggedIn = true;
+                this.app.userData.username = response.username;
+                this.app.userData.userId = response.objectId;
+                
+                localStorage.setItem("userToken", response["user-token"]);
+                localStorage.setItem("username", response.username);
+                localStorage.setItem("userId", response.objectId);
+                
+                context.redirect("#/home");
                 })
                 .catch((e) => {
-                    alert(e);
+                    alert(e.message);
                     console.error(e);
                 });
-
         },
         register(context){
             const {username, password, repeatPassword} = context.params;
@@ -61,6 +93,7 @@ export default {
                 models.users.register(username, password)
                 .then((response) => {
                     if (response.hasOwnProperty("errorData")) {
+
                         const error = new Error();
                         Object.assign(error, response);
                         throw error;
