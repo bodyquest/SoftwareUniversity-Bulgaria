@@ -1,0 +1,36 @@
+<nav class="navbar navbar-inverse navbar-expand-lg navbar-light bg-dark py-0 px-5 mb-4">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+        <img src="https://vectr.com/bodyquest/a3eGlGJii3.svg?width=640&height=640&select=a3eGlGJii3page0" width="100" height="100" class="d-inline-block align-top" alt="Potato Couch">
+        </a>
+        <ul class="nav navbar-nav mr-auto">
+            <li class="nav-item active">
+            <a class="nav-link text-white" href="#/">Home <span class="sr-only">(current)</span></a>
+            </li>
+            
+            {{#if isLoggedIn}}
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="#/profile">Profile</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="#/create">Create Furniture</a>
+                </li>
+            {{/if}}
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            {{#if isLoggedIn}}
+                <li class="nav-item mx-0">
+                    <a class="nav-link text-white" href="#/user/logout">Logout</a>
+                </li>
+            {{else}}
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="#/user/login"><span>Login</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="#/user/register"><span>Register</span></a>
+                </li>
+                
+            {{/if}}
+        </ul>
+    </div>
+  </nav>
