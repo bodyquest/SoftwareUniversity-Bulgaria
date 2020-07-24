@@ -6,7 +6,8 @@ function host(endpoint) {
 const endpoints = {
     register: `users/register`,
     login: `users/login`,
-    logout: `users/logout`
+    logout: `users/logout`,
+    user: `data/Users`
 }
 
 export default {
@@ -44,5 +45,16 @@ export default {
                 "user-token": `${localStorage["user-token"]}`
             }
         }));
+    },
+
+    async getUserById(){
+        const userId = localStorage.getItem("userId");
+        const token = localStorage.getItem("userToken");
+
+        const uri = host(endpoints.user + `/${userId}?loadRelations=teamId`);
+
+        let result =  await (await fetch(uri)).json();
+        
+        return result;
     }
 };
