@@ -1,3 +1,6 @@
+import models from "../models/index.js";
+import notifications from '../scripts/notifications.js';
+
 function host(endpoint) {
     return `https://api.backendless.com/C37FA95F-0D6A-9940-FF9B-AAABADC18D00/438AA7CE-7E50-4CA0-B6E7-6EEE19783B2E/${endpoint}`;
 }
@@ -5,15 +8,13 @@ function host(endpoint) {
 const endpoints = {
     teams: `data/teams`,
     members: '?loadRelations=members',
-    update_user: `data/Users/`,
+    update_user: `data/Users`,
+    teamIds: `?loadRelations=teamId`
 }
 
 async function addTeamMember (userId, teamId) {
 
     const token = localStorage.getItem("userToken");
-    if (!token) {
-        throw new Error ("User is not logged in");
-    }
     
     return (await fetch(host(endpoints.teams +`/${teamId}/members`), {
         method: "POST",
@@ -28,19 +29,14 @@ async function addTeamMember (userId, teamId) {
 async function addTeamToUser(userId, teamId) {
 
     const token = localStorage.getItem("userToken");
-    if (!token) {
-        throw new Error ("User is not logged in");
-    }
 
-    return (await fetch(host(endpoints.update_user + `/${userId}`), {
-        method: 'PUT',
+    return (await fetch(host(endpoints.update_user + `/${userId}/teamId`), {
+        method: 'POST',
         headers: {
             'Content-type': 'application/json',
             'user-token': token
         },
-        body: JSON.stringify({
-            teamId: teamId
-        })
+        body: JSON.stringify([teamId])
     })).json();
 }
 
@@ -54,10 +50,11 @@ export default {
 
         const token = localStorage.getItem("userToken");
         if (!token) {
-            throw new Error ("User is not logged in");
+            notifications.showError("User is not logged in");
+            context.redirect('#/home');
+        return;
         }
         const uri = host(endpoints.teams + `/${teamId}` + endpoints.members);
-        debugger;
         return await (await fetch(uri, {
             method: 'get',
             headers: {
@@ -69,9 +66,20 @@ export default {
     async create(team){
         const token = localStorage.getItem("userToken");
         if (!token) {
-            throw new Error ("User is not logged in");
+            notifications.showError("User is not logged in");
+            context.redirect('#/home');
+            return;
         }
 
+        // check if current user has a TEAM
+        const user = await models.users.getUserById();
+        if (user.teamId.length !== 0) {
+            notifications.showError("You have a team and can\'t create new one!");
+            context.redirect('#/catalog');
+            return;
+        }
+
+        // create new TEAM
         const createdTeam = await (await fetch(host(endpoints.teams), {
             method: "POST",
             headers: {
@@ -91,8 +99,9 @@ export default {
             throw error;
         }
 
+        // add the current user as MEMBER
         const updatedTeam = await addTeamMember( createdTeam.ownerId, createdTeam.objectId );
-
+        
         if (updatedTeam.hasOwnProperty("errorData")) {
 
             const error = new Error();
@@ -103,6 +112,7 @@ export default {
         if (updatedTeam.code) {
             return updatedTeam;
         } else {
+
             const updatedUser = await addTeamToUser(createdTeam.ownerId, createdTeam.objectId);
 
             if (updatedUser.hasOwnProperty("errorData")) {
@@ -112,7 +122,7 @@ export default {
                 throw error;
             }
     
-            return createdTeam;
+            return this.getTeamById(createdTeam.objectId);
         }
     },
 
@@ -123,7 +133,9 @@ export default {
     async edit(id, team){
         const token = localStorage.getItem("userToken");
         if (!token) {
-            throw new Error ("User is not logged in");
+            notifications.showError("User is not logged in");
+            context.redirect('#/home');
+            return;
         }
 
         const result = await (await fetch(host(endpoints.teams + `/${id}`), {
@@ -141,10 +153,32 @@ export default {
         if (result.hasOwnProperty("errorData")) {
 
             const error = new Error();
-            Object.assign(error, response);
+            Object.assign(error, result);
             throw error;
         }
 
         return result;
+    },
+
+    async join(teamId){
+        const token = localStorage.getItem("userToken");
+
+        if (!token) {
+            notifications.showError("User is not logged in");
+            context.redirect('#/home');
+            return;
+        }
+
+        const user = await models.users.getUserById();
+        if (user.teamId.length !== 0) {
+            notifications.showError("You have a team and can\'t create new one!");
+            context.redirect('#/catalog');
+            return;
+        }
+
+        const updatedTeam = await addTeamMember( user.objectId, teamId );
+        const updatedUser = await addTeamToUser( user.objectId, teamId);
+        
+        return updatedUser
     }
 };

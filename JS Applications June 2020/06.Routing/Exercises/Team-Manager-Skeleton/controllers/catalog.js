@@ -1,4 +1,5 @@
 import models from "../models/index.js";
+import notifications from '../scripts/notifications.js';
 
 export default {
     get: {
@@ -23,8 +24,7 @@ export default {
                     this.partial("../templates/catalog/teamCatalog.hbs", data);
                 })
                 .catch((e) => {
-                    alert(e.message);
-                    console.error(e);
+                    notifications.showError(e.message);
                 });
                 
             });
@@ -110,6 +110,31 @@ export default {
                 });
                 
             });
+        },
+        join(context){
+            const { id } = context.params;
+            debugger;
+            models.catalogs.join(id)
+            .then((response) => {
+                if (response.hasOwnProperty("errorData")) {
+
+                    const error = new Error();
+                    Object.assign(error, response);
+                    throw error;
+                }
+                
+                context.app.userData.hasTeam = true;
+                context.app.userData.teamId = id;
+
+                notifications.showInfo('You joined the team!');
+                context.redirect('#/catalog');
+            })
+            .catch((e) => {
+                notifications.showError(e.message);
+            });
+        },
+        leave(context){
+            
         }
     },
     post: {
@@ -121,7 +146,13 @@ export default {
             };
 
             if (Object.values(team).some(v => v.length == 0)) {
-                alert ("All fields are required!");
+                notifications.showError ("All fields are required!");
+                return;
+            }
+
+            if (context.app.userData.hasTeam) {
+                notifications.showError('You have a team and can\'t create one!');
+                context.redirect('#/catalog');
                 return;
             }
             
@@ -136,12 +167,12 @@ export default {
 
                 context.app.userData.hasTeam = true;
                 context.app.userData.teamId = response.objectId;
-
+                
+                notifications.showInfo('Team created!');
                 context.redirect(`#/catalog/${response.objectId}`)
             })
             .catch((e) => {
-                alert(e.message);
-                console.error(e);
+                notifications.showError(e.message);
             });
         },
         edit(context){
@@ -151,9 +182,8 @@ export default {
                 comment
             };
 
-            debugger;
             if (Object.values(team).some(v => v.length == 0)) {
-                alert ("All fields are required!");
+                notifications.showError ("All fields are required!");
                 return;
             }
 
@@ -168,12 +198,13 @@ export default {
 
                 context.app.userData.teamId = response.objectId;
 
+                notifications.showInfo('Team edited successfully!');
                 context.redirect(`#/catalog/${response.objectId}`)
             })
             .catch((e) => {
-                alert(e.message);
-                console.error(e);
+                notifications.showError(e.message);
             });
         }
+       
     }
 };
