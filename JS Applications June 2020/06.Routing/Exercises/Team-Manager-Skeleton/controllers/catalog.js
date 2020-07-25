@@ -47,7 +47,7 @@ export default {
 
             const teamUri = host(endpoints.teams +`/${id}/members`);
             const teamWithMembers = await (await fetch(teamUri, {
-                method: 'get',
+                method: 'GET',
                 headers: {
                     'user-token': token
                 }
@@ -84,9 +84,22 @@ export default {
                     if (userIsMember) {
                         team.isOnTeam = true;
                     }
-                    
-                    this.partial("../templates/catalog/details.hbs", team);
 
+                    console.log(teamWithMembers);
+
+                    const renderData = {
+                        objectId: team.objectId,
+                        name: team.name,
+                        comment: team.comment,
+                        members: teamWithMembers.reduce((acc, curr) => {
+                            acc.push({username: curr.username});
+                            return acc;
+                        }, []),
+                        isAuthor: team.isAuthor,
+                        isOnTeam: userIsMember
+                    };
+                    
+                    this.partial("../templates/catalog/details.hbs", renderData);
                 })
                 .catch((e) => {
                     alert(e.message);
