@@ -231,13 +231,11 @@ export default {
 
         const user = await models.users.getUserById();
         const userId = user.objectId;
-        debugger;
         const teamId = user.teamId[0].objectId;
-        debugger;
 
         const userTeamUri = host(endpoints.teams +`/${teamId}/members`);
         const teamWithMembers = await (await fetch(userTeamUri, {
-            method: 'get',
+            method: 'GET',
             headers: {
                 'user-token': token
             }
@@ -247,8 +245,31 @@ export default {
         const userIndex = teamMembers.indexOf(userId);
 
         if (userIndex < 0) {
-            throw new Error('You are not a member of that team!');
+            notifications.showError("You are not a member of that team!");
+            context.redirect('#/catalog');
+            return;
         }
 
-        }
+        teamMembers.splice(userIndex, 1);
+
+        const numberUsers = await (await fetch(userTeamUri, {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json',
+                'user-token': token
+            },
+            body: JSON.stringify(teamMembers)
+        })).json();
+
+        const updatedUser = (await fetch(host(endpoints.update_user + `/${userId}/teamId`), {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json',
+                'user-token': token
+            },
+            body: JSON.stringify([])
+        })).json();
+
+        return updatedUser;
+    }
 };
