@@ -77,6 +77,9 @@ export default {
                     if (user.objectId === team.ownerId) {
                         team.isAuthor = true;
                     }
+                    else{
+                        team.isAuthor = false;
+                    }
 
                     if (userIsMember) {
                         team.isOnTeam = true;
