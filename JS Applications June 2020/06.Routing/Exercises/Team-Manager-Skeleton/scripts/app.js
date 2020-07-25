@@ -7,7 +7,7 @@ $(() => {
 
         this.userData = {
             loggedIn: false,
-            hasNoTeam: true
+            hasTeam: false
         };
         
         // home

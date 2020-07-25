@@ -1,9 +1,5 @@
 import models from "../models/index.js";
-
-function userLoggedOut()
-{
-  console.log( "user has been logged out" );
-}
+import notifications from '../scripts/notifications.js';
 
 function gotError( err )
 {
@@ -49,16 +45,20 @@ export default {
                     localStorage.removeItem("userToken");
                     localStorage.removeItem("userId");
 
+                    notifications.showInfo('Successful logout!');
                     context.redirect("#/home");
             })
-            .then( userLoggedOut )
-            .catch( gotError );
+            .catch( (e) =>{
+                notifications.showError(e.message);
+                context.redirect('#/home');
+            });
         }
     },
     post: {
         login(context){
             const {username, password} = context.params;
-            
+            //
+
             models.users.login(username, password)
             .then((response) => {
                 if (response.hasOwnProperty("errorData")) {
@@ -71,17 +71,26 @@ export default {
                 this.app.userData.loggedIn = true;
                 this.app.userData.username = response.username;
                 this.app.userData.userId = response.objectId;
-                
-                localStorage.setItem("userToken", response["user-token"]);
-                localStorage.setItem("username", response.username);
-                localStorage.setItem("userId", response.objectId);
-                
-                context.redirect("#/home");
-                })
-                .catch((e) => {
-                    alert(e.message);
-                    console.error(e);
+
+                models.users.getUserById()
+                .then((user) => {
+                    
+                    if(user.teamId.length !== 0){
+                        context.app.userData.hasTeam = true;
+                        context.app.userData.teamId = user.teamId[0].objectId;
+                    }
+
+                    localStorage.setItem("userToken", response["user-token"]);
+                    localStorage.setItem("username", response.username);
+                    localStorage.setItem("userId", response.objectId);
+                    
+                    notifications.showInfo('Successful login!');
+                    context.redirect("#/home");
                 });
+            })
+            .catch((e) => {
+                notifications.showError(e.message);
+            });
         },
         register(context){
             const {username, password, repeatPassword} = context.params;
@@ -98,15 +107,16 @@ export default {
                         Object.assign(error, response);
                         throw error;
                     }
+
+                    notifications.showInfo('Successful registration!');
                     context.redirect("#/login")
                 })
                 .catch((e) => {
-                    alert(e.message);
-                    console.error(e);
+                    notifications.showError(e.message);
                 });
             }
             else{
-                alert("Passwords don\'t match!");
+                notifications.showError("Passwords don\'t match!");
                 return;
             }
         }

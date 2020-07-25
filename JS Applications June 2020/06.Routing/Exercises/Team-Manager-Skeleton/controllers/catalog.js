@@ -13,6 +13,14 @@ const endpoints = {
 export default {
     get: {
         catalog(context) {
+
+            const token = localStorage.getItem('userToken');
+            if (!token) {
+                notifications.showError('User is not logged in');
+                this.redirect('#/home');
+                return;
+            }
+
             context.loadPartials({
                 header: "../templates/common/header.hbs",
                 footer: "../templates/common/footer.hbs",
@@ -28,6 +36,8 @@ export default {
                         throw error;
                     }
                     const teams = response;
+                    context.app.userData.loggedIn = true;
+                    context.app.userData.username = localStorage.getItem("username");
                     const data = Object.assign({teams}, context.app.userData);
                     
                     this.partial("../templates/catalog/teamCatalog.hbs", data);
@@ -82,7 +92,7 @@ export default {
                     }
 
                     if (userIsMember) {
-                        team.isOnTeam = true;
+                        team.hasTeam = true;
                     }
 
                     console.log(teamWithMembers);
@@ -96,8 +106,13 @@ export default {
                             return acc;
                         }, []),
                         isAuthor: team.isAuthor,
-                        isOnTeam: userIsMember
+                        hasTeam: userIsMember,
+                        isOnTeam: userIsMember,
+                        loggedIn: true,
+                        username: user.username
                     };
+
+                    const data = Object.assign({renderData}, context.app.userData);
                     
                     this.partial("../templates/catalog/details.hbs", renderData);
                 })

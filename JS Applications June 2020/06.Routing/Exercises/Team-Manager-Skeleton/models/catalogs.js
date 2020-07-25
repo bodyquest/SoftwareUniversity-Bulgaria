@@ -252,7 +252,7 @@ export default {
 
         teamMembers.splice(userIndex, 1);
 
-        const numberUsers = await (await fetch(userTeamUri, {
+        const userTeam = await (await fetch(userTeamUri, {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json',
