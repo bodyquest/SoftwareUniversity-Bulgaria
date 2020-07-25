@@ -26,6 +26,33 @@ async function addTeamMember (userId, teamId) {
     })).json();
 }
 
+async function joinTeamMember (userId, teamId) {
+
+    const token = localStorage.getItem("userToken");
+
+    const teamUri = host(endpoints.teams +`/${teamId}/members`);
+        const teamWithMembers = await (await fetch(teamUri, {
+            method: 'get',
+            headers: {
+                'user-token': token
+            }
+        })).json();
+    
+    // add new member
+    let teamMembers = teamWithMembers.map(m => m.objectId);
+    teamMembers.push(userId);
+
+    // update team by adding all members
+    return (await fetch(host(endpoints.teams +`/${teamId}/members`), {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "user-token" : token
+        },
+        body: JSON.stringify(teamMembers)
+    })).json();
+}
+
 async function addTeamToUser(userId, teamId) {
 
     const token = localStorage.getItem("userToken");
@@ -170,15 +197,58 @@ export default {
         }
 
         const user = await models.users.getUserById();
-        if (user.teamId.length !== 0) {
-            notifications.showError("You have a team and can\'t create new one!");
+        const teamUri = host(endpoints.teams +`/${teamId}/members`);
+        const teamWithMembers = await (await fetch(teamUri, {
+            method: 'get',
+            headers: {
+                'user-token': token
+            }
+        })).json();
+
+        let teamMembers = teamWithMembers.map(m => m.objectId);
+        let userIsMember = teamMembers.indexOf(user.objectId) > -1;
+
+        if (userIsMember) {
+            notifications.showError("You can\'t join a second team!");
             context.redirect('#/catalog');
             return;
         }
 
-        const updatedTeam = await addTeamMember( user.objectId, teamId );
+        const updatedTeam = await joinTeamMember( user.objectId, teamId );
         const updatedUser = await addTeamToUser( user.objectId, teamId);
         
         return updatedUser
-    }
+    },
+
+    async leave(){
+        const token = localStorage.getItem("userToken");
+
+        if (!token) {
+            notifications.showError("User is not logged in");
+            context.redirect('#/home');
+            return;
+        }
+
+        const user = await models.users.getUserById();
+        const userId = user.objectId;
+        debugger;
+        const teamId = user.teamId[0].objectId;
+        debugger;
+
+        const userTeamUri = host(endpoints.teams +`/${teamId}/members`);
+        const teamWithMembers = await (await fetch(userTeamUri, {
+            method: 'get',
+            headers: {
+                'user-token': token
+            }
+        })).json();
+
+        let teamMembers = teamWithMembers.map(m => m.objectId);
+        const userIndex = teamMembers.indexOf(userId);
+
+        if (userIndex < 0) {
+            throw new Error('You are not a member of that team!');
+        }
+
+        }
 };

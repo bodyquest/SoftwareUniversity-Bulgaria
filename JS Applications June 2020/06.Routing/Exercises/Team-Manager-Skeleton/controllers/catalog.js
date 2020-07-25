@@ -1,6 +1,15 @@
 import models from "../models/index.js";
 import notifications from '../scripts/notifications.js';
 
+function host(endpoint) {
+    return `https://api.backendless.com/C37FA95F-0D6A-9940-FF9B-AAABADC18D00/438AA7CE-7E50-4CA0-B6E7-6EEE19783B2E/${endpoint}`;
+}
+
+const endpoints = {
+    teams: `data/teams`,
+    members: '?loadRelations=members'
+}
+
 export default {
     get: {
         catalog(context) {
@@ -29,8 +38,23 @@ export default {
                 
             });
         },
-        details(context) {
+        async details(context) {
             const { id } = context.params;
+            const token = localStorage.getItem("userToken");
+
+            const user = await models.users.getUserById();
+            const userId = user.objectId;
+
+            const teamUri = host(endpoints.teams +`/${id}/members`);
+            const teamWithMembers = await (await fetch(teamUri, {
+                method: 'get',
+                headers: {
+                    'user-token': token
+                }
+            })).json();
+
+            let teamMembers = teamWithMembers.map(m => m.objectId);
+            let userIsMember = teamMembers.indexOf(userId) > -1;
 
             context.loadPartials({
                 header: "../templates/common/header.hbs",
@@ -49,12 +73,12 @@ export default {
                     }
                     const team = response;
                     Object.assign(team, context.app.userData);
-
-                    if (context.app.userData.userId === team.ownerId) {
+                    
+                    if (user.objectId === team.ownerId) {
                         team.isAuthor = true;
                     }
 
-                    if (context.app.userData.teamId === team.objectId) {
+                    if (userIsMember) {
                         team.isOnTeam = true;
                     }
                     
@@ -113,11 +137,11 @@ export default {
         },
         join(context){
             const { id } = context.params;
-            debugger;
+            
             models.catalogs.join(id)
             .then((response) => {
+                
                 if (response.hasOwnProperty("errorData")) {
-
                     const error = new Error();
                     Object.assign(error, response);
                     throw error;
@@ -125,7 +149,7 @@ export default {
                 
                 context.app.userData.hasTeam = true;
                 context.app.userData.teamId = id;
-
+                
                 notifications.showInfo('You joined the team!');
                 context.redirect('#/catalog');
             })
@@ -134,7 +158,30 @@ export default {
             });
         },
         leave(context){
+            const token = localStorage.getItem('userToken');
+            if (!token) {
+                notifications.showError('User is not logged in');
+                this.redirect('#/home');
+                return;
+            }
             
+            models.catalogs.leave()
+            .then((response) => {
+                if (response.hasOwnProperty("errorData")) {
+                        const error = new Error();
+                        Object.assign(error, response);
+                        throw error;
+                }
+
+                context.app.userData.hasTeam = false;
+                context.app.userData.teamId = undefined;
+
+                notifications.showInfo('You left the team!');
+                context.redirect('#/catalog');
+            })
+            .catch ((e) => {
+                notifications.showError(e.message);
+            });
         }
     },
     post: {
@@ -205,6 +252,5 @@ export default {
                 notifications.showError(e.message);
             });
         }
-       
     }
 };
