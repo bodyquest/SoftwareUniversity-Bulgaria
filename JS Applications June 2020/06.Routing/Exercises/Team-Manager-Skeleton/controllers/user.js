@@ -69,8 +69,8 @@ export default {
                 }
                 
                 this.app.userData.loggedIn = true;
-                this.app.userData.username = response.username;
                 this.app.userData.userId = response.objectId;
+                this.app.userData.username = response.username;
 
                 models.users.getUserById()
                 .then((user) => {
@@ -79,14 +79,14 @@ export default {
                         context.app.userData.hasTeam = true;
                         context.app.userData.teamId = user.teamId[0].objectId;
                     }
-
-                    localStorage.setItem("userToken", response["user-token"]);
-                    localStorage.setItem("username", response.username);
-                    localStorage.setItem("userId", response.objectId);
-                    
-                    notifications.showInfo('Successful login!');
-                    context.redirect("#/home");
                 });
+
+                localStorage.setItem("userToken", response["user-token"]);
+                localStorage.setItem("username", response.username);
+                localStorage.setItem("userId", response.objectId);
+                
+                notifications.showInfo('Successful login!');
+                context.redirect("#/home");
             })
             .catch((e) => {
                 notifications.showError(e.message);
