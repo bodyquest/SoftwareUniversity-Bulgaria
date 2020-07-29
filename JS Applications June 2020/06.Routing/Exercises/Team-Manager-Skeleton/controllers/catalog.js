@@ -95,8 +95,6 @@ export default {
                         team.hasTeam = true;
                     }
 
-                    console.log(teamWithMembers);
-
                     const renderData = {
                         objectId: team.objectId,
                         name: team.name,
