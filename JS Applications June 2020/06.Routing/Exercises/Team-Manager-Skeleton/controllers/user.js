@@ -75,7 +75,7 @@ export default {
                 models.users.getUserById()
                 .then((user) => {
                     
-                    if(user.teamId.length !== 0){
+                    if(user.teamId !== undefined && user.teamId.length !== 0){
                         context.app.userData.hasTeam = true;
                         context.app.userData.teamId = user.teamId[0].objectId;
                     }
