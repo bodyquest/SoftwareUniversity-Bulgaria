@@ -5,10 +5,12 @@ function host(endpoint){
 const endpoints = {
     REGISTER: "users/register",
     LOGIN: "users/login",
-    LOGOUT: "users/logout"
-
+    LOGOUT: "users/logout",
+    MOVIES: "data/movies",
+    MOVIE: "data/movies/"
 }
 
+// user functions
 async function register (username, password) {
     return (await fetch(host(endpoints.REGISTER), {
         method: "POST",
@@ -23,7 +25,7 @@ async function register (username, password) {
 }
 
 async function login (username, password) {
-    return (await fetch(host(endpoints.LOGIN), {
+    const result = await (await fetch(host(endpoints.LOGIN), {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -33,6 +35,12 @@ async function login (username, password) {
             password
         })
     })).json();
+
+    localStorage.setItem("userToken", result["user-token"]);
+    localStorage.setItem("username", result.username);
+    localStorage.setItem("userId", result.objectId);
+
+    return result;
 }
 
 function logout () {
@@ -44,3 +52,43 @@ function logout () {
         }
     });
 }
+
+// movie functions
+
+// get all movies
+async function getMovies(){
+    return (await fetch(host(endpoints.MOVIES))).json();
+}
+
+// get movie details
+async function getMovieById(id){
+    const token = localStorage.getItem("userToken");
+
+    return (await fetch(host(endpoints.MOVIE + id), {
+        method: "GET",
+        headers: {
+            "user-token": token,
+        }
+    })).json();
+}
+
+// create movie
+async function createMovie(movie){
+    const token = localStorage.getItem("userToken");
+
+    return (await fetch(host(endpoints.MOVIES), {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "user-token": token,
+        },
+        body: JSON.stringify(movie)
+    })).json();
+}
+
+// edit movie
+
+
+// get movies by userId
+// delete movie
+// buy ticket for movie
