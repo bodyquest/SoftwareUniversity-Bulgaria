@@ -134,6 +134,10 @@ async function getMoviesByOwner(ownerId){
 }
 
 // buy ticket for movie
-async function buyTicket(){
-    
+async function buyTicket(movie){
+
+    const newTicketCount = movie.tickets - 1;
+    const movieId = movie.objectId;
+
+    return updateMovie(movieId, {tickets: newTickets});
 }
