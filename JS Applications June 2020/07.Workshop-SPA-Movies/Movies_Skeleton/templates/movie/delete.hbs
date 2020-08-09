@@ -1,0 +1,21 @@
+    {{>header}}
+<div id="deleteMovie">
+      <h1>Delete movie</h1>
+      <form action="#/delete" method="POST">
+        <label>Title</label>
+        <input type="text" name="title" value="Us (2019)" disabled="">
+        <label>Image Url</label>
+        <input type="text" name="imageUrl"
+          value="https://m.media-amazon.com/images/M/MV5BZTliNWJhM2YtNDc1MC00YTk1LWE2MGYtZmE4M2Y5ODdlNzQzXkEyXkFqcGdeQXVyMzY0MTE3NzU@._V1_UX140_CR0,0,140,209_AL_.jpg"
+          disabled="">
+        <label>Description</label>
+        <textarea type="text" name="description"
+          disabled="">A family's serenity turns to chaos when a group of doppelgängers begins to terrorize them.</textarea>
+        <label>Genres</label>
+        <input type="text" name="genres" value="Horror,Triller" disabled="">
+        <label>Available Tickets</label>
+        <input type="number" name="tickets" value="50" disabled="">
+        <input type="submit" value="Delete">
+      </form>
+</div>
+    {{>footer}}
