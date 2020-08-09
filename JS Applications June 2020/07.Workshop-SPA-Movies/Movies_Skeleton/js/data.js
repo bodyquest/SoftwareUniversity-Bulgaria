@@ -87,8 +87,31 @@ async function createMovie(movie){
 }
 
 // edit movie
+async function updateMovie(id, updatedProperties){
+    const token = localStorage.getItem("userToken");
 
+    return (await fetch(host(endpoints.MOVIE + id), {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+            "user-token": token,
+        },
+        body: JSON.stringify(updatedProperties)
+    })).json();
+}
+
+// delete movie
+async function deleteMovie(id){
+    const token = localStorage.getItem("userToken");
+
+    return (await fetch(host(endpoints.MOVIE + id), {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json",
+            "user-token": token,
+        }
+    })).json();
+}
 
 // get movies by userId
-// delete movie
 // buy ticket for movie
