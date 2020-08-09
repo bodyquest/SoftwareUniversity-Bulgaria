@@ -7,10 +7,11 @@ const endpoints = {
     LOGIN: "users/login",
     LOGOUT: "users/logout",
     MOVIES: "data/movies",
-    MOVIE: "data/movies/"
+    MOVIE: "data/movies/",
+    MOVIES_BY_OWNER: "data/movies?where=ownerId%3D"
 }
 
-// user functions
+/// *** user functions *** ///
 async function register (username, password) {
     return (await fetch(host(endpoints.REGISTER), {
         method: "POST",
@@ -53,11 +54,16 @@ function logout () {
     });
 }
 
-// movie functions
-
+/// *** movie functions *** ///
 // get all movies
 async function getMovies(){
-    return (await fetch(host(endpoints.MOVIES))).json();
+    const token = localStorage.getItem("userToken");
+
+    return (await fetch(host(endpoints.MOVIES), {
+        headers: {
+            "user-token": token,
+        }
+    })).json();
 }
 
 // get movie details
@@ -114,4 +120,20 @@ async function deleteMovie(id){
 }
 
 // get movies by userId
+async function getMoviesByOwner(ownerId){
+    const token = localStorage.getItem("userToken");
+
+    const movies = await (await fetch(host(endpoints.MOVIES_BY_OWNER + `%27${ownerId}%27`), {
+        method: "GET",
+        headers: {
+            "user-token": token,
+        }
+    })).json();
+
+    return movies;
+}
+
 // buy ticket for movie
+async function buyTicket(){
+    
+}
