@@ -5,5 +5,5 @@ export default async function home() {
         footer: await this.load("../templates/common/footer.hbs")
     }
 
-    this.partial("../templates/home/homePage.hbs");
+    this.partial("../templates/home/homePage.hbs", this.app.userData);
 }

@@ -5,11 +5,11 @@ window.addEventListener("load", () => {
     const app = Sammy("#container", function() {
         this.use("Handlebars", "hbs");
 
-        // this.userData = {
-        //     username: localStorage.getItem("username") || "",
-        //     userId: localStorage.getItem(userId) || "",
-        //     movies: []
-        // };
+        this.userData = {
+            username: localStorage.getItem("username") || "",
+            userId: localStorage.getItem("userId") || "",
+            movies: []
+        };
 
         // home routes
         this.get("/", controllers.home);
@@ -18,10 +18,11 @@ window.addEventListener("load", () => {
 
         // user
         this.get("#/login", controllers.user.get.login);
-        this.post("#/login", controllers.user.post.login);
+        this.post("#/login", context => {controllers.user.post.login.call(context); });
 
         this.get("#/register", controllers.user.get.register);
-        this.post("#/register", controllers.user.post.register);
+        //this.post("#/register", controllers.user.post.register);
+        this.post("#/register", ctx => {controllers.user.post.register.call(ctx); });
 
         this.get("#/logout", controllers.user.get.logout);
 
@@ -34,7 +35,7 @@ window.addEventListener("load", () => {
         this.post("#/edit/:id", controllers.movies.post.edit);
 
         this.get("#/details/:id", controllers.movies.get.details);
-        
+
         this.get("#/delete/:id", controllers.movies.get.delete);
 
     });

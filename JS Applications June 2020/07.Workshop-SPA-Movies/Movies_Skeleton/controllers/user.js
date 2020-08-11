@@ -1,4 +1,8 @@
-import notifications from '../js/notifications.js';
+//import notifications from '../js/notifications.js';
+import {registerPost as apiRegister} from "../js/data.js";
+import {loginPost as apiLogin} from "../js/data.js";
+import {logout as apiLogout} from "../js/data.js";
+import models from "../services/index.js";
 
 export default {
     get: {
@@ -9,7 +13,7 @@ export default {
                 login: "../templates/login/login.hbs"
             })
             .then(function() {
-                this.partial("../templates/login/loginPage.hbs");
+                this.partial("../templates/login/loginPage.hbs", context.app.userData);
             });
         },
         register(context){
@@ -20,23 +24,113 @@ export default {
                 register: "../templates/register/register.hbs"
             })
             .then(function () {
-                this.partial("../templates/register/registerPage.hbs");
+                this.partial("../templates/register/registerPage.hbs", context.app.userData);
             });
         },
-        logout(context){
+        async logout(){
+            try {
+                const result = await apiLogout();
 
+                if (result.hasOwnProperty("errorData")) {
+
+                    const error = new Error();
+                    Object.assign(error, result);
+                    throw error;
+                }
+
+                localStorage.removeItem("username");
+                localStorage.removeItem("userToken");
+                localStorage.removeItem("userId");
+
+                this.app.userData.username = "";
+                this.app.userData.userId = "";
+
+                this.redirect("#/home");
+
+            } catch (e) {
+                alert(e.message);
+            }
         }
- 
     },
 
     post: {
-        login(context){
-            const {username, password} = context.params;
-            
-        },
-        register(context){
-            const {username, password, repeatPassword} = context.params;
+        async login(){
+            const {username, password} = this.params;
 
+            try {
+
+                const result = await apiLogin(username, password);
+                    
+                if (result.hasOwnProperty("errorData")) {
+
+                    const error = new Error();
+                    Object.assign(error, result);
+                    throw error;
+                }
+
+                this.app.userData.username = result.username;
+                this.app.userData.userId = result.objectId;
+
+                this.redirect("#/home");
+
+            } catch (e) {
+                alert(e.message);
+            }
+        },
+        async register(){
+            const {username, password, repeatPassword} = this.params;
+            
+            if (username.length < 3) {
+                alert("Username must be at least 3 characters long!");
+                // notifications.showError("Username must be at least 3 characters long!");
+                return;
+            }
+
+            if (password.length < 6) {
+                alert("Password must be at least 6 characters long!");
+                // notifications.showError("Password must be at least 6 characters long!");
+                return;
+            }
+
+            if (password === repeatPassword) {
+                // models.users.register(username, password)
+                // .then((response) => {
+                //     if (response.hasOwnProperty("errorData")) {
+
+                //         const error = new Error();
+                //         Object.assign(error, response);
+                //         throw error;
+                //     }
+
+                //     //notifications.showInfo('Successful registration!');
+                //     context.redirect("#/login")
+                // })
+                // .catch((e) => {
+                //     alert(e.message);
+                //     //notifications.showError(e.message);
+                // });
+
+                try {
+                    const result = await apiRegister(username, password);
+                    
+                    if (result.hasOwnProperty("errorData")) {
+
+                        const error = new Error();
+                        Object.assign(error, result);
+                        throw error;
+                    }
+                    
+                    this.redirect("#/login");
+                } catch (e) {
+                    alert(e.message)
+                    // notifications.showError(error.message);
+                }
+            }
+            else{
+                alert("Passwords don\'t match!");
+                // notifications.showError("Passwords don\'t match!");
+                return;
+            }
         }
     }
 };

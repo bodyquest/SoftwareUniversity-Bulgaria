@@ -1,4 +1,4 @@
-import notifications from '../js/notifications.js';
+// import notifications from '../js/notifications.js';
 
 export default {
     get: {
@@ -8,7 +8,7 @@ export default {
                 footer: await this.load("../templates/common/footer.hbs")
             };
 
-            this.partial("../templates/movie/catalog.hbs");
+            this.partial("../templates/movie/catalog.hbs", context.app.userData);
         },
         async create(context){
             context.partials = {
@@ -16,7 +16,7 @@ export default {
                 footer: await this.load("../templates/common/footer.hbs")
             };
 
-            this.partial("../templates/movie/create.hbs");
+            this.partial("../templates/movie/create.hbs", context.app.userData);
         },
         async edit(context){
             context.partials = {
@@ -24,7 +24,7 @@ export default {
                 footer: await this.load("../templates/common/footer.hbs")
             };
 
-            this.partial("../templates/movie/edit.hbs");
+            this.partial("../templates/movie/edit.hbs", context.app.userData);
         },
         async details(context){
             context.partials = {
@@ -32,7 +32,7 @@ export default {
                 footer: await this.load("../templates/common/footer.hbs")
             };
 
-            this.partial("../templates/movie/details.hbs");
+            this.partial("../templates/movie/details.hbs", context.app.userData);
         },
         async delete(context){
             context.partials = {
@@ -40,7 +40,7 @@ export default {
                 footer: await this.load("../templates/common/footer.hbs")
             };
 
-            this.partial("../templates/movie/delete.hbs");
+            this.partial("../templates/movie/delete.hbs", context.app.userData);
         },
     },
 
@@ -56,7 +56,7 @@ export default {
             };
 
             if (Object.values(movie).some(v => v.length == 0)) {
-                notifications.showError ("All fields are required!");
+                //notifications.showError ("All fields are required!");
                 return;
             }
 

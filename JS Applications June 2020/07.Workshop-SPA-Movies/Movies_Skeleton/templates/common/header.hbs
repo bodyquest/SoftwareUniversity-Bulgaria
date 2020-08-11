@@ -1,10 +1,10 @@
 <nav>
       <ul>
         <li><a href="#/home">Home</a></li>
-        <li><a href="#/cinema">Cinema</a></li>
-        <li><a href="#">Add Movie</a></li>
-        <li><a href="#">My Movies</a></li>
-        {{#if loggedIn}}
+        {{#if username}}
+        <li><a href="#/movies">Cinema</a></li>
+        <li><a href="#/create">Add Movie</a></li>
+        <li><a href="#/mymovies">My Movies</a></li>
         <li class="right"><a href="#/logout">Logout</a></li>
         <li class="right">Welcome, {{username}}!</li>
         {{else}}
