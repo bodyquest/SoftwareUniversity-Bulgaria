@@ -4,6 +4,8 @@ import {loginPost as apiLogin} from "../js/data.js";
 import {logout as apiLogout} from "../js/data.js";
 import models from "../services/index.js";
 
+import notifications from '../js/notifications.js';
+
 export default {
     get: {
         login(context){
@@ -30,7 +32,6 @@ export default {
         async logout(){
             try {
                 const result = await apiLogout();
-
                 if (result.hasOwnProperty("errorData")) {
 
                     const error = new Error();
@@ -45,10 +46,11 @@ export default {
                 this.app.userData.username = "";
                 this.app.userData.userId = "";
 
+                notifications.showInfo('Successful logout!');
                 this.redirect("#/home");
 
             } catch (e) {
-                alert(e.message);
+                notifications.showError(e.message);
             }
         }
     },
@@ -71,10 +73,11 @@ export default {
                 this.app.userData.username = result.username;
                 this.app.userData.userId = result.objectId;
 
+                notifications.showInfo(`Logged in as ${result.username} !`);
                 this.redirect("#/home");
 
             } catch (e) {
-                alert(e.message);
+                notifications.showError(e.message);
             }
         },
         async register(){
@@ -120,15 +123,14 @@ export default {
                         throw error;
                     }
                     
+                    notifications.showInfo('Successful registration!');
                     this.redirect("#/login");
                 } catch (e) {
-                    alert(e.message)
-                    // notifications.showError(error.message);
+                    notifications.showError(e.message)
                 }
             }
             else{
-                alert("Passwords don\'t match!");
-                // notifications.showError("Passwords don\'t match!");
+                notifications.showError("Passwords don\'t match!");
                 return;
             }
         }
