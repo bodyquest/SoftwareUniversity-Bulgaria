@@ -41,12 +41,22 @@ export default {
             this.partial("../templates/movie/create.hbs", context.app.userData);
         },
         async edit(context){
+            const {id} = context.params;
+
             context.partials = {
                 header: await this.load("../templates/common/header.hbs"),
                 footer: await this.load("../templates/common/footer.hbs")
             };
 
-            this.partial("../templates/movie/edit.hbs", context.app.userData);
+            let movie = context.app.userData.movies.find(m => m.objectId == id);
+
+            if (movie === undefined) {
+                movie = await getMovieById(id);
+            }
+
+            const info = Object.assign({movie}, context.app.userData);
+
+            this.partial("../templates/movie/edit.hbs", info);
         },
         async details(context){
             context.partials = {
@@ -77,13 +87,15 @@ export default {
             const movieId = context.params.id;
 
             let movie = context.app.userData.movies.find(m => m.objectId == movieId);
-
+            
             if (movie === undefined) {
                 movie = await getMovieById(movieId);
             }
 
-            console.log(movie);
-            
+            if (movie.tickets === 0) {
+                notifications.showError("Tickets sold out. Cannot buy a ticket!");
+                return;
+            }
             try {
                 const result = await apiBuyTicket(movie);
                     
@@ -98,7 +110,7 @@ export default {
                 this.redirect(context.params.origin);
                 
             } catch (e) {
-                notifications.showError(e.message)
+                notifications.showError(e.message);
             }
         }
     },
@@ -169,11 +181,11 @@ export default {
                     }
                 }
 
-                showInfo("Movie edited");
-                this.redirect("#/details" + result.objectId)
+                notifications.showInfo("Movie edited");
+                this.redirect("#/details/" + result.objectId)
 
             } catch (e) {
-                showError(e.message);
+                notifications.showError(e.message);
             }
             
         }
