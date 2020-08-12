@@ -1,4 +1,4 @@
-import {createMovie, updateMovie, getMovies} from "../js/data.js";
+import {createMovie, updateMovie, getMovies, buyTicket as apiBuyTicket} from "../js/data.js";
 import notifications from '../js/notifications.js';
 
 export default {
@@ -11,9 +11,9 @@ export default {
             };
 
             const movies = await getMovies();
-            const info = Object.assign({movies}, context.app.userData);
+            context.app.userData.movies = movies;
 
-            this.partial("../templates/movie/catalog.hbs", info);
+            this.partial("../templates/movie/catalog.hbs", context.app.userData);
         },
         async create(context){
             context.partials = {
@@ -47,6 +47,29 @@ export default {
 
             this.partial("../templates/movie/delete.hbs", context.app.userData);
         },
+        async buyTicket(context){
+            const movieId = context.params.id;
+            const movie = context.app.userData.movies
+                .find(m => m.objectId == movieId);
+            console.log(movie);
+            
+            try {
+                const result = await apiBuyTicket(movie);
+                    
+                if (result.hasOwnProperty("errorData")) {
+
+                    const error = new Error();
+                    Object.assign(error, result);
+                    throw error;
+                }
+                
+                notifications.showInfo(`Successfully bought a ticket for ${movie.title}!`);
+                this.redirect("#/movies");
+                
+            } catch (e) {
+                notifications.showError(e.message)
+            }
+        }
     },
 
     post: {

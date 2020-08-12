@@ -134,7 +134,7 @@ export async function updateMovie(id, updatedProperties){
 
     const token = localStorage.getItem("userToken");
 
-    return (await fetch(host(endpoints.MOVIE + id), {
+    return (await fetch(host(endpoints.movie + id), {
         method: "PUT",
         headers: {
             "Content-Type": "application/json",
@@ -186,5 +186,5 @@ export async function buyTicket(movie){
     const newTicketCount = movie.tickets - 1;
     const movieId = movie.objectId;
 
-    return updateMovie(movieId, {tickets: newTickets});
+    return updateMovie(movieId, {tickets: newTicketCount});
 }
