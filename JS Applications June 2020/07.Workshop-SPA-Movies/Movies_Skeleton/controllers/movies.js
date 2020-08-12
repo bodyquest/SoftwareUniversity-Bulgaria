@@ -10,10 +10,11 @@ export default {
                 movie: await this.load("../templates/movie/movie.hbs")
             };
 
-            const movies = await getMovies();
+            const search = context.params.search || "";
+            const movies = await getMovies(search);
             context.app.userData.movies = movies;
 
-            const info = Object.assign({origin: encodeURIComponent("#/movies")}, context.app.userData);
+            const info = Object.assign({origin: encodeURIComponent("#/movies"), search}, context.app.userData);
 
             this.partial("../templates/movie/catalog.hbs", info);
         },
