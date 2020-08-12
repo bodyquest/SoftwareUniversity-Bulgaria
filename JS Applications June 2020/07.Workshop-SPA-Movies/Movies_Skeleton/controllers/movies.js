@@ -1,4 +1,4 @@
-import {createMovie, updateMovie, getMovies, buyTicket as apiBuyTicket, getMoviesByOwner, getMovieById} from "../js/data.js";
+import {createMovie, updateMovie, getMovies, buyTicket as apiBuyTicket, getMoviesByOwner, getMovieById, deleteMovie} from "../js/data.js";
 import notifications from '../js/notifications.js';
 
 export default {
@@ -76,12 +76,33 @@ export default {
             this.partial("../templates/movie/details.hbs", info);
         },
         async delete(context){
-            context.partials = {
-                header: await this.load("../templates/common/header.hbs"),
-                footer: await this.load("../templates/common/footer.hbs")
+            if(confirm("Are you sure you want to delete the movie?") == false){
+                this.redirect("#/mymovies");
             };
+            const movieId = context.params.id;
 
-            this.partial("../templates/movie/delete.hbs", context.app.userData);
+            let movie = context.app.userData.movies.find(m => m.objectId == movieId);
+            
+            if (movie === undefined) {
+                movie = await getMovieById(movieId);
+            }
+
+            try {
+                const result = await deleteMovie(movieId);
+                    
+                if (result.hasOwnProperty("errorData")) {
+
+                    const error = new Error();
+                    Object.assign(error, result);
+                    throw error;
+                }
+                
+                notifications.showInfo(`Successfully deleted movie ${movie.title}!`);
+                this.redirect("#/mymovies");
+                
+            } catch (e) {
+                notifications.showError(e.message);
+            }
         },
         async buyTicket(context){
             const movieId = context.params.id;
