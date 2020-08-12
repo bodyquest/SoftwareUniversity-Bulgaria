@@ -1,4 +1,4 @@
-import {createMovie, updateMovie, getMovies, buyTicket as apiBuyTicket} from "../js/data.js";
+import {createMovie, updateMovie, getMovies, buyTicket as apiBuyTicket, getMoviesByOwner} from "../js/data.js";
 import notifications from '../js/notifications.js';
 
 export default {
@@ -11,6 +11,19 @@ export default {
             };
 
             const movies = await getMovies();
+            context.app.userData.movies = movies;
+
+            this.partial("../templates/movie/catalog.hbs", context.app.userData);
+        },
+        async myMovies(context){
+            context.partials = {
+                header: await this.load("../templates/common/header.hbs"),
+                footer: await this.load("../templates/common/footer.hbs"),
+                movie: await this.load("../templates/movie/movie.hbs")
+            };
+
+            const movies = await getMoviesByOwner();
+            
             context.app.userData.movies = movies;
 
             this.partial("../templates/movie/catalog.hbs", context.app.userData);

@@ -22,18 +22,19 @@ window.addEventListener("load", () => {
 
         this.get("#/register", controllers.user.get.register);
         //this.post("#/register", controllers.user.post.register);
-        this.post("#/register", ctx => {controllers.user.post.register.call(ctx); });
+        this.post("#/register", context => {controllers.user.post.register.call(context); });
 
         this.get("#/logout", controllers.user.get.logout);
 
         // movies
         this.get("#/movies", controllers.movies.get.catalog);
+        this.get("#/mymovies", controllers.movies.get.myMovies);
 
         this.get("#/create", controllers.movies.get.create);
         this.post("#/create", context => {controllers.movies.post.create.call(context); });
 
         this.get("#/edit/:id", controllers.movies.get.edit);
-        this.post("#/edit/:id", controllers.movies.post.edit);
+        this.post("#/edit/:id", context => {controllers.movies.post.edit.call(context); });
 
         this.get("#/details/:id", controllers.movies.get.details);
 

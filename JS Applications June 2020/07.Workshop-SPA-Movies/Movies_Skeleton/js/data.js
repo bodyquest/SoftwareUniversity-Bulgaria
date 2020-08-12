@@ -10,7 +10,7 @@ const endpoints = {
     logout: "users/logout",
     movies: "data/movies",
     movie: "data/movies/",
-    MOVIES_BY_OWNER: "data/movies?where=ownerId%3D"
+    movies_by_owner: "data/movies?where=ownerId%3D"
 }
 
 /// *** user functions *** ///
@@ -164,12 +164,13 @@ export async function deleteMovie(id){
 }
 
 // get movies by userId
-export async function getMoviesByOwner(ownerId){
+export async function getMoviesByOwner(){
     notifications.beginRequest();
 
     const token = localStorage.getItem("userToken");
+    const ownerId = localStorage.getItem("userId");
 
-    const movies = await (await fetch(host(endpoints.MOVIES_BY_OWNER + `%27${ownerId}%27`), {
+    const movies = await (await fetch(host(endpoints.movies_by_owner + `%27${ownerId}%27`), {
         method: "GET",
         headers: {
             "user-token": token,
