@@ -1,15 +1,27 @@
     {{>header}}
 <div id="cinema">
-      <h1>All Movies</h1>
-      <form action="#/movies" method="GET">
-        <label>Search genre:</label>
-        <input type="text" name="search">
-        <input type="submit" value="Search">
-      </form>
+      {{#if myMovies}}
+          <h1>My Movies</h1>
+      {{else}}
+          <h1>All Movies</h1>
+          <form action="#/movies" method="GET">
+              <label>Search genre:</label>
+              <input type="text" name="search">
+              <input type="submit" value="Search">
+          </form>
+      {{/if}}
+      
       <div class="movies">
-        {{#each movies}}
-          {{>movie}}
-        {{/each}}
+        {{#if myMovies}}
+          {{#each movies}}
+            {{>ownMovie}}
+          {{/each}}
+              
+        {{else}}
+          {{#each movies}}
+            {{>movie}}
+          {{/each}}
+        {{/if}}
       </div>
 </div>
     {{>footer}}
