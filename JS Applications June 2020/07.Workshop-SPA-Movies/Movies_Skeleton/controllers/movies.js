@@ -1,14 +1,19 @@
-// import notifications from '../js/notifications.js';
+import {createMovie, updateMovie, getMovies} from "../js/data.js";
+import notifications from '../js/notifications.js';
 
 export default {
     get: {
         async catalog(context){
             context.partials = {
                 header: await this.load("../templates/common/header.hbs"),
-                footer: await this.load("../templates/common/footer.hbs")
+                footer: await this.load("../templates/common/footer.hbs"),
+                movie: await this.load("../templates/movie/movie.hbs")
             };
 
-            this.partial("../templates/movie/catalog.hbs", context.app.userData);
+            const movies = await getMovies();
+            const info = Object.assign({movies}, context.app.userData);
+
+            this.partial("../templates/movie/catalog.hbs", info);
         },
         async create(context){
             context.partials = {
@@ -45,25 +50,42 @@ export default {
     },
 
     post: {
-        async create(context){
-            const { title, description, imageUrl, genres, tickets } = context.params;
-            const movie = {
-                title,
-                description,
-                imageUrl,
-                genres,
-                tickets
-            };
+        async create(){
+            const { title, description, imageUrl, genres, tickets } = this.params;
 
-            if (Object.values(movie).some(v => v.length == 0)) {
-                //notifications.showError ("All fields are required!");
-                return;
+            try {
+                if (title.length === 0) {
+                    notifications.showError("Title is required");
+                    return;
+                }
+
+                const movie = {
+                    title: title,
+                    description: description,
+                    image: imageUrl,
+                    genres: genres,
+                    tickets: Number(tickets)
+                }
+                
+                const result = await createMovie(movie);
+                    
+                if (result.hasOwnProperty("errorData")) {
+
+                    const error = new Error();
+                    Object.assign(error, result);
+                    throw error;
+                }
+                
+                notifications.showInfo('Movie created!');
+                this.redirect("#/details/" + result.objectId);
+                
+            } catch (e) {
+                notifications.showError(e.message)
             }
 
-         
-
         },
-        async edit(context){
+        async edit(){
+
             
         }
     }

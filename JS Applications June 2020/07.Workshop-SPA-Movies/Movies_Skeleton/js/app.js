@@ -7,8 +7,7 @@ window.addEventListener("load", () => {
 
         this.userData = {
             username: localStorage.getItem("username") || "",
-            userId: localStorage.getItem("userId") || "",
-            movies: []
+            userId: localStorage.getItem("userId") || ""
         };
 
         // home routes
@@ -30,6 +29,7 @@ window.addEventListener("load", () => {
         this.get("#/movies", controllers.movies.get.catalog);
 
         this.get("#/create", controllers.movies.get.create);
+        this.post("#/create", context => {controllers.movies.post.create.call(context); });
 
         this.get("#/edit/:id", controllers.movies.get.edit);
         this.post("#/edit/:id", controllers.movies.post.edit);

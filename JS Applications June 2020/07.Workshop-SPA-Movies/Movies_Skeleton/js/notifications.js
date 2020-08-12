@@ -25,8 +25,6 @@ export default {
 
     showInfo(message) {
         
-        console.log(notifications.info);
-        
         notifications.info.firstElementChild.textContent = message;
         notifications.info.style.display = 'block';
         notifications.info.addEventListener('click', (e) => {

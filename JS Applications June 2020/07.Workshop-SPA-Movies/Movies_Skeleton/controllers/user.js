@@ -84,14 +84,12 @@ export default {
             const {username, password, repeatPassword} = this.params;
             
             if (username.length < 3) {
-                alert("Username must be at least 3 characters long!");
-                // notifications.showError("Username must be at least 3 characters long!");
+                notifications.showError("Username must be at least 3 characters long!");
                 return;
             }
 
             if (password.length < 6) {
-                alert("Password must be at least 6 characters long!");
-                // notifications.showError("Password must be at least 6 characters long!");
+                notifications.showError("Password must be at least 6 characters long!");
                 return;
             }
 
