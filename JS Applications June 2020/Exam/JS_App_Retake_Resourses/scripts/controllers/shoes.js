@@ -124,7 +124,7 @@ export default {
             console.log(this.params);
 
             try {
-                if (title.length == 0) {
+                if (name.length == 0) {
                     //notifications.showError("Name is required");
                     return;
                 }
