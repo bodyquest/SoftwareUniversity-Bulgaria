@@ -1,0 +1,32 @@
+<!-- Header -->
+    <header>
+            {{#if email}}
+                <nav>
+                    <ul>
+                        <li>
+                            <a href="#/create">Create new offer</a>
+                        </li> 
+                        <li>
+                            <a href="">
+                                <img src="../public/sneakers.png" alt="">
+                            </a>
+                        </li> 
+                        <li>Welcome, {{email}} | 
+                            <a href="#/logout">Logout</a>
+                        </li>
+                    </ul>
+                </nav>
+            {{else}}
+                <nav>
+                    <ul>
+                        <li class="site-logo">Shoe</li>
+                        <li>
+                            <a href="">
+                                <img src="../public/sneakers.png" alt="">
+                            </a>
+                        </li> 
+                        <li class="site-logo">Shelf</li>
+                    </ul>
+                </nav>
+            {{/if}}
+    </header>
