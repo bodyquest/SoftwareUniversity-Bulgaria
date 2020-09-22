@@ -1,0 +1,20 @@
+/*
+Theme Name: Point Pro Child
+Template: mts_point_pro
+Author: Rana Partap
+Version: 1.0.4
+*/
+#sidebar .widget .widget-title {
+    font-weight: 700;
+    font-size: 20px;
+    text-transform: uppercase;
+    margin-bottom: 15px!important;
+    display: block;
+}
+.post-single-content h4 {
+	display: -webkit-inline-flex !important;
+}
+.amazon-auto-links-product .amazon-auto-links-product-image .amazon-auto-links-product-body .amazon-product-title {
+	display: -webkit-inline-flex !important;		
+	}
+#respond .comment-reply-title span{margin-bottom: 10px; padding-bottom: 6px; border-bottom: 1px solid #D8D7D7; font-size: 18px; text-transform: uppercase; font-weight: 700; display: block;}

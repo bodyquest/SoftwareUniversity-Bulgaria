@@ -1,0 +1,36 @@
+.wphighlighter-css {
+	display: block;
+	position: relative;
+	z-index: 99 !important;
+}
+
+.wphighlighter-css #close-tag {
+	display: none;
+	position: absolute;
+	right: -12px;
+	top: -16px;
+	z-index: 999;
+}
+
+.wphighlighter-css #close-tag a {
+	background: rgba(0, 0, 0, 0.8);
+	border: 1px solid #000;
+	border-radius: 78px;
+	color: white;
+	font-family: arial;
+	font-size: 11px;
+	padding: 6px 9px;
+	text-decoration: none;
+}
+
+.wp-highlighter-backdrop {
+	background: rgba(0, 0, 0, 0.6);
+	bottom: 0;
+	display: none;
+	left: 0;
+	position: fixed;
+	right: 0;
+	top: 0;
+	z-index: 10;
+}
+
