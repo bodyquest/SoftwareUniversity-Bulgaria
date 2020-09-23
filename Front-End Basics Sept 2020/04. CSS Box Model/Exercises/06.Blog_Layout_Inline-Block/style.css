@@ -1,0 +1,37 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: rgb(238, 238, 238);
+    color: rgb(51, 51, 51);
+    margin: 0;
+}
+
+html {
+    font-family: Helvetica, sans-serif;
+}
+
+main {
+    width: 70%;
+    padding-left: 40px;
+}
+
+aside {
+    width: 20%;
+}
+
+ul {
+    list-style: square;
+}
+
+img {
+    display: block;
+    width: 400px;
+}
+
+main,
+aside {
+    display: inline-block;
+    vertical-align: top;
+}
