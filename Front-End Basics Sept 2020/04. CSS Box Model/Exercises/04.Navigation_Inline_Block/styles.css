@@ -1,0 +1,39 @@
+* {
+    box-sizing: border-box;
+}
+
+html {
+    font-family: Helvetica, sans-serif;
+}
+
+body {
+    max-width: 90%;
+    margin: 0 auto;
+    padding-top: 20px;
+}
+
+header h1 {
+    display: inline-block;
+    margin-right: 100px;
+}
+
+nav {
+    display: inline-block;
+}
+
+nav ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+}
+
+nav ul li {
+    display: inline-block;
+    margin-right: 20px;
+}
+
+nav a {
+    color: green;
+    text-decoration: none;
+}
