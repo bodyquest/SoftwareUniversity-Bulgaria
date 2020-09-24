@@ -1,0 +1,58 @@
+@import "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css";
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    margin: 0;
+    max-width: 1300;
+    padding: 200px;
+}
+
+body {
+    max-width: 14%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+p {
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    margin: 10px 0px 10px 0px;
+    padding: 10px;
+    border-radius: 2px;
+    cursor: pointer;
+}
+
+a {
+    text-decoration: none;
+    vertical-align: middle;
+    margin: 0px 0px 10px 0px;
+    width: 100%;
+    color: rgb(255, 255, 255);
+}
+
+p.ClickMe {
+    background-color: green;
+    
+}
+
+.ClickMe:before {
+    content: "";
+    display: inline-block;
+    vertical-align: middle;
+    height: 100%;
+}
+
+p.EmailMe {
+    background-color: orange;
+}
+
+.EmailMe:before {
+    content: "";
+    display: inline-block;
+    vertical-align: middle;
+    height: 100%;
+}
