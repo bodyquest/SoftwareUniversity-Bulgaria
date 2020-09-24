@@ -1,0 +1,49 @@
+* {
+    box-sizing: border-box;
+}
+
+html {
+    font-family: "Open-Sans", sans-serif;
+    font-size: 12px;
+}
+
+main {
+    max-width: 1300;
+    margin: 0 auto;
+    padding: 50px;
+}
+
+table {
+    width: 100%;
+    border-spacing: 0;
+}
+
+thead tr {
+    background: rgb(221, 221, 221);
+}
+
+tbody tr:nth-child(odd) td{
+    background-color: rgb(241, 241, 241);
+}
+
+tbody tr:hover {
+    background: rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
+    transition: transform 0.1s ease-in;
+    transform: scale(1.02);
+}
+
+
+table,
+td,
+th {
+    border-width: 1px;
+    border-color: rgb(221, 221, 221);
+    border-style: solid;
+    text-align: left;
+}
+
+th,
+td {
+    padding: 5px;
+}
