@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animation CSS Tricks</title>
+</head>
+<style>
+    html {
+        font-family: sans-serif;
+    }
+
+    body {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 15% 0;
+        text-align: center;
+    }
+
+    body 
+    .box,
+    .box2,
+    .box3 {
+        float: left;
+    }
+
+    .box {
+        display: table;
+        width: 30%;
+        height: 300px;
+        margin: 0px 20px 0px 0px;
+        background: tomato;
+        color:white;
+        position: relative;
+    }
+
+    .box2 {
+        display: table;
+        width: 30%;
+        height: 300px;
+        margin: 0px 20px 0px 0px;
+        background: teal;
+        color:white;
+        position: relative;
+    }
+
+    .box3 {
+        display: table;
+        width: 30%;
+        height: 300px;
+        margin: 0;
+        background: rgb(1, 86, 63);
+        color:white;
+        position: relative;
+    }
+
+    .button-wrapper {
+        display: table-cell;
+        vertical-align: middle;
+    }
+    
+    button {
+        display: block;
+        margin: 0 auto;
+        height: 35px;
+        width: 30%;
+        line-height: 1.5;
+        font-size: 16px;
+        color: white;
+        background-color: rgb(4, 162, 162);
+        border: 2px solid rgb(3, 130, 130);
+        border-radius: 6px;
+    }
+
+    button.pseudo {
+        height: 35px;
+        border: none;
+        background-color: goldenrod;
+    }
+
+    button.dash {
+        border: none;
+        background-color: transparent;
+    }
+
+    button.dash::after {
+        content: "";
+        margin-top: 5px;
+        display: block;
+        background: rgb(4, 162, 162);
+        height: 3px;
+        width: 0;
+    }
+
+    button.dash:hover::after {
+        width: 100%;
+        transition: width 0.25s ease-in;
+    }
+
+    button.pseudo::before {
+        content: "You hovered";
+        top: 20%;
+        right: 34%;
+        opacity: 0;
+        position: absolute;
+        padding: 12px;
+        background: white;
+        border-radius: 9px 9px 0px 9px;
+        color: #122dff;
+    }
+
+    button.pseudo:hover::before {
+        opacity: 1;
+        transition: opacity 0.35s ease-in;
+    }
+
+    button:hover + .popup {
+        opacity: 1;
+        transition: opacity 0.35s ease-in;
+    }
+
+    .popup {
+        top: 20%;
+        right: 32%;
+        opacity: 0;
+        position: absolute;
+        padding: 2px;
+        background: linear-gradient(to right, #05FBFF,#1E00FF);
+        border-radius: 8px;
+        color: #122dff;
+        font-size: 16px;
+        line-height: 1.1;
+    }
+
+    .popup p {
+        margin: 0;
+        background: white;
+        padding: 1em 1em;
+        border-radius: 6px;
+    }
+
+
+</style>
+<body>
+    <div class="box">
+        <div class='button-wrapper'>
+            <button>
+                Hover me
+            </button>
+            <div class="popup">
+                <p>
+                    You  hovered
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="box2">
+        <div class='button-wrapper'>
+            <button class="pseudo">
+                Hover me
+            </button>
+        </div>
+    </div>
+
+    <div class="box3">
+        <div class='button-wrapper'>
+            <button class="pseudo dash">
+                Hover me
+            </button>
+            
+        </div>
+    </div>
+</body>
+</html>
