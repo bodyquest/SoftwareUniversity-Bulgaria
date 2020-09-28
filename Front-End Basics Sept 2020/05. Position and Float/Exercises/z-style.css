@@ -1,0 +1,39 @@
+main {
+    max-width: 1200px;
+    margin: 100px auto;
+}
+
+section {
+    position: relative;
+    background-color: rgb(16, 16, 60);
+    padding: 20px;
+    border-radius: 10px;
+    color: #ffffff95;
+    font-size: 24px;
+    z-index: 1;
+}
+
+
+.picture {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    height: 400px;
+    z-index: 2;
+}
+
+p {
+    position: relative;
+    z-index: 3;
+}
+
+.box {
+    position: absolute;
+    height: 300px;
+    width: 300px;
+    background-color: slategrey;
+    border-radius: 10px;
+    z-index: 0;
+    top: 0;
+    left: 0;
+}
