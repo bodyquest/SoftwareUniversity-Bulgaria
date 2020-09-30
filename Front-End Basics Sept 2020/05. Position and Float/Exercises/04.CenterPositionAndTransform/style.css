@@ -1,0 +1,57 @@
+* {
+    box-sizing: border-box;
+}
+
+*::after,
+*::before {
+    box-sizing: border-box;
+}
+
+body {
+    
+    margin: 0;
+    background: rgb(238, 238, 238);
+}
+
+.card {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    background: rgb(255, 255, 255);
+    width: 600px;
+    height: 600px;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 10px black;
+    border-radius: 8px;
+}
+
+.card-header {
+
+}
+
+.card-body {
+    padding: 10px 20px;
+}
+
+.card-title {
+    font-family: Georgia, serif;
+    font-size: 20px;
+    line-height: 1.5;
+}
+
+button {
+    background-color: rgb(0, 153, 0);
+    color: white;
+    border: 0;
+    padding: 8px;
+    border-radius: 3px;
+
+}
+
+img {
+    /* position: absolute; */
+    display: block;
+    max-width: 100%;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}

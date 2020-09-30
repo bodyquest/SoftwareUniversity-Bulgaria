@@ -1,0 +1,74 @@
+@import "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css";
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+}
+
+*::after,
+*::before {
+    box-sizing: border-box;
+}
+
+img {
+    display: block;
+    border-radius: 5px;
+}
+
+.card {
+    position: relative;
+    display: block;
+    top: 50%;
+    transform: translateY(-50%) translateX(-50%);
+    left: 50%;
+}
+
+.card::after {
+    content: "";
+    display: block;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    position: absolute;
+
+    box-shadow: inset 0px 0px 30px 10px black;
+    border-radius: 5px;
+}
+
+.fa {
+    color: white;
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    font-size: 20px;
+}
+
+.library,
+.trees {
+    position: absolute;
+}
+
+.viewport {
+    position: relative;
+}
+
+.library-container {
+    background: linear-gradient(to right,  #51046e 0%,#cc8f0c 70%);
+    height: 400px;
+}
+
+.library img {
+    width: 450px;
+}
+
+.trees-container {
+    background: linear-gradient(to right,  #1e5799 0%,#5dad85 70%);
+    height: 400px;
+}
+
+.trees img {
+    width: 450px;
+}
