@@ -1,0 +1,81 @@
+@import "https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css";
+
+/* @font-face {
+    font-family: "FontAwesome";
+    src: url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css");
+    font-weight: normal;
+    font-style: normal;
+} */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+}
+
+*::after,
+*::before {
+    box-sizing: border-box;
+}
+
+main {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 100px 0px;
+}
+
+ul {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+li {
+    display: inline-block;
+}
+
+li a {
+    text-decoration: none;
+    color: black;
+    background-color: #ccc;
+    border-radius: 50%;
+    border: none;
+    width: 50px;
+    height: 50px;
+    display: block;
+    position: relative;
+}
+
+li a::before {
+    
+    font-family: FontAwesome;
+    font-size: 24px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.facebook::before {
+    content: '\f082';
+}
+
+.twitter::before {
+    content: '\f099';
+}
+
+.google::before {
+    content: '\f0d4';
+}
+
+.linked-in::before {
+    content: '\f08c';
+}
+
+.instagram::before {
+    content: '\f16d';
+    color: rgb(115, 113, 113);
+}
