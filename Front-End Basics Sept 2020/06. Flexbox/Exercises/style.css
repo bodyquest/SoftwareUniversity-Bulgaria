@@ -202,10 +202,11 @@ nav li {
     margin: 20px;
     display: flex;
     flex-flow: column wrap;
-    justify-content: center;
-    /* align-items: ; */
+    justify-content: space-between;
+    align-items: stretch;
     border: 1px solid #ccc;
     border-radius: 10px;
+    overflow: hidden;
 }
 
 .card-header, .card footer{
@@ -223,17 +224,16 @@ nav li {
     color: #555;
     text-transform: uppercase;
 
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
+    padding-bottom: 0;
 }
 
 .card .body {
+    flex: 1;
     padding: 20px;
+    justify-content: start;
 }
 
 .card footer {
     padding: 20px;
     background-color: #ddd;
-    border-bottom-left-radius: 8px;
-    border-bottom-right-radius: 8px;
 }
