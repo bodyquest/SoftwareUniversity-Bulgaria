@@ -1,1 +1,0 @@
-var logged = 1;
