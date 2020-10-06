@@ -1,0 +1,39 @@
+* {
+    box-sizing: border-box;
+}
+
+html {
+    background-color: #ccc;
+}
+
+body,
+ul,
+li {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+ul {
+    justify-content: space-between;
+    list-style: none;
+    padding: 0;
+}
+
+li {
+    /* flex: 1; */
+    align-items: center;
+    justify-content: center;
+    align-self: stretch;
+    
+    padding: 20px 10px;
+    margin: 20px;
+    background: white;
+    border: 10px solid black;
+    box-shadow: inset 0 0 10px black;
+}
+
+.gallery {
+    max-width: 1200px;
+}
