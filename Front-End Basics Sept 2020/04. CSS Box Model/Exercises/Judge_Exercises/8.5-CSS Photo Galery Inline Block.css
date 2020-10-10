@@ -1,0 +1,21 @@
+body{
+    background-color: rgb(238,238,238);
+    
+}
+
+
+li {
+    border-width: 0.4rem solid black;
+    border-color: black;
+    border-style: solid;
+    display: inline-block;
+    width: 25%;
+    margin: 3%;
+    vertical-align: middle;
+}
+
+img {
+    padding: 10px;
+    display: inline-block;
+    width: 96%;
+}

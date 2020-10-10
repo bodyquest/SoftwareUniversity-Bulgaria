@@ -1,0 +1,25 @@
+body{
+    background-color: rgb(238, 238, 238);
+    width: 80%;
+    margin: auto;
+}
+article{
+    display: inline-block;
+    width: 74%;
+   
+}
+aside{
+    display: inline-block;
+    width: 15%;
+    vertical-align: top;
+    margin-left: 10%;
+    
+}
+
+h1{
+    text-align: center;
+}
+h2{
+    text-align: center;
+}
+

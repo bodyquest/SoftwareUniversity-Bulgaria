@@ -1,0 +1,28 @@
+html{
+    width: 90%;
+    margin: auto;
+    font-family: Helvetica, sans-serif;
+}
+
+nav{
+    display: inline-block; 
+
+}
+a{
+    color: green;
+    margin: 10px;
+}
+
+header{
+    border-bottom: 4px solid black;
+    
+}
+
+h1{
+    display: inline-block;
+    text-underline-position: 3px below;
+}
+
+ul li {
+    display: inline-block;
+}
