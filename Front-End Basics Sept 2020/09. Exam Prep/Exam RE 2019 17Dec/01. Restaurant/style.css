@@ -1,0 +1,109 @@
+@font-face {
+    font-family: Poppins;
+    src: url(https://fonts.google.com/specimen/Poppins);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Poppins;
+    background-color: rgb(255, 218, 176);
+}
+
+.main {
+    display: flex;
+    flex-flow: row wrap;
+    /* justify-content: center; */
+    flex: 1;
+
+    border: 0;
+    border-radius: 10px;
+    overflow: hidden;
+    width: 75vw;
+    height: 75vh;
+    margin: 50px auto;
+
+    background-color: rgb(17, 17, 17);
+}
+
+/* .card {
+    display: flex;
+    flex-flow: row wrap;
+
+    background-color: black;
+    border: 0;
+    border-radius: 10px;
+    width: 75vw;
+    height: 75vh;
+    overflow: hidden;
+} */
+
+form h2 {
+    display: flex;
+    align-self: center;
+    color: white;
+}
+
+.form {
+    display: flex;
+    justify-content: center;
+    color: #999;
+    width: 34%;
+    margin: 3% 3%;
+}
+
+form {
+    width: 100%;
+    display: flex;
+    flex-flow: column wrap;
+}
+
+.form input {
+    display: block;
+    border: none;
+    background: transparent;
+    color: #999;
+    font-size: 18px;
+    margin: 30px 0 0 0;
+}
+
+.trim {
+    width: 60%;
+    overflow: hidden;
+}
+
+.trim img {
+    height: 100%;
+}
+ 
+form button {
+    background-color: rgb(251, 195, 146);
+    color: white;
+    line-height: 1.5;
+    font-weight: 600;
+    font-size: 15px;
+
+    border: 0;
+    border-radius: 5px;
+    height: 40px;
+    padding: 10px 25px;
+    margin-top: 20px;
+    width: 130px;
+    height: auto;
+    cursor: pointer;
+    justify-content: center;
+}
+
+input:placeholder-shown {
+    width: 100%;
+}
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: #999;
+    font-size: 18px;
+    width: 100%;
+    opacity: 1; /* Firefox */
+}
