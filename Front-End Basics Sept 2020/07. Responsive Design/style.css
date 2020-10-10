@@ -1,0 +1,158 @@
+@font-face {
+    font-family: Peace;
+    src:  url(./PeaceSans.otf);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+}
+
+.content-limiter {
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+header {
+    min-height: 100px;
+    background-color: #777;
+    display: flex;
+    flex-flow: column wrap;
+    align-items: center;
+    border-bottom: 1px solid;
+}
+
+header .content-limiter {
+    flex: 1;
+    display: flex;
+    flex-flow: row wrap;
+    align-items: stretch;
+    width: 100%;
+}
+
+header .logo-wrapper {
+    flex: 1;
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: center;
+
+    font-family: Peace;
+    font-size: 60px;
+    background: -webkit-linear-gradient(left,#004d7a, #00bf72, #a8eb12);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+header .nav-wrapper {
+    flex: 1;
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: center;
+}
+
+nav ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-flow: row wrap;
+}
+
+nav ul li {
+    margin: 0 10px;
+}
+
+.content-container {
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.content-container main {
+    flex: 1;
+    padding: 20px 0 20px 20px;
+}
+
+.content-container aside {
+    flex: 0 1 30%;
+    order: -1;
+    padding: 20px 0 20px 20px;
+    background: #ccc;
+    border-right: 1px solid;
+}
+
+.content-container aside  ul{
+    display: flex;
+    flex-flow: column wrap;
+    list-style: none;
+}
+
+footer {
+    display: flex;
+    flex-flow: column wrap;
+    flex: 0 1 100%;
+    min-height: 100px;
+    border-top: 1px solid;
+}
+
+footer nav {
+    flex: 1;
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: center;
+    align-content: center;
+}
+
+footer li {
+    font-size: 24px;
+}
+
+@media (max-width: 1220px) {
+    header .content-limiter {
+        padding: 0 20px;
+    }
+}
+
+/* tablet landscape*/
+@media (max-width: 900px) {
+    header .content-limiter {
+        flex-flow: column wrap;
+        align-items: center;
+    }
+
+    header .logo-wrapper {
+        font-size: 48px;
+    }
+}
+
+@media (max-width: 600px) {
+    .content-container {
+        flex-flow: column wrap;
+    }
+
+    header nav ul {
+        justify-content: center;
+    }
+
+    .content-container aside {
+        flex: 1;
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: center;
+        padding: 0;
+    }
+
+    .content-container aside  ul{
+        display: flex;
+        flex-flow: row wrap;
+        align-items: center;
+    }
+
+    aside ul li {
+        margin: 0 15px;
+        padding: 0;
+    }
+}
