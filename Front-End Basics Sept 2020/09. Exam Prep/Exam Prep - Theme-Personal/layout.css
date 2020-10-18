@@ -1,5 +1,15 @@
+.site-wrapper {
+    max-width: 75em;
+    margin: 0 auto;
+}
+
 .site-header {
 
+}
+
+.site-media {
+    background: #999;
+    min-height: 30em;
 }
 
 .site-content {
@@ -7,5 +17,5 @@
 }
 
 .site-footer {
-    
+
 }

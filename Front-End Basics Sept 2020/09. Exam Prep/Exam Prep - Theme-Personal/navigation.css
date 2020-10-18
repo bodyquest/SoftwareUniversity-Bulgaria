@@ -1,0 +1,24 @@
+.site-nav {
+    
+}
+
+.site-nav ul {
+    display: flex;
+    align-items: center;
+}
+
+.site-nav li {
+    display: flex;
+    list-style: none outside;
+}
+
+.site-nav a {
+    display: block;
+    padding: 0.5em 1em;
+    color: #717171;
+    font-weight: bold;
+}
+
+.site-nav li.current-page a {
+    color: #3498db;
+}
