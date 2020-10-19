@@ -15,10 +15,15 @@
 .site-nav a {
     display: block;
     padding: 0.5em 1em;
-    color: #717171;
-    font-weight: bold;
+    color: #808080;
+    font-weight: 500;
+    transition: color 0.3s ease-in-out;
 }
 
 .site-nav li.current-page a {
+    color: #3498db;
+}
+
+.site-nav a:hover {
     color: #3498db;
 }

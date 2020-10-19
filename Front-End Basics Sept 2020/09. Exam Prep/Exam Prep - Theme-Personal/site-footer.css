@@ -1,0 +1,30 @@
+.site-footer .site-wrapper {
+    padding: 2em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.1em;
+}
+
+.site-footer .site-wrapper .social {
+    padding-top: 0;
+}
+
+.site-footer .site-wrapper p {
+    opacity: 0.4;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.site-footer:hover .site-wrapper p {
+    opacity: 0.7;
+    transition: opacity 0.2s ease-in-out;
+}
+
+.site-footer .site-wrapper p:first-child{
+    font-size: 1.2em;
+}
+
+.site-footer .site-wrapper .social a {
+    background: rgba(0,0,0, 0.4);
+    color: white;
+}

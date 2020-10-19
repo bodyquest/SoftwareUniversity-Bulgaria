@@ -4,3 +4,58 @@
     align-items: center;
     padding: 2em 0;
 }
+
+.site-title {
+    padding: 0;
+    font-weight: 600;
+}
+
+.site-media {
+    background: transparent;
+    height: 39em;
+    overflow: hidden;
+    position: relative;
+}
+
+.site-media img {
+    display: block;
+    width: 100%;
+    height: 39em;
+    object-fit: cover;
+    object-position: top;
+}
+
+.site-media:before {
+    content: "";
+    position: absolute;
+    display: block;
+    background: rgba(19, 41, 48, 0.70);
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+.hero-text-wrapper {
+    position: absolute;
+    /* margin-left: auto;
+    margin-right: auto; */
+    top: 50%;
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+    color: white;
+    /* text-align: center; */
+    font-size: 1.5em;
+    width: 70vw;
+}
+
+.hero-text-wrapper h2 {
+    font-weight: 600;
+}
+
+.hero-text-wrapper p {
+    padding-top: 2em;
+    font-weight: 400;
+    opacity: 0.8;
+}
