@@ -1,1 +1,55 @@
 /* TODO: Add media queries */
+
+@media only screen and (max-width: 884px) {
+    .newsletter-boxes {
+        flex-flow: column wrap;
+    }
+
+    .bottom-logo {
+        width: 20%;
+    }
+
+    .newsletter-bottom-content {
+        width: 90%;
+        text-align: left;
+        
+    }
+
+    .newsletter-bottom {
+        width: 100%;
+        padding: 10px 0px 10px 20px;
+    }
+
+    .newsletter-bottom article{
+        display: flex;
+        justify-content: right;
+    }
+
+    .newsletter-bottom article h4{
+        width: 90%;
+    }
+
+    .newsletter-bottom hr {
+        width: 100%;
+        margin: 2em 2em 2em 0;
+    }
+
+    .newsletter-bottom-content-links,
+    .newsletter-bottom-content p {
+        padding-bottom: 0;
+    }
+
+    .newsletter-bottom-content-links {
+        padding-bottom: 3.5em;
+    }
+
+    .newsletter-bottom {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .newsletter-bottom h4 {
+        text-align: left;
+    }
+
+}
