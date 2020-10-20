@@ -1,0 +1,35 @@
+.site-nav {
+
+}
+
+.site-nav ul {
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.site-nav li {
+    display: block;
+    list-style: none outside;
+    padding: 0 0.5em;
+}
+
+.site-nav a {
+    display: block;
+    padding: 0.5em 1em;
+    border-radius: 0.3em;
+    color: black;
+    text-decoration: none;
+    outline: none;
+}
+
+.site-nav a:focus,
+.site-nav a:hover {
+    color: white;
+    background: purple;
+    transition: background 0.3s ease-in-out;
+}
+
+.site-nav a:focus {
+    text-decoration: underline;
+}

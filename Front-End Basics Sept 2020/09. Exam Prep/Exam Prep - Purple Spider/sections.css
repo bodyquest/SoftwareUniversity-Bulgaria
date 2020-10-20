@@ -1,0 +1,68 @@
+.section {
+    padding-left: 2em;
+    padding-right: 2em;
+}
+
+.section header {
+    text-align: center;
+}
+
+.section header:after {
+    content: "";
+    display: block;
+    height: 4px;
+    width: 5em;
+    background: #000;
+    margin: 1em auto 2em auto;
+}
+
+.section header a {
+    color: #000;
+    text-decoration: none;
+}
+
+.section header h1,
+.section header h2,
+.section header h3 {
+    margin: 0;
+}
+
+/* 
+    Section - Call to Action
+*/
+.section.section-cta .wrapper {
+    padding: 8em 0;
+}
+
+.section.section-cta header{
+    text-align: left;
+}
+
+.section.section-cta header:after {
+    display: none;
+}
+
+/* 
+    Section - Newsletter
+*/
+.section.section-newsletter {
+    background: purple;
+    padding: 2em;
+}
+
+.section.section-newsletter header:after {
+    background: white;
+}
+
+.section.section-newsletter header,
+.section.section-newsletter header a{
+    color: #fff;
+}
+
+/* 
+    Section - Testimonials
+*/
+.section.section-testimonials {
+    background: #ccc;
+    padding: 2em;
+}

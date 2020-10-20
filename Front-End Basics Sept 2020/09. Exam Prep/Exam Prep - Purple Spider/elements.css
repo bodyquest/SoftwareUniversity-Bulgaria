@@ -1,0 +1,83 @@
+ul.users-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 0 0 2em 0;
+    margin: 0;
+}
+
+ul.users-list li {
+    flex: 0 0 48%;
+    display: block;
+    
+    list-style: none outside;
+    text-align: center;
+    margin-bottom: 3.5em;
+}
+
+@media (min-width: 900px) {
+    ul.users-list li {
+        flex: 0 0 30%;
+    }
+
+}
+
+ul.users-list span {
+    display: block;
+}
+
+ul.users-list .user-avatar {
+    width: 7em;
+    margin: 0 auto;
+    margin-bottom: 1.5em;
+}
+
+ul.users-list .user-name {
+    font-weight: bold;
+}
+
+ul.users-list .user-position {
+    
+}
+
+ul.users-list .user-message + .user-name,
+ul.users-list .user-position + .user-message {
+    padding-top: 1.5em;
+}
+
+
+.user-avatar {
+    display: block;
+    border-radius: 50%;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 0.2em 0.5rem 0 rgba(0, 0, 0, 0.3);
+}
+
+.user-avatar:after {
+    display: block;
+    content: "";
+    padding-top: 100%;
+}
+
+.user-avatar:before {
+    display: block;
+    content: "";
+    position: absolute;
+    top: 0; left: 0; bottom: 0; right: 0;
+    border-radius: 50%;
+    box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.5) inset;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.user-avatar img {
+    display: block;
+    width: 100%;
+    height: auto;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-40%);
+    z-index: 1;
+}
