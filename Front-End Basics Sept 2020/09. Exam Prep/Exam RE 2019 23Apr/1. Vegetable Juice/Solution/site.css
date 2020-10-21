@@ -1,0 +1,95 @@
+@import url('https://fonts.googleapis.com/css2?family=PT+Serif&display=swap');
+
+* {
+    padding: 0;
+    margin: 0;
+}
+
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
+li {
+    list-style: none outside;
+}
+
+html {
+    box-sizing: border-box;
+    font: 18px/1.5 "PT Serif", serif;
+}
+
+main.wrapper {
+    display: flex;
+    max-width: 915px;
+    margin: 5em auto;
+
+    box-shadow: 0 5px 1.5em 5px rgba(0,0,0, 0.5);
+}
+
+.recipe {
+    background: url(../Requirements-and-Resources/image/image1.png) no-repeat top;
+    background-size: contain;
+    padding: 2em;
+    flex: 0 0 50%;
+}
+
+.recipe>h1 {
+    text-transform: uppercase;
+    text-align: center;
+    border-bottom: 2px dotted #488401;
+}
+
+.subtitle{
+    display: flex;
+    justify-content: space-between;
+    text-transform: uppercase;
+    font-style: italic;
+}
+
+.recipe>ul{
+    margin: 2em 0;
+}
+
+.recipe>ul>li>span{
+    font-weight: 900;
+    color: #488401;
+}
+
+.recipe>p {
+    margin-bottom: 3em;
+}
+
+table, th, td {
+    border: 1px solid #488401;
+}
+
+table { 
+    border-collapse: collapse;
+    width: 100%;
+    text-align: center;
+}
+
+.image {
+    /* background: url(../Requirements-and-Resources/image/image.jpg) no-repeat center center;
+    background-size: cover;
+    flex: 0 0 50%; */
+    display: block;
+    position: relative;
+    overflow: hidden;
+    flex: 0 0 50%;
+}
+
+img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: auto;
+}
+
+img:after {
+    padding-top: 100%;
+    content: "";
+    display: block;
+}

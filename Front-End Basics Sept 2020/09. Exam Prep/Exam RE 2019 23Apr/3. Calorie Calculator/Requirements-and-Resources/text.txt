@@ -1,0 +1,15 @@
+Calorie Calculator
+CALORIE CALCULATOR
+Standart units (US)
+Metric units
+Gender
+Felame
+Male
+Age
+Years...
+Weight
+Pounds...
+Height
+Feet...
+Inches...
+Calculate
