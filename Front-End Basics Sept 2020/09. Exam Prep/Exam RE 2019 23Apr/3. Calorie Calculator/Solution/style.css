@@ -1,0 +1,147 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:400,400i,700,700i,900,900i&display=swap');
+
+* {
+    padding: 0;
+    margin: 0;
+}
+
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
+html {
+    box-sizing: border-box;
+    font: 16px/1.5 "Open Sans", sans-serif;
+}
+
+.container {
+    display: flex;
+
+    max-width: 730px;
+    margin: 7em auto 0 2em;
+    border: 2px solid #969595;
+    border-radius: 0.3em;
+    color: #4F4C4F;
+    overflow: hidden;
+}
+
+.image {
+    flex: 0 0 50%;
+    background: url(../Requirements-and-Resources/image/image.png) no-repeat center center;
+    background-size: cover;
+}
+
+.calculator {
+    flex: 0 0 50%;
+    flex-flow: column wrap;
+    align-items: center;
+    padding: 1em 1.5em;
+    background: #F6F7F8;
+}
+
+h1 {
+    text-transform: uppercase;
+    text-align: center;
+    font-weight: 700;
+}
+
+.units {
+    display: flex;
+    margin: 1.5em 0;
+    text-align: center;
+}
+
+.units p {
+    padding: 0.4em 0;
+}
+
+.units p:nth-child(1) {
+    background: #EFE562;
+    flex-basis: 50%;
+}
+
+.units p:nth-child(2) {
+    background: #E0E0DF;
+    flex-basis: 50%;
+}
+
+label {
+    display: block;
+}
+
+form {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+}
+
+form > div:nth-child(3),
+form > div:nth-child(4) {
+    margin-top: 1em;
+}
+
+input,
+select {
+    border: 1px solid #959595;
+    border-radius: 3px;
+    padding: 0.4em 0.3em 0.5em 0.3em;
+    font-style: italic;
+}
+
+select {
+    
+    padding: 0.39em 0;
+
+    appearance: none;
+    background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23000000%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E');
+	background-repeat: no-repeat, repeat;
+	/* arrow icon position (1em from the right, 50% vertical) , then gradient position*/
+	background-position: right .7em top 50%, 0 0;
+	/* icon size, then gradient */
+	background-size: .65em auto, 100%;
+}
+
+select,
+option {
+    color: #7d7d7d;
+}
+
+
+.gender,
+.age,
+.height > input {
+    flex: 0 0 46%;
+}
+
+.weight {
+    flex: 0 0 100%;
+}
+
+.height {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+}
+
+.height label {
+    flex: 0 0 100%;
+}
+
+select,
+.weight input {
+    width: 100%;
+}
+
+form a {
+    color: white;
+    font-weight: 700;
+    font-size: 1.2em;
+    background: #05A2D3;
+    border: none;
+    border-radius: 4px;
+    text-decoration: none;
+    width: 100%;
+    text-align: center;
+    padding: 0.25em;
+    margin-top: 1em;
+}

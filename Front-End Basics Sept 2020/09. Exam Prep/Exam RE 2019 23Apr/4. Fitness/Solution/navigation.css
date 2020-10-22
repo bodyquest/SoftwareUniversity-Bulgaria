@@ -1,0 +1,119 @@
+.site-header .top-bar {
+    display: flex;
+    justify-content: space-between;
+
+    background: #D01919;
+    color: white;
+    /* height: 3.5em; */
+    padding: 1em 3em;
+}
+
+.site-header a {
+    color: white;
+}
+
+.site-header ul {
+    display: flex;
+}
+
+.site-header ul > li:not(:last-child) {
+    padding-right: 1em;
+}
+
+.icon:before {
+    display: inline-block;
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+}
+
+.icon-brands:before {
+    font-family: "Font Awesome 5 Brands";
+}
+
+.icon-phone:before {
+    content: "\f3cd";
+    padding-right: 0.5em;
+}
+
+.icon-address:before {
+    content: "\f3c5";
+    padding-right: 0.5em;
+}
+
+.icon-facebook:before {
+    content: "\f39e";
+}
+
+.icon-twitter:before {
+    content: "\f099";
+}
+
+.icon-instagram:before {
+    content: "\f16d";
+}
+
+.icon-youtube:before {
+    content: "\f167";
+}
+
+nav.navigation-hero {
+    display: flex;
+    flex-flow: column wrap;
+    background: url(../Requirements-and-Resources/image/fitness-main.jpg) no-repeat center center;
+    background-size: cover;
+    height: 32em;
+}
+
+nav > h1 {
+    color: white;
+    flex: 0;
+    margin: 1em auto 0 auto;
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    font-size: 4.3em;
+}
+
+nav ul {
+    display: flex;
+    justify-content: space-between;
+    padding: 1em 3em 1em 3em;
+    margin: 0 0 0 auto;
+    width: 44em;
+}
+
+nav > ul > li {
+    color: white;
+}
+
+nav > ul > li > a {
+    color: white;
+    text-transform: uppercase;
+    font-size: 0.9em;
+}
+
+nav > ul > li:not(:last-child) {
+    padding-right: 2.5em;
+}
+
+nav.navigation-hero > p {
+    flex: 0;
+    color: white;
+    align-self: center;
+    margin-top: 1.5em;
+    margin-bottom: 2em;
+    width: 35%;
+    text-align: center;
+}
+
+nav.navigation-hero .hero-button {
+    background: #D01919;
+    color: white;
+    text-transform: uppercase;
+    font-size: 1.2em;
+    line-height: 1.5;
+    font-weight: 700;
+    border-radius: 0.2em;
+    padding: 0.2em 0.8em;
+    align-self: center;
+}
