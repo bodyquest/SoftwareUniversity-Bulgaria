@@ -1,1 +1,39 @@
 /* TODO: Add media queries */
+
+@media only screen and (max-width: 600px) {
+
+    .thumbnails {
+        flex-flow: column wrap;
+      }
+
+      .thumbnails > div {
+        width: 100%;
+        
+      }
+
+      .thumbnails > div > a {
+        height: calc(100vw/1.33);
+      }
+
+      .thumbnails > div > a > img {
+        height: 75%;
+      }
+
+      .thumbnails > div > a > h3 {
+        height: 25%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        margin: 0;
+      }
+
+      .thumbnails > div > :last-child {
+        margin: 0 0 2em 0;
+      }
+
+      footer {
+        text-align: center;
+        padding: 1em 0 4em 0;
+      }
+}
