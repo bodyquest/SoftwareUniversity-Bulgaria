@@ -1,0 +1,139 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+
+@import "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css";
+
+* {
+    padding: 0;
+    margin: 0;
+}
+
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
+html {
+    box-sizing: border-box;
+    font: 16px/1.5 Lato;
+}
+
+h1 {
+    font-family: Montserrat;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-size: 1em;
+    margin-bottom: 0.5em;
+    font-weight: normal;
+}
+
+h1 { font-size: 3em;}
+h2 { font-size: 2.4em;}
+h3 { font-size: 1.8em;}
+h4 { font-size: 1.4em;}
+h5 { font-size: 1.2em;}
+h6 { font-size: 1em;}
+
+li {
+    list-style: none outside;
+}
+
+a {
+    text-decoration: none;
+}
+
+.page-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+section {
+    display: flex;
+    justify-content: space-between;
+
+    width: 1150px;
+    height: 380px;
+    border: 2px solid black;
+    padding: 3em 4em;
+}
+
+article {
+    border-radius: 0.5em;
+    flex: 0 0 47%;
+    box-shadow: 0 3px 4px 1px rgba(0, 0, 0, 0.2);
+    color: rgba(0, 0, 0, 0.6);
+}
+
+article.info {
+    background: #E3F3FD;
+    padding: 1.5em;
+}
+
+article.info li {
+    font-size: 0.9em;
+}
+
+article.info h4 {
+    text-align: left;
+    transform: scaleY(0.8);
+}
+
+article.info ul li {
+    line-height: 2;
+}
+
+.icon:before {
+    display: inline-block;
+    font-family: 'Font Awesome\ 5 Free';
+    font-weight: 900;
+}
+
+.icon-check:before {
+    content: "\f00c";
+    padding-right: 0.7em;
+    color: #44A9F8;
+}
+
+article.pricing {
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: center;
+    align-items: center;
+
+    border: 5px solid #44A9F8;
+    text-align: center;
+}
+
+article.pricing h1 {
+    color: #44A9F8;
+    margin: 0;
+    font-weight: 900;
+}
+
+article.pricing .price {
+    display: flex;
+    align-items: flex-end;
+}
+
+article.pricing span {
+    color: rgba(0, 0, 0, 0.6);
+    font-size: 1.2em;
+    margin-bottom: 0.6em;
+}
+
+article.pricing a {
+    text-transform: uppercase;
+    color: white;
+    background: #44A9F8;
+    border: none;
+    border-radius: 4px;
+    padding: 0.3em 2em;
+    box-shadow: 0 3px 4px 1px rgba(0, 0, 0, 0.2);
+    margin-top: 1.5em;
+
+    font-weight: 700;
+}
+
