@@ -1,0 +1,378 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+
+@import "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css";
+
+* {
+    padding: 0;
+    margin: 0;
+}
+
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
+html {
+    box-sizing: border-box;
+    font: 16px/1.5 Lato;
+}
+
+h1 {
+    font-family: Montserrat;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-size: 1em;
+    margin-bottom: 0.5em;
+    font-weight: normal;
+}
+
+h1 { font-size: 3em;}
+h2 { font-size: 2.4em;}
+h3 { font-size: 1.8em;}
+h4 { font-size: 1.4em;}
+h5 { font-size: 1.2em;}
+h6 { font-size: 1em;}
+
+li {
+    list-style: none outside;
+}
+
+a {
+    text-decoration: none;
+}
+
+body {
+    position: relative;
+}
+
+header {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    align-items: center;
+    width: 92vw;
+    padding: 1em;
+    background: rgb(255, 255, 255);
+    border-bottom-left-radius: 0.5em;
+    border-bottom-right-radius: 0.5em;
+    box-shadow: 0 4px 9px 2px rgba(0, 0, 0, 0.3);
+    margin: 0 auto 0.5em auto;
+}
+
+.logo img {
+    height: 2.3em;
+}
+
+nav {
+    margin: 0 1em 0 0;
+}
+
+nav > ul {
+    display: flex;
+    align-items: center;
+}
+
+nav > ul > li:not(:last-child) {
+    
+    margin-right: 1em;
+}
+
+nav > ul > li > a {
+    color:  rgba(0, 0, 0, 0.6);
+}
+
+nav > ul > li {
+    position: relative;
+}
+
+nav > ul > li:hover::before {
+    content: "";
+    position: absolute;
+    bottom: 200%;
+    transform: translateY(50%);
+    height: 3px;
+    width: 100%;
+    background: #42ABF8;
+}
+
+nav > ul > li:last-child:hover::before {
+    content: "";
+    position: absolute;
+    bottom: 150%;
+    transform: translateY(50%);
+    height: 3px;
+    width: 100%;
+    background: #42ABF8;
+}
+
+nav > ul > li:last-child{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border: none;
+    border-radius: 50%;
+    width: 2.2em;
+    height: 2.2em;
+    background: rgb(66, 171, 248);
+    text-align: center;
+    padding: 0.1em 0.2em 0.2em 0.2em;
+    box-shadow: 0px 5px 10px 2px rgba(66, 171, 248, 0.3);
+}
+
+nav > ul > li:last-child a{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  
+    color: white;
+    text-align: center;
+}
+
+div.hero {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    align-items: flex-end;
+
+    height: 80vh;
+    width: 100%;
+    margin: 0 auto;
+    margin-bottom: 5em;
+    padding: 10em 7em 2em 7em;
+    
+    background-image: url(./images/hero-certificates.jpg);
+    background-size: cover;
+    /* opacity: 0.2; */
+    background-position: bottom;
+}
+
+div.hero > p {
+    font-style: italic;
+    color: rgba(0, 0, 0, 0.8);
+}
+
+.info {
+    width: 55%;
+    color: white;
+    background: #29394B;
+    padding: 1.5em;
+    border-radius: 0.5em;
+    margin-bottom: 1em;
+}
+
+.info p {
+    margin-bottom: 1em;
+}
+
+.mockup {
+    width: 35%;
+    margin: 0;
+    margin-bottom: 0.7em;
+}
+
+.mockup img:last-child {
+    margin-left: -3px;
+}
+
+
+div.diploma{
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: flex-start;
+
+    width: 90%;
+    margin: 0 auto;
+    margin-bottom: 5em;
+}
+
+div.diploma h2 {
+    align-self: center;
+    color: rgba(0, 0, 0, 0.6);
+    font-size: 2em;
+}
+
+div.diploma > .card {
+    background: #F3F5F7;
+    padding: 1em 1em 2.5em 1em;
+    height: 60%;
+}
+
+div.diploma > .card > p {
+    font-size: 1em;
+    color: rgba(0, 0, 0, 0.5);
+}
+
+div.diploma > .card > p:not(:last-child) {
+    margin-bottom: 0.5em;
+}
+
+div.diploma > p {
+    margin-top: 1em;
+    color: rgba(0, 0, 0, 0.6);
+}
+
+div.program {
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: flex-start;
+    align-items: center;
+    overflow: hidden;
+
+    color: white;
+    height: 40vh;
+    width: 90%;
+    
+    margin: 0 auto;
+    margin-bottom: 3em;
+    background-image: url(./images/sign-up-prompt-background.jpg);
+    background-size: cover;
+    background-position: bottom;
+    border-radius: 0.5em;
+    box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.3);
+}
+
+
+div.program > .program-container > h2 {
+    font-size: 2.2em;
+    transform: scaleY(0.8);
+}
+
+div.program > .program-container > p {
+    font-size: 1.2em;
+}
+
+div.program > .program-container {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+
+    padding: 2em 13em 2em 13em;
+    background: rgba(61, 67, 91, 0.5);
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    margin-top: 3em;
+}
+
+.buttons > .first {
+    padding-right: 2em;
+    border-right: 1px solid white
+}
+
+.buttons > .second {
+    padding-left: 2em;
+}
+
+.apply {
+    background: white;
+    border-radius: 0.5em;
+    color: #42ABF8;
+    padding: 0.6em 2.4em;
+    text-transform: uppercase;
+}
+
+.curriculum {
+    background: transparent;
+    border: 2px solid white;
+    border-radius: 0.5em;
+    color: #ffffff;
+    padding: 0.6em 3.5em;
+    text-transform: uppercase;
+}
+
+footer {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2em 0 2em 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.4);
+    width: 90%;
+    margin: 0 auto;
+}
+
+footer > .copyright {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+    align-items: center;
+
+    color: rgba(0, 0, 0, 0.2);
+}
+
+footer > .copyright img {
+    height: 3em;
+}
+
+footer > .copyright p {
+    margin-left: 1em;
+}
+
+footer > .links {
+    display: flex;
+    flex-flow: row wrap;
+}
+
+footer > .links > .links-container > ul {
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.links-container > ul > li > a {
+    color: rgba(0, 0, 0, 0.7);
+    cursor: pointer;
+}
+
+.links-container > ul > li:not(:last-child) {
+    margin-right: 1em;
+}
+
+.icon {
+    display: inline-block;
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    color: rgba(0, 0, 0, 0.7);
+    font-size: 1em;
+}
+
+.icon-brands {
+    font-family: "Font Awesome 5 Brands";
+}
+
+.icon-fb:before {
+    content: "\f082";
+    margin-right: 0.5em;
+    margin-left: 0.5em;
+}
+
+.icon-tw:before {
+    content: "\f081";
+    margin-right: 0.5em;
+}
+
+.icon-insta:before {
+    content: "\f16d";
+    margin-right: 0.5em;
+}
+
+.icon-tube:before {
+    content: "\f167";
+    margin-right: 0.5em;
+}
+
+footer > .links > .social-container {
+    display: flex;
+    flex-flow: row wrap;
+}
