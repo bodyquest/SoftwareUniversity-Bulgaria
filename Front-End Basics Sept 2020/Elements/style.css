@@ -1,0 +1,88 @@
+@font-face {
+	font-family: 'Conv_Handel_Gothic_Ex';
+	src: url('fonts/Handel_Gothic_Ex.eot');
+	src: local('☺'), url('fonts/Handel_Gothic_Ex.woff') format('woff'), url('fonts/Handel_Gothic_Ex.ttf') format('truetype'), url('fonts/Handel_Gothic_Ex.svg') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+    font-family: Ailerons;
+	src: url(/Ailerons-Typeface.otf) format('opentype');
+}
+
+* {
+    padding: 0;
+    margin: 0;
+}
+
+html {
+    box-sizing: border-box;
+    font: 16px/1.5 sans-serif;
+}
+
+.logo h1{
+    font-family: 'Conv_Handel_Gothic_Ex';
+    font-size: 2em;
+    line-height: 0.7;
+    color: rgb(99, 99, 99);
+    /* transform: scaleY(1.4); */
+}
+
+.logo h3 {
+    font-family: Ailerons;
+    line-height: 0.7;
+    color: rgb(255, 31, 31);
+    margin-top: 0.3em;
+}
+
+.container {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    align-items: center;
+    height: 8vh;
+    background-color: rgb(255, 255, 255);
+    padding: 0.7em 0.5em;
+}
+
+.hamburger {
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: space-between;
+    align-items: center;
+    width: 3.5em;
+    height: 2.7em;
+    cursor: pointer;
+}
+
+.hamburger .row {
+    border-radius: 0.4em;
+    box-shadow: 
+    1.8em 0 1.3em -1em rgba(0, 0, 0, 0.3) inset,
+    -1.8em 0 1.3em -1em rgba(0, 0, 0, 0.3) inset;
+}
+
+.hamburger .row:nth-child(1) {
+    width: 100%;
+    height: 22%;
+    background: green;
+}
+
+.hamburger .row:nth-child(2) {
+    width: 100%;
+    height: 22%;
+    background: rgb(255, 255, 20);
+}
+
+.hamburger .row:nth-child(3) {
+    width: 100%;
+    height: 22%;
+    background: blue;
+}
+
+.hamburger .row:nth-child(4) {
+    width: 100%;
+    height: 22%;
+    background: red;
+}
