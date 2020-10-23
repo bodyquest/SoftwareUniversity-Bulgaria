@@ -137,16 +137,11 @@ nav > ul > li:last-child a{
 }
 
 div.hero {
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: space-between;
-    align-items: flex-end;
-
     height: 80vh;
     width: 100%;
     margin: 0 auto;
     margin-bottom: 5em;
-    padding: 10em 7em 2em 7em;
+    
     
     background-image: url(./images/hero-certificates.jpg);
     background-size: cover;
@@ -154,12 +149,25 @@ div.hero {
     background-position: bottom;
 }
 
-div.hero > p {
+div.hero > .hero-container {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    align-items: flex-end;
+
+    width: 100%;
+    height: 100%;
+
+    padding: 10em 7em 2em 7em;
+    background: rgba(255, 255, 255, 0.8);
+}
+
+div.hero > .hero-container > p {
     font-style: italic;
     color: rgba(0, 0, 0, 0.8);
 }
 
-.info {
+div.hero > .hero-container > .info {
     width: 55%;
     color: white;
     background: #29394B;
@@ -172,7 +180,7 @@ div.hero > p {
     margin-bottom: 1em;
 }
 
-.mockup {
+div.hero > .hero-container > .mockup {
     width: 35%;
     margin: 0;
     margin-bottom: 0.7em;
