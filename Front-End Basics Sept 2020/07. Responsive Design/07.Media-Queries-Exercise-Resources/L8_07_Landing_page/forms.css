@@ -1,0 +1,36 @@
+form {
+
+}
+
+form .field {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 60%;
+    margin: 0 auto;
+}
+
+form input {
+    border: 2px solid transparent;
+    background: white;
+    border-radius: 0.3em;
+    color: black;
+    padding: 0.5em 1em;
+    outline: none;
+}
+
+form input:focus,
+form input:hover {
+    background: purple;
+    color: white;
+    border-color: white;
+}
+
+form input[type="email"] {
+    margin-right: 1em;
+}
+
+form input[type="submit"] {
+    font-weight: bold;
+    cursor: pointer;
+}

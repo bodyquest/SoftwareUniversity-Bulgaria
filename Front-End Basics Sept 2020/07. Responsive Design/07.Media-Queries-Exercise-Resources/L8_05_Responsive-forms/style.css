@@ -1,0 +1,94 @@
+@import "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css";
+
+* {
+    box-sizing: border-box;
+}
+
+*::after,
+*::before {
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 18px;
+    font-family: Sans-Serif;
+}
+
+body {
+    margin: 0;
+    background-color: rgb(255, 255, 255);
+}
+
+li {
+    list-style: none outside;
+}
+
+a {
+    color: white;
+    text-decoration: none;
+}
+
+.page-container {
+    
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 80px 0px;
+}
+
+form {
+    width: 50%;
+    margin: 0 auto;
+}
+
+fieldset {
+    
+    background: #F8F8F8;
+    border: 1px solid #ccc;
+    border-top: 1px solid black;
+    border-radius: 0.2em;
+    padding: 1.5em;
+    padding-left: 0;
+    box-shadow: 0 2px 5px 1px rgba(0, 0, 0, 0.1);
+}
+
+p {
+    display: inline-block;
+    margin-left: 1.5em;
+    margin-right: 0.5em;
+    width: 20%;
+}
+
+input {
+    background: white;
+    border: none;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+    padding: 0.3em;
+    width: 70%;
+}
+
+input[type="submit"] {
+    background: #2D2D2D;
+    color: white;
+    font-weight: 600;
+    padding: 0.5em 1em;
+    border: none;
+    border-radius: 0.3em;
+    margin-left: 2em;
+    width: 19%;
+}
+
+p {
+    font-weight: 600;
+}
+
+legend {
+    padding: 0.5em 2em;
+    border: 1px solid #ccc;
+    border-bottom: 1px solid black;
+    border-radius: 0.2em;
+    margin-left: 0;
+    background: white;
+    width: 200px;
+    box-shadow: 0 2px 5px 1px rgba(0, 0, 0, 0.2);
+}

@@ -1,0 +1,82 @@
+@import url('https://fonts.googleapis.com/css2?family=Merriweather&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap');
+
+*, *:before, *:after {
+    margin: 0;
+    padding: 0;
+    box-sizing: inherit;
+}
+
+/* 
+<i class="fas fa-globe-americas"></i>
+*/
+
+html {
+    box-sizing: border-box;
+    font: 14px/1.5 "Fira sans", Georgia, serif;
+}
+
+@media (min-width: 600px) {
+    html { font-size: 16px;}
+}
+
+@media (min-width: 1024px) {
+    html { font-size: 18px;} 
+}
+
+@media (min-width: 1600px) {
+    html { font-size: 20px;}
+}
+
+body, table, form, select, option, input, textarea {
+    font: inherit;
+}
+
+.site-title,
+h1, h2, h3, h4, h5, h6 {
+    font-family: Merriweather, serif;
+    font-size: 1em;
+    margin-bottom: 0.5em;
+    font-weight: normal;
+}
+
+h1 { font-size: 2.6em;}
+h2 { font-size: 2em;}
+h3 { font-size: 1.8em;}
+h4 { font-size: 1.4em;}
+h5 { font-size: 1.2em;}
+h6 { font-size: 1em;}
+
+p, ul, ol {
+    padding-bottom: 1.5em;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+ul ul, ol ul, ul ol, ul ol {
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+}
+
+ol > li > ol > li {
+    list-style-type: lower-roman;
+}
+
+blockquote {
+    padding: 1rem;
+}
+
+blockquote .author {
+    font-style: italic;
+    text-align: right;
+    opacity: 0.5;
+}
+
+blockquote .author:before {
+    display: inline-block;
+    content: "\2014";
+    padding-right: 0.5em;
+}

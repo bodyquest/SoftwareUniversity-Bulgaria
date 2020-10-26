@@ -1,0 +1,35 @@
+.mq-width:after {
+    content: "Viewport width is larger than 600px";
+    display: none;
+    color: green;
+}
+
+.mq-height:after {
+    content: "Viewport height is larger than 600px";
+    display: none;
+    color: green;
+}
+
+.mq-ar:after {
+    content: "Aspect Ratio is larger than 8/5";
+    display: none;
+    color: green;
+}
+
+@media only screen and (min-width: 600px) {
+    .mq-width:after {
+        display: inline-block;
+    }
+}
+
+@media only screen and (min-height: 600px) {
+    .mq-height:after {
+        display: inline-block;
+    }
+}
+
+@media only screen and (min-aspect-ratio: 8/5) {
+    .mq-ar:after {
+        display: inline-block;
+    }
+}

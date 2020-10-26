@@ -1,0 +1,148 @@
+@import "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css";
+
+* {
+    box-sizing: border-box;
+}
+
+*::after,
+*::before {
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 18px;
+    font-family: Sans-Serif;
+}
+
+body {
+    margin: 0;
+    background-color: rgb(238, 238, 238);
+}
+
+li {
+    list-style: none outside;
+}
+
+a {
+    color: white;
+    text-decoration: none;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-size: 1em;
+    margin-bottom: 0.5em;
+    font-weight: normal;
+}
+
+h1 { font-size: 3em;}
+h2 { font-size: 2.4em;}
+h3 { font-size: 1.8em;}
+h4 { font-size: 1.4em;}
+h5 { font-size: 1.2em;}
+h6 { font-size: 1em;}
+
+p {
+    
+    font-weight: 400;
+}
+
+.page-container {
+    
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 100px 0px;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    border-bottom: 2px solid black;
+    padding-bottom: 10px;
+    margin-bottom: 30px;
+}
+
+nav h1 {
+    font-weight: 600;
+}
+
+.uppercase {
+    flex: 0 0 40%;
+    text-transform: uppercase;
+}
+
+nav > ul {
+    display: flex;
+    flex-flow: row no-wrap;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+    padding: 0.5em;
+    margin-bottom: 0;
+
+    background: white;
+}
+
+nav > ul > li {
+    background: #2D2D2D;
+
+    padding: 0.5em;
+    border: none;
+    border-radius: 3px;
+}
+
+nav > ul > li:not(:last-child) {
+    margin-right: 0.5em;
+}
+
+.toggle {
+    display: none;
+    visibility: hidden;
+    flex: 0 0 8%;
+    cursor: pointer;
+}
+
+input {
+    visibility: hidden;
+}
+
+@media only screen and (max-width: 768px) {
+    nav {
+        flex-flow: column wrap;
+        align-items: flex-start;
+        
+        padding-bottom: 0;
+        margin: 0 auto;
+        width: 90%;
+    }
+
+    ul {
+        flex-flow: column wrap;
+        
+        align-items: stretch;
+
+        border-top: 2px solid black;
+        width: 100%;
+    }
+    ul> li {
+        width: 100%;
+        margin: 0.3em auto;
+    }
+
+    ul > li:not(:last-child) {
+        margin-right: 0;
+    }
+
+    h1 {
+        margin: 0 1em 1em 1em;
+        align-self: left;
+    }
+
+    .toggle {
+        display: block;
+        align-self: center;
+        visibility: visible;
+    }
+}
+
