@@ -12,10 +12,6 @@
     justify-content: center;
 }
 
-.site-header {
-    /* padding-top: 2em; */
-}
-
 .site-header .wrapper {
     display: flex;
     align-items: center;

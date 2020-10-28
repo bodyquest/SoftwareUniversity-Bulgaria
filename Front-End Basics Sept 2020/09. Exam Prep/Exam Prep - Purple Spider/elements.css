@@ -36,10 +36,6 @@ ul.users-list .user-name {
     font-weight: bold;
 }
 
-ul.users-list .user-position {
-    
-}
-
 ul.users-list .user-message + .user-name,
 ul.users-list .user-position + .user-message {
     padding-top: 1.5em;

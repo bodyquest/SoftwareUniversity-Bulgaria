@@ -1,0 +1,10 @@
+Sign Up Form
+Form
+Name:
+Dario Petrov
+Email:
+dario@email.com
+Phone number:
++359 885 445 445
+Password (minimum 6 characters):
+Sign up
