@@ -1,14 +1,22 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
+
+import { TodoService } from "./todo.service";
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.sass']
+  styleUrls: ['./app.component.sass'],
+  changeDetection: ChangeDetectionStrategy.Default
 })
 export class AppComponent {
-  title = 'first-app';
+  title = 'Title: first-app';
+  todoTitle = "Hello from TODO service!"
 
   visible = false;
+
+  constructor(todoService: TodoService) {
+    todoService.loadTodos();
+  }
 
   toggleVisible() {
     this.visible = !this.visible;
