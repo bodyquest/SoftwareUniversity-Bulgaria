@@ -1,12 +1,17 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { ListComponent } from './user/list/list.component';
+import { ListComponent as UserListComponent} from './user/list/list.component';
+import { ListComponent as TodoListComponent} from './todo/list/list.component';
 
 const routes: Routes = [
   {
     path: "",
     pathMatch: "full",
-    component: ListComponent
+    component: TodoListComponent
+  },
+  {
+    path: "user",
+    component: UserListComponent
   }
 ];
 
