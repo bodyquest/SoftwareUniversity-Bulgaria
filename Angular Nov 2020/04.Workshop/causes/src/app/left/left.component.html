@@ -1,0 +1,58 @@
+<div class="col-md-4">
+    <h1>Causes</h1>
+    <div class="row">
+
+        <div class="col-xs-12" *ngIf="causes">
+            <a *ngFor="let cause of causes" (click)="selectCauseHandler(cause)"
+               class="list-group-item clearfix">
+                <div class="pull-left">
+                    <h4 class="list-group-item-heading">{{cause.cause}}</h4>
+                </div>
+                <div class="pull-right">
+                    <img [src]="cause.imageUrl"
+                        alt="" class="img-responsive">
+                </div>
+            </a>
+
+
+
+            <a href="#" class="list-group-item clearfix">
+                <div class="pull-left">
+                    <h4 class="list-group-item-heading">Swimming with sharks</h4>
+                </div>
+                <div class="pull-right">
+                    <img src="https://m.media-amazon.com/images/M/MV5BOTlmYjYwODUtMWQ2Yi00MGQ1LWFiMmQtZDJhZTZkMjhkMmU4XkEyXkFqcGdeQXVyNjQ3NDA2MDc@._V1_.jpg"
+                        alt="" class="img-responsive">
+                </div>
+            </a>
+            <a href="#" class="list-group-item clearfix">
+                <div class="pull-left">
+                    <h4 class="list-group-item-heading">Paraglider flight</h4>
+                </div>
+                <div class="pull-right">
+                    <img src="https://fly-academy.com/wp-content/uploads/sofia-6.jpg" alt=""
+                        class="img-responsive">
+                </div>
+            </a>
+            <a href="#" class="list-group-item clearfix">
+                <div class="pull-left">
+                    <h4 class="list-group-item-heading">Flight to Alaska</h4>
+                </div>
+                <div class="pull-right">
+                    <img src="https://res.cloudinary.com/trailfinders-ltd/image/upload/vc_auto,w_1280,c_limit/flights-home.jpg"
+                        alt="" class="img-responsive">
+                </div>
+            </a>
+            <a href="#" class="list-group-item clearfix">
+                <div class="pull-left">
+                    <h4 class="list-group-item-heading">Trip to Palma De Mallorca</h4>
+                </div>
+                <div class="pull-right">
+                    <img src="https://s28477.pcdn.co/wp-content/uploads/2018/01/palma_de_mallorca_airport_1-984x554.jpg"
+                        alt="" class="img-responsive">
+                </div>
+            </a>
+        </div>
+
+    </div>
+</div>
