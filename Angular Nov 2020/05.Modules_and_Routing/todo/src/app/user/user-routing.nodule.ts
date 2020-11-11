@@ -6,17 +6,17 @@ import { AuthGuard } from '../auth.guard';
 import { UserResolver } from './user.resolver';
 
 const routes: Routes = [
-  {
-    path: "user",
-    canActivate: [AuthGuard],
-    data: {
-        roles: ["admin"]
-    },
-    children: [
+//   {
+    // path: "user",
+    // canActivate: [AuthGuard],
+    // data: {
+    //     roles: ["admin"]
+    // },
+    // children: [
       {
         path: "",
         pathMatch: "full",
-        redirectTo: "/user/list"
+        redirectTo: "list"
       },
       {
         path: "list",
@@ -29,8 +29,8 @@ const routes: Routes = [
         path: ":id",
         component: UserComponent
       }
-  ]
-  }
+//   ]
+//   }
 ]; 
 
 export const UserRoutingModule = RouterModule.forChild(routes);
