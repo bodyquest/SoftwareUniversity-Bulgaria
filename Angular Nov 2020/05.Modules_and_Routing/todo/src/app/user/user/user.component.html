@@ -1,0 +1,11 @@
+<ng-template #loader>
+    <div class="loader">
+        Loading...
+    </div>
+</ng-template>
+<ng-template #userInfo>
+    {{user | json}}
+</ng-template>
+
+<ng-container *ngIf="user then userInfo; else loader;"></ng-container>
+

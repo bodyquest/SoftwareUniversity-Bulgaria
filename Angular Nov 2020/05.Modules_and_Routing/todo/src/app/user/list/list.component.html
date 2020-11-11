@@ -1,1 +1,16 @@
-<p>User list works!</p>
+<ng-template #loader>
+    <div class="loader">
+        Loading...
+    </div>
+</ng-template>
+<ng-template #list>
+    <div *ngFor="let user of users">
+        <span>{{user.username}}</span>
+        <a [routerLink]="['/user', user.id]">Select</a>
+        <!-- <button (click)="selectUserHandler(user.id)">Select</button> -->
+    </div>
+</ng-template>
+
+<ng-container *ngIf="users then list; else loader;"></ng-container>
+<!-- This is alternative way to show results -->
+<!-- <ng-container *ngTemplateOutlet="user ? list : loader"></ng-container> -->
