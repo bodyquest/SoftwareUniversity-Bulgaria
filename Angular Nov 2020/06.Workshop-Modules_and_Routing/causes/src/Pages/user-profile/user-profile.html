@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" text="text/css" href="../../node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" text="text/css" href="./user-profile.css">
+    <title>Soft Donations</title>
+</head>
+
+<body>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a href="#" class="navbar-brand">Soft Donations</a>
+            </div>
+            <div class="collapse navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="#">Create cause</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" role="button">User</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <hr>
+    <div class=" w-100">
+        <div class="row">
+            <div class="col-md-6 profile-info">
+                <div class="panel panel-default">
+                    <div class="text-underline panel-body panel-primary">
+                        Logged as: <span class="text-bold">user-email-address@domain.com</span>
+                        <a class="float-right custom-button btn btn-danger" routerLink="/user/logout">Logout</a>
+                    </div>
+                    <div class="panel-footer">
+                        <form action="">
+                            <div class="form-group">
+                                <label for="email">New address</label>
+                                <input type="text" id="newEmail" class="form-control" placeholder="john.doe@domain.bg">
+                            </div>
+                            <div class="form-group">
+                                <label for="password">New Password</label>
+                                <input type="password" id="password" class="form-control" placeholder="************">
+                            </div>
+                            <div class="form-group">
+                                <label for="rePassword">Re-Password</label>
+                                <input type="password" id="rePassword" class="form-control" placeholder="************">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Change profile information</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="panel panel-default">
+                    <div class="panel-body panel-primary">
+                        Related causes
+                    </div>
+                    <div class="panel-footer">
+                        <div class="panel panel-default">
+                            <div class="panel-body panel-primary">
+                                My own causes: [3]
+                            </div>
+
+                            <div class="panel-footer">
+                                <ul class="list-group">
+                                    <li class="list-group-item"><a routerLink="/cause/0">First Cause</a></li>
+                                    <li class="list-group-item"><a routerLink="/cause/1">Second Cause</a></li>
+                                    <li class="list-group-item"><a routerLink="/cause/2">Third Cause</a></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="panel panel-default">
+                            <div class="panel-body panel-primary">
+                                Causes I have contributed to: [3]
+                            </div>
+
+                            <div class="panel-footer">
+                                <ul class="list-group">
+                                    <li class="list-group-item"><a routerLink="/cause/5e1ef99652de0e99f5f93fff">First
+                                            Cause</a></li>
+                                    <li class="list-group-item"><a routerLink="/cause/1">Second Cause</a></li>
+                                    <li class="list-group-item"><a routerLink="/cause/2">Third Cause</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <footer class="footer">
+        <div class="container">
+            <p class="text-muted text-center">
+                <a href="https://softuni.bg/trainings/2617/angular-january-2020#lesson-14277">Angular Course</a>
+                @
+                <a href="https://www.softuni.bg">SoftUni</a>
+            </p>
+            <p class="text-muted text-center">
+                All rights reserved &copy; 2020
+            </p>
+        </div>
+    </footer>
+</body>
+
+</html>
