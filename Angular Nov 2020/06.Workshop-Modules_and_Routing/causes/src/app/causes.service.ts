@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ICause } from '../app/shared/interfaces/cause';
+import { tap } from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root'
@@ -8,22 +9,26 @@ import { ICause } from '../app/shared/interfaces/cause';
 export class CausesService {
 
   causes: ICause[];
-  selectedCause: ICause;
+  readonly selectedCause: ICause;
 
   constructor(private http: HttpClient) {
     
   }
 
-  loadCauses() {
-    this.http.get<ICause[]>("http://localhost:3000/causes")
-        .subscribe(causes => {
-          this.causes = causes;
-        });
+  load(id?: number) {
+    return this.http.get<ICause[]>(`http://localhost:3000/causes${id ? `/${id}` : ""}`)
+    .pipe(
+      tap((causes) => this.causes = [].concat(causes))
+    );
   }
 
   donate(amount: number) {
-    return this.http.put<ICause>(`http://localhost:3000/cause/${this.selectedCause._id}`, {
+    return this.http.put<ICause>(`http://localhost:3000/causes/${this.selectedCause._id}`, {
       body: {collectedAmount: this.selectedCause.collectedAmount + amount}
     });
+  }
+
+  selectCause(cause: ICause) {
+    (this as any).selectedCause = cause;
   }
 }

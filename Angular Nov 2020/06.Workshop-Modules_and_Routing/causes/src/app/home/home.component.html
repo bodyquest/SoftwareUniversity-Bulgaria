@@ -1,5 +1,7 @@
-<app-left (selectCause)="selectCauseHandler($event)">
-</app-left>
+<div class="col-md-4">
+    <app-cause-list (selectCause)="selectCauseHandler($event)"></app-cause-list>
+</div>
 
-<app-right [selectedCause2]="selectedCause">
-</app-right>
+<div class="col-md-8">
+    <app-cause-detail [selectedCause2]="selectedCause"></app-cause-detail>
+</div>

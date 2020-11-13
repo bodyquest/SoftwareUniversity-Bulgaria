@@ -3,18 +3,20 @@ import { CommonModule } from '@angular/common';
 import { CreateComponent } from './create/create.component';
 import { DetailComponent } from './detail/detail.component';
 import { CauseRoutingModule } from './create/cause-routing.module';
+import { ListComponent } from './list/list.component';
 
 
 
 @NgModule({
-  declarations: [CreateComponent, DetailComponent],
+  declarations: [CreateComponent, DetailComponent, ListComponent],
   imports: [
     CommonModule,
     CauseRoutingModule
   ],
   exports: [
     CreateComponent,
-    DetailComponent
+    DetailComponent,
+    ListComponent
   ]
 })
 export class CauseModule { }
