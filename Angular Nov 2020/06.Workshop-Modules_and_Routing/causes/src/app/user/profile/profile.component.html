@@ -2,8 +2,8 @@
     <div class="col-md-6 profile-info">
         <div class="panel panel-default">
             <div class="text-underline panel-body panel-primary">
-                Logged as: <span class="text-bold">user-email-address@domain.com</span>
-                <a class="float-right custom-button btn btn-danger" routerLink="/user/logout">Logout</a>
+                Logged as: <span class="text-bold">{{currentUser}}</span>
+                <a class="float-right custom-button btn btn-danger" (click)="logout()">Logout</a>
             </div>
             <div class="panel-footer">
                 <form action="">

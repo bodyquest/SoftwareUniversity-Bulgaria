@@ -6,9 +6,12 @@
       <div class="collapse navbar-collapse">
           <ul class="nav navbar-nav navbar-right">
               <li>
-                  <a routerLink="/cause/create">Create cause</a>
+                  <a *ngIf="isLogged" routerLink="/cause/create">Create cause</a>
               </li>
-              <li class="dropdown">
+              <li>
+                <a *ngIf="isLogged" routerLink="/user/profile">Profile</a>
+            </li>
+              <li class="dropdown" *ngIf="!isLogged">
                   <a routerLink="/user" class="dropdown-toggle" role="button">User <span class="caret"></span></a>
                   <ul class="dropdown-menu">
                       <li>
@@ -18,7 +21,7 @@
                           <a routerLink="/register">Register</a>
                       </li>
                       <li>
-                          <a >Logout</a>
+                          <a (click)="logout()">Logout</a>
                       </li>
                   </ul>
               </li>

@@ -40,4 +40,5 @@
     </div>
     <hr>
 </div>
-<div *ngIf="!selectedCause">Please select cause</div>
+<div *ngIf="!selectedCause && !isRouteComponent">Please select cause</div>
+<div *ngIf="!selectedCause && isRouteComponent">Cause does not exist!</div>

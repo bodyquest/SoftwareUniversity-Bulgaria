@@ -1,4 +1,5 @@
 import {Router, RouterModule, Routes} from "@angular/router";
+import { AuthGuard } from 'src/app/auth.guard';
 import { DetailComponent } from '../detail/detail.component';
 import { CreateComponent } from './create.component';
 
@@ -13,11 +14,20 @@ const routes: Routes = [
             },
             {
                 path: "create",
-                component: CreateComponent
+                component: CreateComponent,
+                canActivate: [AuthGuard],
+                data: {
+                    isLogged: true
+                }
             },
             {
                 path: "detail/:id",
-                component: DetailComponent
+                component: DetailComponent,
+                canActivate: [AuthGuard],
+                data: { 
+                    shouldFetchCause: true,
+                    isLogged: true
+                }
             }
         ]
     }

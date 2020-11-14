@@ -2,6 +2,7 @@ import {Router, RouterModule, Routes} from "@angular/router";
 
 import { UserComponent } from './user.component';
 import { ProfileComponent } from '../profile/profile.component';
+import { AuthGuard } from 'src/app/auth.guard';
 
 const routes: Routes = [
     {
@@ -14,7 +15,11 @@ const routes: Routes = [
             },
             {
                 path: "profile",
-                component: ProfileComponent
+                component: ProfileComponent,
+                canActivate: [AuthGuard],
+                data: {
+                    isLogged: true
+                }
             }
         ]
     }

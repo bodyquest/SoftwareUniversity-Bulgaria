@@ -13,6 +13,8 @@ export class DetailComponent implements OnInit {
   @ViewChild("inputAmount", {static: false}) inputAmount: ElementRef<HTMLInputElement>;
   @Input() selectedCause2: ICause;
 
+  isRouteComponent = false;
+
   get selectedCause() {
     return this.causesService.selectedCause;
   }
@@ -33,10 +35,12 @@ export class DetailComponent implements OnInit {
   constructor(
     private causesService: CausesService,
     private activatedRoute: ActivatedRoute
-    ) { }
+    ) {
+      this.isRouteComponent = this.activatedRoute.snapshot.data.shouldFetchCause;
+    }
 
   ngOnInit() {
-    if(this.activatedRoute.snapshot.params.id){
+    if(this.isRouteComponent){
       this.causesService
         .load(+this.activatedRoute.snapshot.params.id)
         .subscribe(() => {
